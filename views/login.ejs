@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Moonlight</title>
+
+<meta property="og:title" content="Login - Moonlightn">
+<meta property="og:description" content="Faça seu login para aproveitar tudo aquilo que nossa rest api pode oferecer">
+<link rel="apple-touch-icon" sizes="180x180"
+href="https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg">
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: radial-gradient(circle, #0a0f1c, #050a13);
+color: #ffffff;
+position: relative;
+}
+
+.container {
+text-align: center;
+padding: 2rem;
+max-width: 600px;
+z-index: 1;
+}
+
+h1 {
+color: #dce3f1;
+margin-bottom: 20px;
+}
+
+input {
+width: 100%;
+padding: 12px;
+border: 1px solid #444;
+background: #1a1d2c;
+color: #fff;
+border-radius: 8px;
+font-size: 16px;
+outline: none;
+margin-bottom: 15px;
+transition: 0.3s;
+}
+
+input:focus {
+border-color: #9db4ff;
+box-shadow: 0 0 10px rgba(157, 180, 255, 0.5);
+}
+
+button {
+width: 100%;
+background: linear-gradient(45deg, #3b4cca, #5568e0);
+color: white;
+border: none;
+padding: 12px;
+border-radius: 8px;
+font-size: 16px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+button:hover {
+background: #8894ff;
+box-shadow: 0 0 10px rgba(157, 180, 255, 0.5);
+}
+
+p {
+color: #bbb;
+margin-top: 15px;
+}
+
+a {
+color: #ff6f61;
+text-decoration: none;
+font-weight: bold;
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+.login-message {
+font-size: 2rem;
+margin: 1rem 0;
+color: #dce3f1;
+}
+
+/* Estrelas no fundo */
+.stars {
+position: absolute;
+width: 100%;
+height: 100%;
+overflow: hidden;
+top: 0;
+left: 0;
+z-index: 0;
+}
+
+.star {
+position: absolute;
+width: 2px;
+height: 2px;
+background: rgba(255, 255, 255, 0.8);
+box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.8);
+border-radius: 50%;
+animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+from { opacity: 0.5; transform: scale(1); }
+to { opacity: 1; transform: scale(1.3); }
+}
+
+.shooting-star {
+position: absolute;
+width: 7px;
+height: 7px;
+background: rgba(255, 255, 255, 1);
+box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.9);
+border-radius: 15%;
+animation: shooting 1.5s linear forwards;
+}
+
+@keyframes shooting {
+from {
+transform: translateX(0) translateY(0) rotate(45deg);
+opacity: 1;
+}
+to {
+transform: translateX(-50vw) translateY(30vh) rotate(45deg);
+opacity: 0;
+}
+}
+
+/* Footer */
+footer {
+position: absolute;
+bottom: 10px;
+width: 100%;
+text-align: center;
+font-size: 0.9rem;
+color: #bbb;
+padding: 10px;
+}
+
+footer span {
+color: #8894ff;
+font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<% if (typeof aviso2 !== 'undefined' && aviso2) { %>
+<script>
+Swal.fire({
+title: 'Moonlight Api Informa',
+text: `<%- aviso2 %>`,
+footer: 'Atenciosamente: Moonlight',
+imageWidth: 200,
+imageHeight: 200,
+imageAlt: ':)',
+animation: true,
+showCancelButton: true,
+confirmButtonText: 'OK',
+cancelButtonText: 'Fechar',
+customClass: {
+popup: 'custom-popup',
+title: 'custom-title',
+footer: 'custom-footer'
+}
+});
+</script>
+<% } %>
+
+<div class="container">
+<form action="/login" method="post">
+<h2 class="login-message">Login</h2>
+<input type="text" placeholder="Insira o nome de Usuário" id="username" name="username" required>
+<input type="password" placeholder="Insira Sua Senha" id="password" name="password" required>
+<button>Entrar</button>
+<p>Ainda não tem uma conta? <a href="/register">Criar</a></p>
+</form>
+</div>
+
+<footer>
+Feito com ♥️ por <span>Moonlight</span> | © <script>document.write(new Date().getFullYear());</script>
+</footer>
+
+<script>
+function createStars() {
+const starContainer = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+let star = document.createElement('span');
+star.classList.add('star');
+let x = Math.random() * window.innerWidth;
+let y = Math.random() * window.innerHeight;
+star.style.top = `${y}px`;
+star.style.left = `${x}px`;
+star.style.animationDelay = `${Math.random() * 2}s`;
+starContainer.appendChild(star);
+}
+}
+
+function createShootingStar() {
+let shootingStar = document.createElement('span');
+shootingStar.classList.add('shooting-star');
+let startX = Math.random() * window.innerWidth;
+let startY = Math.random() * window.innerHeight * 0.5;
+shootingStar.style.top = `${startY}px`;
+shootingStar.style.left = `${startX}px`;
+shootingStar.style.animationDuration = `${1.2 + Math.random()}s`;
+document.body.appendChild(shootingStar);
+setTimeout(() => {
+shootingStar.remove();
+}, 1500);
+}
+
+setInterval(createShootingStar, 1000);
+createStars();
+</script>
+
+</body>
+</html>

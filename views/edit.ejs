@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Perfil</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border 0.3s;
+    }
+
+    input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    .switch-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 20px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked+.slider {
+      background-color: #007bff;
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(20px);
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .save-btn {
+      background: #007bff;
+      color: white;
+    }
+
+    .save-btn:hover {
+      background: #0056b3;
+    }
+
+    .delete-btn {
+      background: red;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background: darkred;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+<br><br>
+    <form action="/edit/<%= user.username %>" method="post">
+      <label for="username2">Novo Username:</label>
+      <input type="text" id="username2" name="username2" value="<%= user.username %>">
+
+      <label for="password">Nova Senha:</label>
+      <input type="password" id="password" name="password" value="<%= user.password %>">
+
+      <label for="key">Nova Chave:</label>
+      <input type="text" id="key" name="key" value="<%= user.key %>">
+
+      <label for="saldo">Novo Saldo:</label>
+      <input type="number" id="saldo" name="saldo" value="<%= user.saldo %>">
+
+      <label for="level">Novo Level:</label>
+      <input type="text" id="level" name="level" value="<%= user.level %>">
+
+      <label for="saldo">Novo Tempo:</label>
+      <input type="number" id="tempoPlano" name="tempoPlano" value="<%= user.tempoPlano %>">
+      
+      <label for="ft">Nova URL da Foto:</label>
+      <input type="text" id="ft" name="ft" value="<%= user.ft %>">
+
+      <div class="switch-group">
+        <span>Administrador</span>
+        <label class="switch">
+          <input type="checkbox" id="giveAdm" name="isAdm" <% if (user.isAdm) { %>checked<% } %> value="true">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="switch-group">
+        <span>Plano Lite</span>
+        <label class="switch">
+          <input type="checkbox" id="giveLite" name="isLite" <% if (user.isLite) { %>checked<% } %> value="true">
+          <span class="slider"></span>
+        </label>
+      </div>
+      
+      <div class="switch-group">
+        <span>Plano Premium</span>
+        <label class="switch">
+          <input type="checkbox" id="givePremium" name="isPremium" <% if (user.isPremium) { %>checked<% } %> value="true">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="switch-group">
+        <span>Plano Gold</span>
+        <label class="switch">
+          <input type="checkbox" id="giveGold" name="isGold" <% if (user.isGold) { %>checked<% } %> value="true">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="switch-group">
+        <span>Banido</span>
+        <label class="switch">
+          <input type="checkbox" id="giveBanido" name="isBanido" <% if (user.isBanido) { %>checked<% } %> value="true">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <button type="submit" class="save-btn">Salvar Alterações</button>
+    </form>
+
+    <button type="button" class="delete-btn" onclick="confirmDelete()">Deletar Usuário</button>
+  </div>
+
+  <script>
+    function confirmDelete() {
+      if (confirm('Tem certeza que deseja deletar este usuário?')) {
+        window.location.href = '/deletar/<%= user.username %>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const giveAdmCheckbox = document.getElementById('giveAdm');
+      giveAdmCheckbox.addEventListener('change', function () {
+        console.log('Dar Adm:', giveAdmCheckbox.checked);
+      });
+    });
+  </script>
+</body>
+
+</html>

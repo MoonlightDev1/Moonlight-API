@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg">
+    <meta property="og:title" content="Planos da API 🌙">
+<meta property="og:description" content="Escolha o plano que mais cabe em seu bolso 🤗">
+    <title>Planos da API</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0f1c;
+            color: #ffffff;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 900px;
+            z-index: 1;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #8ab2f5;
+        }
+
+        .plans {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .plan-card {
+            background: rgba(15, 20, 35, 0.9);
+            border: 1px solid rgba(138, 178, 245, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 250px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(138, 178, 245, 0.2);
+        }
+
+        .plan-title {
+            font-size: 1.8rem;
+            margin: 0.5rem 0;
+            color: #8ab2f5;
+        }
+
+        .plan-price {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+            font-weight: bold;
+            color: #dce3f1;
+        }
+
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            font-size: 1rem;
+            color: #b3c0e1;
+            margin: 1rem 0;
+            line-height: 1.5;
+        }
+
+        .plan-button {
+            background: linear-gradient(45deg, #8ab2f5, #5a67d8);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .plan-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(138, 178, 245, 0.3);
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            background: rgba(10, 15, 28, 0.9);
+            color: #b3c0e1;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer a {
+            color: #8ab2f5;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh; /* Garantir que cubra toda a tela */
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.star {
+position: absolute;
+width: 2px;
+height: 2px;
+background: rgba(255, 255, 255, 0.8);
+box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.8);
+border-radius: 50%;
+animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+from { opacity: 0.5; transform: scale(1); }
+to { opacity: 1; transform: scale(1.3); }
+}
+
+.shooting-star {
+position: absolute;
+width: 7px;
+height: 7px;
+background: rgba(255, 255, 255, 1);
+box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.9);
+border-radius: 15%;
+animation: shooting 1.5s linear forwards;
+}
+
+@keyframes shooting {
+from {
+transform: translateX(0) translateY(0) rotate(45deg);
+opacity: 1;
+}
+to {
+transform: translateX(-50vw) translateY(30vh) rotate(45deg);
+opacity: 0;
+}
+}        
+    </style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+    <div class="container">
+        <h1 class="title">Escolha seu Plano</h1>
+
+        <div class="plans">
+            <div class="plan-card">
+                <h2 class="plan-title">Free</h2>
+                <p class="plan-price">Grátis</p>
+                <ul class="plan-features">
+                    <li>100 requisições diárias</li>
+                </ul>
+                <a href="/register" class="plan-button">Criar Conta</a>
+            </div>
+
+            <div class="plan-card">
+                <h2 class="plan-title">Lite</h2>
+                <p class="plan-price">$10/mês</p>
+                <ul class="plan-features">
+                    <li>Acesso básico</li>
+                    <li>1k de request diariamente</li>
+                    <li>Suporte na api</li>
+                </ul>
+                <a href="https://wa.me/SEUNUMERO" class="plan-button">Contratar</a>
+            </div>
+
+            <div class="plan-card">
+                <h2 class="plan-title">Premium</h2>
+                <p class="plan-price">$20/mês</p>
+                <ul class="plan-features">
+                    <li>Acesso avançado</li>
+                    <li>10k de request diariamente</li>
+                    <li>Suporte na Api</li>
+                </ul>
+                <a href="https://wa.me/SEUNUMERO" class="plan-button">Contratar</a>
+            </div>
+
+            <div class="plan-card">
+                <h2 class="plan-title">Gold</h2>
+                <p class="plan-price">$35/mês</p>
+                <ul class="plan-features">
+                    <li>Acesso total</li>
+                    <li>30k de request diariamente</li>
+                    <li>Suporte VIP 24/7</li>
+                    
+                </ul>
+                <a href="https://wa.me/SEUNUMERO" class="plan-button">Contratar</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; <script>document.write(new Date().getFullYear());</script> - Todos os direitos reservados | <a href="https://m.youtube.com/@Moonlight_Devs">Moonlight_Devs</a>
+    </footer>
+<script>
+function createStars() {
+const starContainer = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+let star = document.createElement('span');
+const totalHeight = Math.max(document.body.scrollHeight, window.innerHeight);
+star.classList.add('star');
+let x = Math.random() * window.innerWidth;
+let y = Math.random() * totalHeight
+star.style.top = `${y}px`;
+star.style.left = `${x}px`;
+star.style.animationDelay = `${Math.random() * 2}s`;
+starContainer.appendChild(star);
+}
+}
+
+function createShootingStar() {
+let shootingStar = document.createElement('span');
+shootingStar.classList.add('shooting-star');
+let startX = Math.random() * window.innerWidth;
+let startY = Math.random() * window.innerHeight * 0.5;
+shootingStar.style.top = `${startY}px`;
+shootingStar.style.left = `${startX}px`;
+shootingStar.style.animationDuration = `${1.2 + Math.random()}s`;
+document.body.appendChild(shootingStar);
+setTimeout(() => {
+shootingStar.remove();
+}, 1500);
+}
+
+setInterval(createShootingStar, 1000);
+createStars();
+</script>
+</body>
+</html>
