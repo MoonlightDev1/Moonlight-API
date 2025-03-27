@@ -31,7 +31,7 @@ const htmlPath = path.join(__dirname, './public/error.html');
 const criadora = "Moonlight";
 
 //EXPORTANDO MÓDULOS
-const { botVersion, msg, msgApi, consoleVerde, consoleVerde2, consoleVermelho, consoleVermelho2, consoleAmarelo, consoleAmarelo2, consoleAzul, consoleAzul2, consoleErro, consoleAviso, consoleInfo, consoleOnline, consoleSucesso, fetchJson, getBuffer, timed, data, hora, cpuUsage, totalThreads, totalMemory, freeMemory, nodeVersion, platform, hostname, HostOuNao, formatTime, uptime, velocidadeBot, latensi, timestamp, os, speed, banner, banner2, banner3 } = require("./dados/dados.js")
+const { botVersion, msg, msgApi, consoleVerde, consoleVerde2, consoleVermelho, consoleVermelho2, consoleAmarelo, consoleAmarelo2, consoleAzul, consoleAzul2, consoleErro, consoleAviso, consoleInfo, consoleOnline, consoleSucesso, fetchJson, getBuffer, timed, data, hora } = require("./dados/dados.js")
 //SCRAPEER
 const { ytsearch, ytMp3Query, ytMp4Query, ytMp3, ytMp4, instagramDl, tiktokDl, xvideosDl, apkpureDl, audiomeme, wikipedia, amazon, tiktokQuery, apkpureQuery, xvideosQuery, aptoide, Pinterest, PinterestMultiMidia, wallpaper, Playstore, CanvabemVindo, canvaLevel, canvaMusicCard, canvaMusicCard2, canvaMontagem, Hentaizinho, Hentaizinho2, travaZapImg, travaZapImg2, metadinha, metadinha2, logo } = require("./dados/scraper.js")
 
@@ -1099,7 +1099,7 @@ res.sendFile(htmlPath);
 // ============== ROTAS NORMAIS DA API ==============\\
 
 app.listen(3000, () => {
-console.log(banner.string, banner2.string, banner3.string)
+//console.log(banner.string, banner2.string, banner3.string)
 consoleOnline("Server rodando: http://localhost:3000")
 })
 

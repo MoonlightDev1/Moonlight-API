@@ -12,7 +12,7 @@ const axios = require('axios');
 const fetch = require('node-fetch');
 const os = require('os');
 const speed = require('performance-now');
-const cfonts = require('cfonts');
+//const cfonts = require('cfonts');
 const request = require('request');
 const { exec, spawn, execSync } = require('child_process');
 const criadora = "Moonlight";
@@ -50,6 +50,7 @@ if(hora > "19:00:00"){
 var timed = 'Boa Noite 🌃' 
 }           
 
+/*
 //============( BANNER TERMINAL )===========\\
 //CORES DO CONSOLE
 var corzinhas = ["red", "green", "yellow", "blue", "magenta", "cyan", "white"]
@@ -74,6 +75,7 @@ font: 'console',
 align: 'center',
 gradient: ['red', 'magenta']
 });
+
 
 //============( PING )===========\\
 const cpuUsage = (os.loadavg()[0] * 100).toFixed(2);
@@ -103,7 +105,7 @@ const uptime = process.uptime();
 let timestamp = speed();
 let latensi = speed() - timestamp;
 const velocidadeBot = latensi.toFixed(4);
-
+*/
 //============( CONSOLES )===========\\
 //VERDE
 const consoleVerde = (texto) => {console.log(chalk.green(texto))}
@@ -166,5 +168,5 @@ async function fetchJson (url, options) {
         return err
     }
 }
-
-module.exports = { botVersion, msg, msgApi, consoleVerde, consoleVerde2, consoleVermelho, consoleVermelho2, consoleAmarelo, consoleAmarelo2, consoleAzul, consoleAzul2, consoleErro, consoleAviso, consoleInfo, consoleOnline, consoleSucesso, fetchJson, getBuffer, timed, data, hora, cpuUsage, totalThreads, totalMemory, freeMemory, nodeVersion, platform, hostname, HostOuNao, formatTime, uptime, velocidadeBot, latensi, timestamp, os, speed, banner, banner2, banner3 }
+//cpuUsage, totalThreads, totalMemory, freeMemory, nodeVersion, platform, hostname, HostOuNao, formatTime, uptime, velocidadeBot, latensi, timestamp, os, speed, banner, banner2, banner3
+module.exports = { botVersion, msg, msgApi, consoleVerde, consoleVerde2, consoleVermelho, consoleVermelho2, consoleAmarelo, consoleAmarelo2, consoleAzul, consoleAzul2, consoleErro, consoleAviso, consoleInfo, consoleOnline, consoleSucesso, fetchJson, getBuffer, timed, data, hora }
