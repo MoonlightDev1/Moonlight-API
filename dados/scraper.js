@@ -714,11 +714,65 @@ console.log(e)
 }
 
 
-//========[ NOME ]========//
+//========[ INTELIGÊNCIA ARTIFICIAL ]========//
+
+async function gemini(query) {
+try {
+api2 = await fetch(`${BaseApiDark}/api/gemini?texto=${query}&apikey=pedrozz1&username=pedrozzMods`)
+api = await api2.json()
+return {
+status: "online",
+criadora,
+resposta: api.resposta
+};
+} catch (e) {
+console.log("Deu erro na solicitação, modulo: Scraper.js")
+console.log(e)
+}
+}
+
+async function imagemAi(query) {
+try {
+api2 = await fetch(`https://api.neoxr.eu/api/imgf?q=${query}`)
+api = await api2.json()
+//apiUrl = await fetch(`${BaseApi}/api/upload/catLink?url=${api.data.url}`)
+//url = await apiUrl.json()
+return {
+status: "online",
+criadora,
+creditos: "neoxr",
+resultado: {
+prompt_melhorado: api.data.prompt,
+imagem: api.data.url
+}
+};
+} catch (e) {
+console.log("Deu erro na solicitação, modulo: Scraper.js")
+console.log(e)
+}
+}
+
+async function stickAi(query) {
+try {
+api2 = await fetch(`https://api.neoxr.eu/api/sticker-gen?q=${query}`)
+api = await api2.json()
+//apiUrl = await fetch(`${BaseApi}/api/upload/catLink?url=${api.data.url}`)
+//url = await apiUrl.json()
+return {
+status: "online",
+criadora,
+creditos: "neoxr",
+imagem: api.data.image
+};
+} catch (e) {
+console.log("Deu erro na solicitação, modulo: Scraper.js")
+console.log(e)
+}
+}
 
 
 //========[ NOME ]========//
 
 
 //EXPORTANDO AS FUNÇÕES 
-module.exports = { ytsearch, ytMp3Query, ytMp4Query, ytMp3, ytMp4, instagramDl, tiktokDl, xvideosDl, apkpureDl, audiomeme, wikipedia, amazon, tiktokQuery, apkpureQuery, xvideosQuery, aptoide, Pinterest, PinterestMultiMidia, wallpaper, Playstore, CanvabemVindo, canvaLevel, canvaMusicCard, canvaMusicCard2, canvaMontagem, Hentaizinho, Hentaizinho2, travaZapImg, travaZapImg2, metadinha, metadinha2, logo }
+module.exports = { ytsearch, ytMp3Query, ytMp4Query, ytMp3, ytMp4, instagramDl, tiktokDl, xvideosDl, apkpureDl, audiomeme, wikipedia, amazon, tiktokQuery, apkpureQuery, xvideosQuery, aptoide, Pinterest, PinterestMultiMidia, wallpaper, Playstore, CanvabemVindo, canvaLevel, canvaMusicCard, canvaMusicCard2, canvaMontagem, Hentaizinho, Hentaizinho2, travaZapImg, travaZapImg2, metadinha, metadinha2, logo, gemini, imagemAi, stickAi }

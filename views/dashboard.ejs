@@ -339,6 +339,8 @@ Seja bem-vindos a nossa rest API 🌙
 </span>
 </a>
 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+<a class="dropdown-item"><i class="fa fa-calendar"></i> <span id="current-date"></span></a>
+<hr>
 <a class="dropdown-item" href="/myperfil"><i class="dw dw-user1"></i> Perfil</a>
 <a class="dropdown-item" href="/planos"><i class="dw dw-shop"></i> Planos</a>
 <a class="dropdown-item" href="/login"><i class="dw dw-logout"></i> Sair</a>
@@ -495,6 +497,20 @@ Redefinir configurações
 <li><a href="/api/pesquisa/Playstore?query=whatsapp&apikey=<%= user.key %>">Playstore</a></li>
 <li><a href="/api/pesquisa/wallpaper?query=gatinhos&apikey=<%= user.key %>">Wallpaper</a></li>
 
+</ul>
+</li>
+<!----->
+<li class="dropdown">
+<a href="javascript:;" class="dropdown-toggle" data-option="off">
+<span class="micon bi bi-laptop"></span>
+<span class="mtext">Inteligências</span>
+</a>
+<ul class="submenu">
+<li>
+<a href="/api/ai/gemini?query=Bom dia&apikey=<%= user.key %>">Gemini</a>
+<a href="/api/ai/imagemAi?query=gato rosa&apikey=<%= user.key %>">imagem Ai</a>
+<a href="/api/ai/stickAi?query=pink cat&apikey=<%= user.key %>">Sticker Ai</a>
+</li>
 </ul>
 </li>
 <!------>
@@ -821,6 +837,24 @@ aria-hidden="true"
 </div>
 </div>
 
+<div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+<div class="card-box height-100-p widget-style3">
+<div class="d-flex flex-wrap">
+<div class="widget-data">
+<div class="weight-700 font-16 text-dark">
+20/03/2025
+</div>
+<div class="font-14 text-secondary weight-500">Data da criação</div>
+</div>
+<div class="widget-icon">
+<div class="icon">
+<i class="icon-copy fa-thin fa-calendar faa-pulse animated faa-slow" aria-hidden="true"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+
 </div>
 
 <div class="row">
@@ -965,6 +999,9 @@ shootingStar.remove();
 
 setInterval(createShootingStar, 1000);
 createStars();
+</script>
+<script>
+  document.getElementById("current-date").textContent = new Date().toLocaleDateString("pt-BR");
 </script>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS" height="0" width="0"
 style="display: none; visibility: hidden"></iframe></noscript>

@@ -33,7 +33,7 @@ const criadora = "Moonlight";
 //EXPORTANDO MÓDULOS
 const { botVersion, msg, msgApi, consoleVerde, consoleVerde2, consoleVermelho, consoleVermelho2, consoleAmarelo, consoleAmarelo2, consoleAzul, consoleAzul2, consoleErro, consoleAviso, consoleInfo, consoleOnline, consoleSucesso, fetchJson, getBuffer, timed, data, hora } = require("./dados/dados.js")
 //SCRAPEER
-const { ytsearch, ytMp3Query, ytMp4Query, ytMp3, ytMp4, instagramDl, tiktokDl, xvideosDl, apkpureDl, audiomeme, wikipedia, amazon, tiktokQuery, apkpureQuery, xvideosQuery, aptoide, Pinterest, PinterestMultiMidia, wallpaper, Playstore, CanvabemVindo, canvaLevel, canvaMusicCard, canvaMusicCard2, canvaMontagem, Hentaizinho, Hentaizinho2, travaZapImg, travaZapImg2, metadinha, metadinha2, logo } = require("./dados/scraper.js")
+const { ytsearch, ytMp3Query, ytMp4Query, ytMp3, ytMp4, instagramDl, tiktokDl, xvideosDl, apkpureDl, audiomeme, wikipedia, amazon, tiktokQuery, apkpureQuery, xvideosQuery, aptoide, Pinterest, PinterestMultiMidia, wallpaper, Playstore, CanvabemVindo, canvaLevel, canvaMusicCard, canvaMusicCard2, canvaMontagem, Hentaizinho, Hentaizinho2, travaZapImg, travaZapImg2, metadinha, metadinha2, logo, gemini, imagemAi, stickAi } = require("./dados/scraper.js")
 
 //
 var app = express()
@@ -1050,7 +1050,6 @@ erro: "Deu erro na sua solicitação"
 }
 })
 
-
 app.get("/api/imagem/logo/:logoName", async (req, res) => {
     const { apikey, query } = req.query;
     const logoName = req.params.logoName;
@@ -1078,6 +1077,71 @@ app.get("/api/imagem/logo/:logoName", async (req, res) => {
     }
 });
 
+//========[ INTELIGÊNCIAS ]========\\
+
+app.get("/api/ai/gemini", async (req, res) => {
+const {apikey, query} = req.query;
+if (!query) return res.status(500).send("Parâmetro query é obrigatório")
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+gemini(query).then((data) => {
+res.json({
+data
+})
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+}
+})
+
+app.get("/api/ai/imagemAi", async (req, res) => {
+const {apikey, query} = req.query;
+if (!query) return res.status(500).send("Parâmetro query é obrigatório")
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+imagemAi(query).then((data) => {
+res.json({
+data
+})
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+}
+})
+
+app.get("/api/ai/stickAi", async (req, res) => {
+const {apikey, query} = req.query;
+if (!query) return res.status(500).send("Parâmetro query é obrigatório")
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+stickAi(query).then((data) => {
+res.json({
+data
+})
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+}
+})
+
 //EJS
 app.get('/login', (req, res) => {
 res.render('login', { aviso: false, aviso2: null });
@@ -1089,6 +1153,8 @@ res.render('register', { aviso: false, aviso2: null });
 
 //HTML
 app.get('/planos', (req, res) => res.sendFile(__dirname + '/public/plano.html'));
+
+app.get('/ko', (req, res) => res.sendFile(__dirname + '/public/ko.html'));
 
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
@@ -1115,12 +1181,12 @@ module.exports = app
 let file = require.resolve(__filename)
 fs.watchFile(file, () => {
 fs.unwatchFile(file)
-consoleAviso(`A index da api foi atualizado estou reiniciando para salvar as alterações 🧸`)
+consoleAviso(`A index da api foi atualizado estou reiniciando para salvar as alterações`)
 process.exit()
 })
 
 fs.watchFile("./dados/scraper.js", () => {
 fs.unwatchFile(file)
-consoleAviso(`Os scraper da api foi atualizado estou reiniciando para salvar as alterações 🧸`)
+consoleAviso(`Os scraper da api foi atualizado estou reiniciando para salvar as alterações`)
 process.exit()
 })

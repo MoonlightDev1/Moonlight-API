@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cookies</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    .cookie-box {
+      background: #111;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      max-width: 320px;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: slideUp 1s ease forwards;
+      position: relative;
+      overflow: visible;
+      transition: 0.5s;
+    }
+    @keyframes slideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .cookie-box img {
+      width: 80px;
+      margin-bottom: 15px;
+      animation: pulse 2s infinite;
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    @keyframes pulse {
+      0% { transform: translateX(-50%) scale(1); opacity: 1; }
+      50% { transform: translateX(-50%) scale(1.1); opacity: 0.8; }
+      100% { transform: translateX(-50%) scale(1); opacity: 1; }
+    }
+    .cookie-box p {
+      font-size: 14px;
+      color: #bbb;
+      margin-top: 50px;
+      margin-bottom: 20px;
+    }
+    .cookie-box a {
+      color: #00f7ff;
+      text-decoration: none;
+    }
+    .cookie-box button {
+      background-color: #00f7ff;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px #00f7ff50;
+    }
+    .cookie-box button:hover {
+      background-color: #0ff;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00f7ff;
+    }
+    .hide {
+      opacity: 0;
+      transform: translateY(50px);
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cookie-box" id="cookieBox">
+    <img src="https://files.catbox.moe/l8sh04.png" alt="Lua"> 
+    <p>Nós utilizamos cookies em nosso site para diversos fins, incluindo análises, desempenho e publicidade. <a href="#">Saiba mais</a>.</p>
+    <button onclick="aceitarCookies()">OK!</button>
+  </div>
+
+  <script>
+    function aceitarCookies() {
+      const box = document.getElementById('cookieBox');
+      box.classList.add('hide');
+    }
+  </script>
+
+</body>
+</html>
