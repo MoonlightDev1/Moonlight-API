@@ -164,6 +164,17 @@ console.error('Erro ao resetar requests:', err);
 setInterval(resetRequest, 1000);
 // ============== ROTAS DE CONFIGURACAO DA API ==============\\
 
+app.get("/api/top", async (req, res) => {
+const topUsers = await User.find({})
+      .select('username level ft wallpaper saldo isAdm isPremium isLite isGold isPlano')
+      .lean()
+
+topUsers.forEach(user => { user.level = parseFloat(user.level) || 0; });
+topUsers.sort((a, b) => b.level - a.level);
+
+  res.json({ top: topUsers.slice(0, 6) });
+})
+
 app.get('/dashboard', async (req, res) => {
 const user = req.session.user;
 if (!user) {
@@ -173,14 +184,13 @@ const { username, password } = user;
 try {
 const userDb = await User.findOne({ username, password });
 const quantidadeRegistrados = await User.countDocuments();
-const topUsers = await User.find().sort({ saldo: -1 }).limit(5);
+const topUsers = await User.find().sort({ level: -1 }).limit(5);
 return res.render('dashboard', { Junim: true, msgAdm2, user, userDb, topUsers, quantidade: quantidadeRegistrados, aviso: false, aviso2: null });
 } catch (error) {
 console.error('Erro ao processar a rota:', error);
 return res.status(500).send('Erro interno ao processar a rota.');
 }
 });
-
 
 app.get('/myperfil', async (req, res) => {
 const user = req.session.user;
@@ -322,7 +332,7 @@ return res.status(500).send('Erro interno do servidor. Por favor, tente novament
 
 app.post('/edit/:username', async (req, res) => {
 const { username } = req.params;
-const { username2, password, key, ft, saldo, level, isAdm, isPremium, isGold, isLite, tempoPlano, isBanido } = req.body;
+const { username2, password, key, ft, saldo, level, isAdm, isPremium, isGold, isLite, tempoPlano, isBanido, isPlano } = req.body;
 try {
 const user = await User.findOne({ username });
 if (!user) {
@@ -333,12 +343,14 @@ const isPremiumValue = isPremium === 'true';
 const isGoldValue = isGold === 'true';
 const isLiteValue = isLite === 'true';
 const isBanidoValue = isBanido === 'true';
+const isPlanoValue = isPlano === 'true';
 user.username = username2 || user.username;
 user.password = password || user.password;
 user.key = key || user.key;
 user.ft = ft || user.ft;
 user.saldo = saldo || user.saldo;
 user.tempoPlano = tempoPlano || user.tempoPlano;
+user.isPlano = isPlanoValue;
 user.isAdm = isAdmValue;
 user.isPremium = isPremiumValue;
 user.isGold = isGoldValue;
