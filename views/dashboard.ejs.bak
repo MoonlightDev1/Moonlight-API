@@ -473,7 +473,7 @@ Redefinir configurações
 <li><a href="/api/download/xvideos?url=https://www.xvideos.com/video.otvibpodcae/madrasta_dividiu_a_cama_com_o_enteado_apos_filme_de_terror_e_o_seduziu_para_foder_ate_gozada_acidental&apikey=<%= user.key %>">Xvideos</a></li>
 <li><a href="/api/download/tiktok?url=https://vm.tiktok.com/ZMBDuK8dA/&apikey=<%= user.key %>">TikTok</a></li>
 <li><a href="/api/download/tiktokUser?name=@moonlight.devs&apikey=<%= user.key %>">TikTok User</a></li>
-<li><a href="/api/download/tiktokImages?url=https://vm.tiktok.com/ZMBmymcSL/&apikey=<%= user.key %>">TikTok Carrosel</a></li>
+<li><a href="/api/download/ROTA?url=https://vm.tiktok.com/ZMBmymcSL/&apikey=<%= user.key %>">TikTok Carrosel</a></li>
 <li><a href="/api/download/instagram?url=https://www.instagram.com/p/DHbVUTyu--4/?igsh=ZWVhdGZ1OTRqeTF0&apikey=<%= user.key %>">Instagram</a></li>
 <li><a href="/api/download/instagramDl?url=https://www.instagram.com/p/DHbVUTyu--4/?igsh=ZWVhdGZ1OTRqeTF0&apikey=<%= user.key %>">Instagram 2</a></li>
 <li><a href="/api/download/Facebook?url=https://www.facebook.com/100007758586053/videos/2933875396881051/?mibextid=rS40aB7S9Ucbxw6v&apikey=<%= user.key %>">Facebook Dl</a></li>

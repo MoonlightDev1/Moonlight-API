@@ -645,7 +645,7 @@ erro: "Deu erro na sua solicitação"
 
 app.get("/api/download/Facebook", async (req, res) => {
 const { url, apikey } = req.query
-if (!url) return res.status(500).send("Parâmetro url obrigatório")
+if (!query) return res.status(500).send("Parâmetro url obrigatório")
 if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
 infoUser = await diminuirSaldo(apikey)
 if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
