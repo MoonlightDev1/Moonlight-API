@@ -20,10 +20,18 @@ const botVersion = "1.4.0"
 
 //============( MENSAGENS RAPIDAS )===========\\
 const msg = {
-dono: "Você precisa ser o dono pra poder usar esse comando",
-query: "Acho que falta algo ai em...",
-error: "Deu erro ao tenta solicitar ação"
-}
+  espere: "Calma aí! Tô fazendo o que você pediu...",
+  dono: "Eita! Esse comando é só para minha dona, mal aí!",
+  grupo: "*Ops! Esse comando só funciona em grupos.*",
+  premium: "*Hmm... Parece que isso é exclusivo para usuários Premium.*",
+  query: "*Acho que faltou alguma coisa aí, confere direitinho!*",
+  privado: "*Ei! Esse comando só pode ser usado no PV.*",
+  adm: "*Só os supremos administradores podem usar esse comando!*",
+  error: "*Opa, deu uma bugadinha! Tenta de novo mais tarde.*",
+  botadm: "*Eu preciso ser ADM pra fazer isso, me dá esse poder aí!*",
+adultos: "*Ei, viajante! Comandos +18 não são permitidos por aqui!*",
+jogos: "*Os jogos estão em modo hibernação... Fale com um administrador para ativá-los e liberar a diversão!* 🎮🌙"
+};
 
 //============( MENSAGENS DA API )===========\\
 const msgApi = {

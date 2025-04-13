@@ -200,10 +200,8 @@ console.error('Erro ao resetar requests:', err);
 }
 }
 setInterval(resetRequest, 1000);
-
 bot.on('text', async (ctx) => {
 
-const msg = ctx.message.text;
 const chatId = ctx.message.chat.id;
 const prefix = PREFIX;
 const from = ctx;
@@ -240,7 +238,7 @@ inline_keyboard: [
 break;
 
 case 'apagaruser':
-if (isDono) return enviar(ctx, msg.dono);
+if (!isDono) return enviar(ctx, msg.dono);
 if (!q) return enviar(ctx, "Falta o nome do usuário")
 try {
 s = await deletarUsuario(q);
@@ -256,7 +254,7 @@ case 'password':
 case 'key':
 case 'saldo':
 case 'level': {
-if (isDono) return enviar(ctx, msg.dono);
+if (!isDono) return enviar(ctx, msg.dono);
 var [nome, item] = q.split("/");
 if (!nome) return enviar(ctx, "falta o nome do usuário")
 if (!item) return enviar(ctx, "falta o item que deseja alterar")
@@ -275,7 +273,7 @@ break
 case 'user': {
 if (!q) return enviar(ctx, msg.query)
 try {
-const user = await User.findOne({ nome: q });
+const user = await User.findOne({ username: q });
 ctx.replyWithPhoto({ url: user.ft }, {
 caption: `Nome: ${user.username}
 Senha: ${user.password}
@@ -296,8 +294,7 @@ enviar(ctx, msg.error)
 break
 
 case 'texto':
-enviar(ctx, ctx.from);
-console.log(JSON.stringify(ctx, undefined, 2))
+enviar(ctx, ctx.from.id);
 break;
 
 case 'figurinhas': {
