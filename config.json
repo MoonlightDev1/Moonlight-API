@@ -1,0 +1,13 @@
+{
+"tokenDB": "mongodb+srv://pedro13755:flknzuhfrXGVggOI@cluster0.1t1ab.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+"tokenTele": "8027707791:AAEY29OCQuZXJnDrKGjMxtjgExrsINUVw-Y",
+"botName": "LunarBot",
+"donoName": "Moonlight",
+"donoId": "7801551329",
+"donoTele": "t.me/moonlight_devs",
+"fotoSite": "Link",
+"apiLink": "https://moonlight-api.onrender.com",
+"siteName": "Moonlight API",
+"msgAdm": true,
+"msgAdm2": "Sejam Todos bem-vindos a nossa rest Api's"
+}

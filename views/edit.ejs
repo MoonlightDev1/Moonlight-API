@@ -2,8 +2,8 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Editar Perfil</title>
   <style>
     * {
@@ -29,12 +29,22 @@
       width: 100%;
       max-width: 400px;
       text-align: center;
+      overflow-y: auto;
+      max-height: 90vh;
     }
 
     h1 {
       margin-bottom: 20px;
       font-size: 22px;
       color: #333;
+    }
+
+    h2 {
+      text-align: left;
+      font-size: 16px;
+      color: #007bff;
+      margin-top: 25px;
+      margin-bottom: 10px;
     }
 
     label {
@@ -45,7 +55,9 @@
       color: #555;
     }
 
-    input {
+    input[type="text"],
+    input[type="password"],
+    input[type="number"] {
       width: 100%;
       padding: 10px;
       margin-bottom: 15px;
@@ -63,7 +75,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
     }
 
     .switch {
@@ -103,11 +115,11 @@
       border-radius: 50%;
     }
 
-    input:checked+.slider {
+    input:checked + .slider {
       background-color: #007bff;
     }
 
-    input:checked+.slider:before {
+    input:checked + .slider:before {
       transform: translateX(20px);
     }
 
@@ -143,7 +155,7 @@
 
 <body>
   <div class="container">
-<br><br>
+    <h1>Editar Perfil</h1>
     <form action="/edit/<%= user.username %>" method="post">
       <label for="username2">Novo Username:</label>
       <input type="text" id="username2" name="username2" value="<%= user.username %>">
@@ -160,12 +172,14 @@
       <label for="level">Novo Level:</label>
       <input type="text" id="level" name="level" value="<%= user.level %>">
 
-      <label for="saldo">Novo Tempo:</label>
+      <label for="tempoPlano">Novo Tempo:</label>
       <input type="number" id="tempoPlano" name="tempoPlano" value="<%= user.tempoPlano %>">
-      
+
       <label for="ft">Nova URL da Foto:</label>
       <input type="text" id="ft" name="ft" value="<%= user.ft %>">
 
+      <!-- Categoria: Administrador -->
+      <h2>Administrador</h2>
       <div class="switch-group">
         <span>Administrador</span>
         <label class="switch">
@@ -174,22 +188,16 @@
         </label>
       </div>
 
-<div class="switch-group">
-        <span>Plano</span>
-        <label class="switch">
-          <input type="checkbox" id="givePlano" name="isPlano" <% if (user.isPlano) { %>checked<% } %> value="true">
-          <span class="slider"></span>
-        </label>
-      </div>
-      
+      <!-- Categoria: Planos -->
+      <h2>Planos</h2>
       <div class="switch-group">
-        <span>Plano Lite</span>
+        <span>Plano Gold</span>
         <label class="switch">
-          <input type="checkbox" id="giveLite" name="isLite" <% if (user.isLite) { %>checked<% } %> value="true">
+          <input type="checkbox" id="giveGold" name="isGold" <% if (user.isGold) { %>checked<% } %> value="true">
           <span class="slider"></span>
         </label>
       </div>
-      
+
       <div class="switch-group">
         <span>Plano Premium</span>
         <label class="switch">
@@ -199,13 +207,23 @@
       </div>
 
       <div class="switch-group">
-        <span>Plano Gold</span>
+        <span>Plano Lite</span>
         <label class="switch">
-          <input type="checkbox" id="giveGold" name="isGold" <% if (user.isGold) { %>checked<% } %> value="true">
+          <input type="checkbox" id="giveLite" name="isLite" <% if (user.isLite) { %>checked<% } %> value="true">
           <span class="slider"></span>
         </label>
       </div>
 
+      <div class="switch-group">
+        <span>Plano Ativo</span>
+        <label class="switch">
+          <input type="checkbox" id="givePlano" name="isPlano" <% if (user.isPlano) { %>checked<% } %> value="true">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <!-- Categoria: Status -->
+      <h2>Status</h2>
       <div class="switch-group">
         <span>Banido</span>
         <label class="switch">

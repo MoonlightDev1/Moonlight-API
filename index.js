@@ -1,17 +1,3 @@
-/* @CLOVERMYT */
-
-// Canal: https://youtube.com/@clovermyt
-
-// Canal WhatsApp: https://whatsapp.com/channel/0029Va974hY2975B61INGX3Q
-
-// Instagram: https://www.instagram.com/clovermods?igsh=MmcyMHlrYnhoN2Zk
-
-// Telegram: t.me/cinco_folhas
-
-// Comunidade WhatsApp: https://chat.whatsapp.com/Kc5HLGCIokb37mA36NJrM6
-
-// SE FOR REPOSTAR ME MARCA 🧙‍♂️🍀
-
 const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
@@ -23,9 +9,7 @@ const path = require('path');
 const MemoryStore = require('memorystore')(session);
 const fs = require('fs');
 const request = require('request');
-const { token } = require("./config.js");
-const msgAdm = true;
-const msgAdm2 = "Sejam Todos bem-vindos a nossa rest Api's";
+const { tokenDB, tokenTele, botName, donoName, donoTele, apiLink, donoId, siteName, msgAdm2, msgAdm, fotoSite } = require("./config.json");
 const admList = ["Moonlight_Devs", "pedrozzMods", "BotAdmMoon"]
 const htmlPath = path.join(__dirname, './public/error.html');
 const criadora = "Moonlight";
@@ -142,6 +126,60 @@ console.error('Erro ao salvar os dados no banco de dados:', error);
 }
 }
 
+
+//★・・・・★・・ BOT DO TELEGRAM ・・・★・・・・★
+
+//====================[ MÓDULOS ]====================\\
+
+const { Telegraf } = require('telegraf');
+
+//====================CONFIGURAÇÕES=====================//
+
+const bot = new Telegraf(tokenTele);
+const PREFIX = "/";
+
+let username = '';
+let comando = '';
+let q = '';
+let isDono = '';
+bot.use((ctx, next) => {
+ if (!username && ctx.from && ctx.from.username) {
+  username = ctx.from.username;
+ }
+ return next();
+});
+bot.use((ctx, next) => {
+ if (ctx.message && ctx.message.text) {
+  isDono = ctx.from.id === donoId;
+  comando = ctx.message.text.split(' ')[0];
+  q = ctx.message.text.slice(comando.length).trim();
+
+ }
+ return next();
+});
+// Função para enviar mensagens
+const enviar = (ctx, texto) => {
+ ctx.reply(texto);
+};
+
+//E AQUI FICA A MÁGICA KKK
+bot.use((ctx, next) => {
+if (ctx.message && ctx.message.text) {
+const messageText = ctx.message.text.trim();
+if (messageText.startsWith(PREFIX)) {
+const command = messageText.split(' ')[0].substring(PREFIX.length);
+ctx.state.command = command;
+ctx.state.args = messageText.split(' ').slice(1);
+}
+}
+return next();
+});
+
+// Comandos do bot
+bot.start(async (ctx) => {
+enviar(ctx, `${timed}\n\nOlá! 👋  Bem-vindo(a) ao Moonlight API!  Sou a Lunar, sua bot assistente.  Para mais informações sobre a Moonlight API acesse https://moonlight-api.onrender.com`);
+});
+
 async function resetRequest() {
 const agora = new Date();
 const horas = agora.getHours();
@@ -154,25 +192,222 @@ await User.updateMany({ isAdm: true }, { saldo: 100000 });
 await User.updateMany({ isPremium: true }, { saldo: 10000 });
 await User.updateMany({ isGold: true }, { saldo: 30000 });
 await User.updateMany({ isLite: true }, { saldo: 1000 });
-await User.updateMany({ adm: false, premium: false }, { saldo: 100 });
-consoleVerde2("[ USUÁRIO ]", "As requests dos usuários foram reiniciadas")
+await User.updateMany({ isAdm: false, isPremium: false }, { saldo: 100 });
+enviar(ctx, "[ USUÁRIO ] As requests dos usuários foram reiniciadas")
 } catch (err) {
 console.error('Erro ao resetar requests:', err);
 }
 }
 }
 setInterval(resetRequest, 1000);
+
+bot.on('text', async (ctx) => {
+
+const msg = ctx.message.text;
+const chatId = ctx.message.chat.id;
+const prefix = PREFIX;
+const from = ctx;
+
+const comando = ctx.state.command;
+if (!comando) return;
+
+switch (comando) {
+case 'menu':
+infoD = `╭━━━〔 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃 〕━━━╮
+┃  ⃟🌙๋࿆.•۟  play (nome da música)
+┃  ⃟🌙๋࿆.•۟  play2 (nome da música)
+╰━━━━━━━━━━━━━━━╯
+╭━━━〔 𝐈 𝐀 〕━━━╮
+┃  ⃟🌙๋࿆.•۟  gemini (texto)
+┃  ⃟🌙๋࿆.•۟  gpt (texto)
+╰━━━━..━━━━━━╯
+╭━━━〔 𝐂𝐎𝐌𝐀𝐍𝐃𝐎𝐒 𝐃𝐎𝐍𝐎 〕━━━╮
+┃  ⃟🌙๋࿆.•۟  username (nome do usuário/item)
+┃  ⃟🌙๋࿆.•۟  password (nome do usuário/item)
+┃  ⃟🌙๋࿆.•۟  key (nome do usuário/item)
+┃  ⃟🌙๋࿆.•۟  saldo (nome do usuário/item)
+┃  ⃟🌙๋࿆.•۟  level (nome do usuário/item)
+┃  ⃟🌙๋࿆.•۟  apagaruser (nome do usuário)
+┃  ⃟🌙๋࿆.•۟  user (nome do usuário)
+╰━━━━━━━━━━━━━━━━━━╯`,
+await bot.telegram.sendPhoto(ctx.chat.id, "https://files.catbox.moe/yie1yr.png", {
+caption: infoD,
+reply_markup: {
+inline_keyboard: [
+[{ text: `SpeedCloud`, url: `https://speedhosting.cloud` }],
+[{ text: `Moonlight API`, url: apiLink }]
+]}})
+break;
+
+case 'apagaruser':
+if (isDono) return enviar(ctx, msg.dono);
+if (!q) return enviar(ctx, "Falta o nome do usuário")
+try {
+s = await deletarUsuario(q);
+enviar(ctx, s)
+} catch (e) {
+consoleErro(e)
+enviar(ctx, "Deu erro")
+}
+break
+
+case 'username':
+case 'password':
+case 'key':
+case 'saldo':
+case 'level': {
+if (isDono) return enviar(ctx, msg.dono);
+var [nome, item] = q.split("/");
+if (!nome) return enviar(ctx, "falta o nome do usuário")
+if (!item) return enviar(ctx, "falta o item que deseja alterar")
+try {
+const user = await User.findOne({ nome });
+user[comando] = item;
+await user.save();
+enviar(ctx, `${comando} do ${nome} foi alterado com sucesso`)
+} catch (e) {
+consoleErro(e)
+enviar(ctx, "Deu erro")
+}
+}//
+break
+
+case 'user': {
+if (!q) return enviar(ctx, msg.query)
+try {
+const user = await User.findOne({ nome: q });
+ctx.replyWithPhoto({ url: user.ft }, {
+caption: `Nome: ${user.username}
+Senha: ${user.password}
+ApiKey: ${user.key}
+Request: ${user.saldo}
+Level: ${user.level}
+Lite: ${user.isLite ? "sim" : "não"}
+Basico: ${user.isBasico ? "sim" : "não"}
+Premium: ${user.isPremium ? "sim" : "não"}
+Gold: ${user.isGold ? "sim" : "não"}
+${user.isAdm ? "Usuário administrador" : ""}`,
+});
+} catch (e) {
+consoleErro(e)
+enviar(ctx, msg.error)
+}
+}
+break
+
+case 'texto':
+enviar(ctx, ctx.from);
+console.log(JSON.stringify(ctx, undefined, 2))
+break;
+
+case 'figurinhas': {
+async function sla9() {
+var rnd = Math.floor(Math.random() * 8051)
+ctx.replyWithSticker({ url: `https://raw.githubusercontent.com/badDevelopper/Testfigu/main/fig (${rnd}).webp` });
+}
+for (i = 0; i < 10; i++) {
+sla9()
+}
+}
+break;
+//COMANDOS PARA OS USUÁRIOS 
+
+case 'play':
+try {
+if (!ctx.message.text.includes(' ')) {return ctx.reply('Por favor, insira o nome da música após o comando.');}
+data1 = await ytsearch(q)
+api2 = data1.resultado[0];
+const audioUrl = await ytMp3(api2.url)
+enviar(from, `Enviando ${api2.title}...`)
+ctx.replyWithPhoto({ url: api2.image }, {
+caption: `*lıl.ılı.lıll「🎶 ᏞႮΝᎪᎡ ᎠϴᏔΝᏞϴᎪᎠ 🎶」llı.ıllı.ılı*
+                ↻     ⊲  Ⅱ  ⊳     ↺
+             
+📄⃟ 𝚃𝚒𝚝𝚞𝚕𝚘: ${api2.title}
+🕑⃟ 𝙳𝚞𝚛𝚊𝚌𝚊𝚘: ${api2.timestamp}
+📱⃟ 𝙲𝚊𝚗𝚊𝚕: ${api2.author.name}
+🟢⃟ 𝙳𝚎𝚜𝚌𝚛𝚒𝚌𝚊𝚘: ${api2.description}
+🎭⃟ 𝙲𝚛𝚒𝚊𝚍𝚘𝚛: ${donoName}\n\n
+Estou enviando seu áudio espere um momento...
+`,});
+await ctx.replyWithAudio({ url: audioUrl });
+} catch (error) {
+console.error(error);
+ctx.reply(msg.error);}
+break
+
+case 'play2':
+try {
+if (!ctx.message.text.includes(' ')) {return ctx.reply('Por favor, insira o nome da música após o comando.');}
+data1 = await ytsearch(q)
+api2 = data1.resultado[0];
+const audioUrl = await ytMp3(api2.url)
+enviar(from, `Enviando ${api2.title}...`)
+await ctx.replyWithAudio({ url: audioUrl });
+} catch (error) {
+console.error(error);
+ctx.reply(msg.error);}
+break
+
+//INTELIGÊNCIAS ARTIFICIAIS 
+case 'gpt':
+result = await fetchJson(`https://apis-starlights-team.koyeb.app/starlight/turbo-ai?content= &text=${encodeURIComponent(q)}`)
+enviar(ctx, result.content)
+break
+case 'gemini':
+gg = await gemini(q)
+console.log(gg)
+enviar(ctx, gg.resposta)
+break
+
+///////\\/\/\/\/\/\/\/\/\////////\/\/\/\/\/\/////\\\\\\\
+default:
+break;
+}//
+});
+
+//================ ROTAS DA API =================//
+
+
+app.get('/img18.gif', async (req, res) => {
+ try {
+  var BLAb = await fetchJson(`https://nekobot.xyz/api/image?type=pgif`);
+  const response = await axios.get(BLAb.message, { responseType: 'arraybuffer' });
+
+  res.setHeader('Content-Type', 'image/gif');
+  res.send(response.data);
+ } catch (error) {
+  res.status(500).send('Erro ao buscar o GIF');
+ }
+});
+//---&. /tele?user=6954018108&msg=Teste
+app.get('/tele', (req, res) => {
+const { user, msg } = req.query; 
+if (!user || !msg) {
+return res.status(400).json({ erro: 'Os parâmetros user e msg são obrigatórios' });
+}
+
+bot.telegram.sendMessage(user, msg)
+.then(() => {
+res.json({ sucesso: 'Mensagem enviada com sucesso' });
+})
+.catch(err => {
+console.error('Erro ao enviar mensagem:', err);
+res.status(500).json({ erro: 'Falha ao enviar mensagem' });
+});
+});
+
 // ============== ROTAS DE CONFIGURACAO DA API ==============\\
 
 app.get("/api/top", async (req, res) => {
 const topUsers = await User.find({})
-      .select('username level ft wallpaper saldo isAdm isPremium isLite isGold isPlano')
-      .lean()
+  .select('username level ft wallpaper saldo isAdm isPremium isLite isGold isPlano')
+  .lean()
 
 topUsers.forEach(user => { user.level = parseFloat(user.level) || 0; });
 topUsers.sort((a, b) => b.level - a.level);
 
-  res.json({ top: topUsers.slice(0, 6) });
+ res.json({ top: topUsers.slice(0, 6) });
 })
 
 app.get('/dashboard', async (req, res) => {
@@ -954,9 +1189,9 @@ try {
 data = await CanvabemVindo(titulo, avatar, fundo, desc, nome);
 const response = await axios.get(data, { responseType: "arraybuffer" });
 
-        res.setHeader("Content-Type", response.headers["content-type"]);
+  res.setHeader("Content-Type", response.headers["content-type"]);
 
-        res.send(response.data);
+  res.send(response.data);
 } catch (e) {
 res.json({
 status: "offline",
@@ -978,9 +1213,9 @@ try {
 data = await canvaLevel(avatar, fundo, nome, level1, level2);
 const response = await axios.get(data, { responseType: "arraybuffer" });
 
-        res.setHeader("Content-Type", response.headers["content-type"]);
+  res.setHeader("Content-Type", response.headers["content-type"]);
 
-        res.send(response.data);
+  res.send(response.data);
 } catch (e) {
 res.json({
 status: "offline",
@@ -1002,9 +1237,9 @@ try {
 data = await canvaMusicCard(avatar, artistName, time, name);
 const response = await axios.get(data, { responseType: "arraybuffer" });
 
-        res.setHeader("Content-Type", response.headers["content-type"]);
+  res.setHeader("Content-Type", response.headers["content-type"]);
 
-        res.send(response.data);
+  res.send(response.data);
 } catch (e) {
 res.json({
 status: "offline",
@@ -1026,9 +1261,9 @@ try {
 data = await canvaMusicCard2(avatar, name, artistName)
 const response = await axios.get(data, { responseType: "arraybuffer" });
 
-        res.setHeader("Content-Type", response.headers["content-type"]);
+  res.setHeader("Content-Type", response.headers["content-type"]);
 
-        res.send(response.data);
+  res.send(response.data);
 } catch (e) {
 res.json({
 status: "offline",
@@ -1191,30 +1426,30 @@ erro: "Deu erro na sua solicitação"
 })
 
 app.get("/api/imagem/logo/:logoName", async (req, res) => {
-    const { apikey, query } = req.query;
-    const logoName = req.params.logoName;
+ const { apikey, query } = req.query;
+ const logoName = req.params.logoName;
 
-    if (!apikey) return res.status(400).json({ erro: "Parâmetro 'apikey' é obrigatório" });
-    if (!query) return res.status(400).json({ erro: "Parâmetro 'query' é obrigatório" });
+ if (!apikey) return res.status(400).json({ erro: "Parâmetro 'apikey' é obrigatório" });
+ if (!query) return res.status(400).json({ erro: "Parâmetro 'query' é obrigatório" });
 
-    const infoUser = await diminuirSaldo(apikey);
-    if (infoUser) {
-        return res.render('error', { aviso: false, aviso2: infoUser });
-    }
+ const infoUser = await diminuirSaldo(apikey);
+ if (infoUser) {
+  return res.render('error', { aviso: false, aviso2: infoUser });
+ }
 
-    try {
-        const dd = await logo(logoName, query)
-        const response = await axios.get(dd, { responseType: "arraybuffer" });
+ try {
+  const dd = await logo(logoName, query)
+  const response = await axios.get(dd, { responseType: "arraybuffer" });
 
-        res.setHeader("Content-Type", response.headers["content-type"]);
+  res.setHeader("Content-Type", response.headers["content-type"]);
 
-        res.send(response.data);
-    } catch (e) {
-        res.status(500).json({
-            status: "offline",
-            erro: "Erro ao buscar a imagem"
-        });
-    }
+  res.send(response.data);
+ } catch (e) {
+  res.status(500).json({
+   status: "offline",
+   erro: "Erro ao buscar a imagem"
+  });
+ }
 });
 
 //========[ INTELIGÊNCIAS ]========\\
@@ -1285,6 +1520,61 @@ erro: "Deu erro na sua solicitação"
 })
 }
 })
+
+app.get('/api/ai2/texto/:modelo', async (req, res) => {
+const { modelo } = req.params;
+var { query } = req.query;
+if (!query) return res.status(400).json({ erro: 'texto é necessário' });
+try {
+
+async function run(model, input) {
+const response = await fetch(
+`https://api.cloudflare.com/client/v4/accounts/1a796eb44670bd17367488c4f493606f/ai/run/${model}`,
+{
+headers: { Authorization: "Bearer WCfkbAYTXFr56omtKxidKaqfd3hmPFdXT_rEQPxG" },
+method: "POST",
+body: JSON.stringify(input),
+}
+);
+const result = await response.json();
+return result;
+}
+
+if (modelo === "llma") {
+model = "@cf/meta/llama-3.2-3b-instruct"
+} else if (modelo === "llama2") {
+model = "@cf/meta/llama-3.1-8b-instruct"
+} else if (modelo === "mistral") {
+model = "@cf/mistral/mistral-7b-instruct-v0.1"
+} else if (modelo === "sqlcode") {
+model = "@cf/defog/sqlcoder-7b-2"
+} else if (modelo === "deepseek") {
+model = "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b"
+} else if (modelo === "deepseek-code") {
+model = "@hf/thebloke/deepseek-coder-6.7b-instruct-awq"
+}
+run(model, { messages: [ { role: "system", content: " " }, { role: "user", content: query }, ], }).then((response) => {
+return res.json({
+status: 'true',
+criadora,
+resultado: {
+modelo: `${modelo} AI`,
+resposta: response.result.response
+}
+});
+});
+
+} catch (error) {
+console.error('Erro ao buscar dados da API:', error);
+return res.json({
+status: 'false',
+criadora,
+resultado: {
+resposta: msgApi.erro
+}
+});
+}
+});
 
 app.get("/api/ai/imagem/similar", async (req, res) => {
 const {apikey, url} = req.query;
@@ -1400,6 +1690,276 @@ erro: "Deu erro na sua solicitação"
 }
 })
 
+////★・・・・・・★・・・ FIGURINHAS ・・・★・・・・・・★
+
+app.all('/api/sticker/emojimix', async (req, res) => {
+try {
+const { emoji1, emoji2 } = req.query;
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+let api = await fetch(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(emoji1)}_${encodeURIComponent(emoji2)}`);
+let d = await api.json();
+let imgUrl = d.results[0].media_formats.png_transparent.url;
+res.json({ 
+status: true, 
+criadora,
+resultado: {
+emoji1,
+emoji2,
+type: "sticker",
+emojimixUrl: imgUrl
+} });
+ } catch (e) {
+ res.send(msgApi.error)
+ }
+ } catch (error) {
+console.error('Erro no endpoint:', error);
+res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
+}
+})
+
+app.all('/api/sticker/emojimix2', async (req, res) => {
+ try {
+  const { apikey, emoji } = req.query;
+  if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+
+  infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+
+  try {
+   let api = await fetch(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(emoji)}`);
+   let data = await api.json();
+
+   if (!data.results || data.results.length === 0) {
+    return res.status(404).json({ erro: "Nenhum sticker encontrado para esse emoji." });
+   }
+
+   let stickers = data.results.map(item => ({
+    tags: item.tags,
+    stickerUrl: item.media_formats.png_transparent.url
+   }));
+
+   res.json({
+    status: true,
+    criadora,
+    resultado: {
+     emoji,
+     type: "sticker",
+     stickers
+    }
+   });
+
+  } catch (e) {
+   console.error('Erro ao buscar os stickers:', e);
+   res.status(500).json({ status: false, mensagem: "Erro ao buscar os stickers." });
+  }
+
+ } catch (error) {
+  console.error('Erro no endpoint:', error);
+  res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
+ }
+});
+
+
+app.all('/api/sticker/figu_emoji', async (req, res) => {
+try {
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+ try {
+ res.type('png')
+ var rnd = Math.floor(Math.random() * 102)
+ res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/sakura-botv6/master/FIGURINHAS/Figurinha-emoji/${rnd}.webp`))
+ } catch (e) {
+ res.send(msgApi.error)
+ }
+ } catch (error) {
+console.error('Erro no endpoint:', error);
+res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
+}
+ })
+
+app.all('/api/sticker/figu_desenho2', async (req, res) => {
+try {
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+ try {
+ res.type('png')
+ var rnd = Math.floor(Math.random() * 102)
+ res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/anya-bot/master/Figurinhas/figu_flork/${rnd}.webp`))
+ } catch (e) {
+ res.send(msgApi.error)
+ }
+ } catch (error) {
+console.error('Erro no endpoint:', error);
+res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
+}
+ })
+
+app.all('/api/sticker/figu_aleatori', async (req, res) => {
+try {
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+ try {
+ res.type('png')
+ var rnd = Math.floor(Math.random() * 8051)
+ res.send(await getBuffer(`https://raw.githubusercontent.com/badDevelopper/Testfigu/master/fig (${rnd}).webp`))
+ } catch (e) {
+ res.send(msgApi.error)
+ }
+} catch (error) {
+console.error('Erro no endpoint:', error);
+res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
+}
+ })
+app.all('/api/sticker/figu_memes', async (req, res) => {
+try {
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+ try {
+ res.type('png')
+ var rnd = Math.floor(Math.random() * 109)
+ res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/sakura-botv6/master/FIGURINHAS/Figurinha-memes/${rnd}.webp`))
+ } catch (e) {
+ res.send(msgApi.error)
+ }
+} catch (error) {
+console.error('Erro no endpoint:', error);
+res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
+}
+ })
+ 
+app.all('/api/sticker/figu_anime', async (req, res) => {
+try {
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+ try {
+ res.type('png')
+ var rnd = Math.floor(Math.random() * 109)
+ res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/sakura-botv6/master/FIGURINHAS/figurinha-anime/${rnd}.webp`))
+ } catch (e) {
+ res.send(msgApi.error)
+ }
+ } catch (error) {
+console.error('Erro no endpoint:', error);
+res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
+}
+ })
+ 
+app.all('/api/sticker/figu_coreana', async (req, res) => {
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+ try {
+ res.type('png')
+ var rnd = Math.floor(Math.random() * 43)
+ res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/sakura-botv6/master/FIGURINHAS/figurinha-coreana/${rnd}.webp`))
+ } catch (e) {
+ res.send(msgApi.error)
+ }
+ })
+app.all('/api/sticker/figu_bebe', async (req, res) => {
+try {
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+ try {
+ res.type('png')
+ var rnd = Math.floor(Math.random() * 17)
+ res.send(await getBuffer(`https://raw.githubusercontent.com/badDevelopper/Apis/master/pack/figbebe/${rnd}.webp`))
+ } catch (e) {
+ res.send(msgApi.error)
+ }
+ } catch (error) {
+console.error('Erro no endpoint:', error);
+res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
+}
+ })
+ 
+app.all('/api/sticker/figu_desenho', async (req, res) => {
+try {
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+ try {
+ res.type('png')
+ var rnd = Math.floor(Math.random() * 50)
+ res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/sakura-botv6/master/FIGURINHAS/figurinha-desenho/${rnd}.webp`))
+ } catch (e) {
+ res.send(msgApi.error)
+ }
+ } catch (error) {
+console.error('Erro no endpoint:', error);
+res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
+}
+ })
+ 
+app.all('/api/sticker/figu_animais', async (req, res) => {
+try {
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+ try {
+ res.type('png')
+ var rnd = Math.floor(Math.random() * 50)
+ res.send(await getBuffer(`https://raw.githubusercontent.com/badDevelopper/Apis/master/pack/figanimais/${rnd}.webp`))
+ } catch (e) {
+ res.send(msgApi.error)
+ }
+ } catch (error) {
+console.error('Erro no endpoint:', error);
+res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
+}
+ })
+
+//FEITAS POR PEDROZZ MODS
+
+app.all('/api/sticker/:nomesFigu', async (req, res) => {
+try {
+const { nomesFigu } = req.params;
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+ try {
+const config = {
+figu_random: { pastaName: 'random', NomeFig: 'ramdon', max: 585 },
+'figu+18': { pastaName: '+18', NomeFig: 'figurinhas', max: 89 },
+figu_memes2: { pastaName: 'memes', NomeFig: 'figurinhas', max: 49 },
+figu_anime2: { pastaName: 'animes', NomeFig: 'figurinhas', max: 220 },
+figu_coreanas2: { pastaName: 'coreanas', NomeFig: 'figurinhas', max: 73 },
+figu_gatos: { pastaName: 'gatos', NomeFig: 'figurinhas', max: 108 },
+figu_bts: { pastaName: 'bts', NomeFig: 'figurinhas', max: 30 },
+};
+
+const { pastaName, NomeFig, max } = config[nomesFigu];
+ res.type('png')
+ var numero = Math.floor(Math.random() * max)
+ res.send(await getBuffer(`https://pedrozz13755.github.io/Arquivos_web/figurinhas/${pastaName}/${NomeFig}${numero}.webp`))
+ } catch (e) {
+ res.send(msgApi.error)
+ }
+ } catch (error) {
+console.error('Erro no endpoint:', error);
+res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
+}
+}) 
 
 //EJS
 app.get('/login', (req, res) => {
@@ -1426,15 +1986,21 @@ res.sendFile(htmlPath);
 app.listen(3000, () => {
 //console.log(banner.string, banner2.string, banner3.string)
 consoleOnline("Server rodando: http://localhost:3000")
+bot.launch().then(() => {
+consoleSucesso('Bot iniciado');
+}).catch(err => {
+console.error('Erro ao iniciar o bot:', err);
+});
+consoleOnline('O bot acaba de ser iniciado');
 })
 
 mongoose
-  .connect(token, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => consoleOnline('Conectado ao MongoDB'))
-  .catch((err) => console.error('Erro ao conectar ao MongoDB:', err));
+ .connect(tokenDB, {
+ useNewUrlParser: true,
+ useUnifiedTopology: true,
+ })
+ .then(() => consoleOnline('Conectado ao MongoDB'))
+ .catch((err) => console.error('Erro ao conectar ao MongoDB:', err));
 
 module.exports = app
 let file = require.resolve(__filename)

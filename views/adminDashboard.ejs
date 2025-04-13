@@ -138,27 +138,117 @@
         </div>
 
     
-        <div class="user-list">
-            <% users.forEach((user) => { %>
-            <div class="user-card">
-                <p><strong>Usuário:</strong> <%= user.username %></p>
-                <p><strong>Saldo:</strong> <%= user.saldo %></p>
-                <p><strong>Level:</strong> <%= user.level %></p>
-                <p><strong>ADM:</strong> <%= user.isAdm ? 'Sim' : 'Não' %></p>
-                <p><strong>Premium:</strong> <%= user.isPremium ? 'Sim' : 'Não' %></p>
-                <p><strong>Gold:</strong> <%= user.isGold ? 'Sim' : 'Não' %></p>
-                <p><strong>Banido:</strong> <%= user.isBanido ? 'Sim' : 'Não' %></p>
-
-                <div class="user-actions">
-                    <button class="delete-btn" onclick="confirmDelete('<%= user.username %>')">Deletar</button>
-                    <a href="/editar/<%= user.username %>">
-                        <button class="edit-btn">Editar</button>
-                    </a>
-                </div>
+      <div class="user-list">
+    <% 
+        // ADM
+        users.filter(u => u.isAdm).forEach(user => { 
+    %>
+        <div class="user-card">
+        <p style="color: blue"><strong>Cargo:</strong> Administrativo</p>
+            <p><strong>Usuário:</strong> <%= user.username %></p>
+            <p><strong>Saldo:</strong> <%= user.saldo %></p>
+            <p><strong>Level:</strong> <%= user.level %></p>
+            <p><strong>ADM:</strong> <%= user.isAdm ? 'Sim' : 'Não' %></p>
+            <p><strong>Premium:</strong> <%= user.isPremium ? 'Sim' : 'Não' %></p>
+            <p><strong>Gold:</strong> <%= user.isGold ? 'Sim' : 'Não' %></p>
+            <p><strong>Banido:</strong> <%= user.isBanido ? 'Sim' : 'Não' %></p>
+            <div class="user-actions">
+                <button class="delete-btn" onclick="confirmDelete('<%= user.username %>')">Deletar</button>
+                <a href="/editar/<%= user.username %>">
+                    <button class="edit-btn">Editar</button>
+                </a>
             </div>
-            <% }) %>
         </div>
-    </div>
+    <% }) %>
+
+    <% 
+        // GOLD
+        users.filter(u => !u.isAdm && u.isGold).forEach(user => { 
+    %>
+      <div class="user-card">
+      <p style="color: gold"><strong>Plano:</strong> Gold</p>
+            <p><strong>Usuário:</strong> <%= user.username %></p>
+            <p><strong>Saldo:</strong> <%= user.saldo %></p>
+            <p><strong>Level:</strong> <%= user.level %></p>
+            <p><strong>ADM:</strong> <%= user.isAdm ? 'Sim' : 'Não' %></p>
+            <p><strong>Premium:</strong> <%= user.isPremium ? 'Sim' : 'Não' %></p>
+            <p><strong>Gold:</strong> <%= user.isGold ? 'Sim' : 'Não' %></p>
+            <p><strong>Banido:</strong> <%= user.isBanido ? 'Sim' : 'Não' %></p>
+            <div class="user-actions">
+                <button class="delete-btn" onclick="confirmDelete('<%= user.username %>')">Deletar</button>
+                <a href="/editar/<%= user.username %>">
+                    <button class="edit-btn">Editar</button>
+                </a>
+            </div>
+        </div>
+    <% }) %>
+
+    <% 
+        // PREMIUM
+        users.filter(u => !u.isAdm && !u.isGold && u.isPremium).forEach(user => { 
+    %>
+       <div class="user-card">
+       <p style="color: #7BE9F2"><strong>Plano:</strong> Premium</p>
+            <p><strong>Usuário:</strong> <%= user.username %></p>
+            <p><strong>Saldo:</strong> <%= user.saldo %></p>
+            <p><strong>Level:</strong> <%= user.level %></p>
+            <p><strong>ADM:</strong> <%= user.isAdm ? 'Sim' : 'Não' %></p>
+            <p><strong>Premium:</strong> <%= user.isPremium ? 'Sim' : 'Não' %></p>
+            <p><strong>Gold:</strong> <%= user.isGold ? 'Sim' : 'Não' %></p>
+            <p><strong>Banido:</strong> <%= user.isBanido ? 'Sim' : 'Não' %></p>
+            <div class="user-actions">
+                <button class="delete-btn" onclick="confirmDelete('<%= user.username %>')">Deletar</button>
+                <a href="/editar/<%= user.username %>">
+                    <button class="edit-btn">Editar</button>
+                </a>
+            </div>
+        </div>
+    <% }) %>
+
+    <% 
+        // LITE
+        users.filter(u => !u.isAdm && !u.isGold && !u.isPremium && u.isLite).forEach(user => { 
+    %>
+       <div class="user-card">
+       <p style="color: pink"><strong>Plano:</strong> Lite</p>
+            <p><strong>Usuário:</strong> <%= user.username %></p>
+            <p><strong>Saldo:</strong> <%= user.saldo %></p>
+            <p><strong>Level:</strong> <%= user.level %></p>
+            <p><strong>ADM:</strong> <%= user.isAdm ? 'Sim' : 'Não' %></p>
+            <p><strong>Premium:</strong> <%= user.isPremium ? 'Sim' : 'Não' %></p>
+            <p><strong>Gold:</strong> <%= user.isGold ? 'Sim' : 'Não' %></p>
+            <p><strong>Banido:</strong> <%= user.isBanido ? 'Sim' : 'Não' %></p>
+            <div class="user-actions">
+                <button class="delete-btn" onclick="confirmDelete('<%= user.username %>')">Deletar</button>
+                <a href="/editar/<%= user.username %>">
+                    <button class="edit-btn">Editar</button>
+                </a>
+            </div>
+        </div>
+    <% }) %>
+
+    <% 
+        // FREE (sem nenhuma categoria)
+        users.filter(u => !u.isAdm && !u.isGold && !u.isPremium && u.level !== 'lite').forEach(user => { 
+    %>
+       <div class="user-card">
+       <p style="color: #b2b1b6"><strong>Plano:</strong> Free</p>
+            <p><strong>Usuário:</strong> <%= user.username %></p>
+            <p><strong>Saldo:</strong> <%= user.saldo %></p>
+            <p><strong>Level:</strong> <%= user.level %></p>
+            <p><strong>ADM:</strong> <%= user.isAdm ? 'Sim' : 'Não' %></p>
+            <p><strong>Premium:</strong> <%= user.isPremium ? 'Sim' : 'Não' %></p>
+            <p><strong>Gold:</strong> <%= user.isGold ? 'Sim' : 'Não' %></p>
+            <p><strong>Banido:</strong> <%= user.isBanido ? 'Sim' : 'Não' %></p>
+            <div class="user-actions">
+                <button class="delete-btn" onclick="confirmDelete('<%= user.username %>')">Deletar</button>
+                <a href="/editar/<%= user.username %>">
+                    <button class="edit-btn">Editar</button>
+                </a>
+            </div>
+        </div>
+    <% }) %>
+</div>
 
     <script>
         function confirmDelete(username) {

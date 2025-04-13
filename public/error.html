@@ -1,214 +1,460 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <title>Erro Interno do Servidor</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0a0f1c;
-            color: #ffffff;
-            position: relative;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" sizes="180x180" href="https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta property="og:title" content="Página corrompida ⚠️">
+<meta property="og:description" content="Essa página não se encontra em minha constelação 🌙">
+<title>Página corrompida ⚠️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root {
+--roxo: #A74DFF;
+--roxo-escuro: #4D0051;
+--azul: #78DBF9;
+--preto: #0d0d0d;
+--cinza-escuro: #1a1a1a;
+--cinza-claro: #f5f5f5;
+}
 
-        .container {
-            text-align: center;
-            padding: 2rem;
-            max-width: 600px;
-            z-index: 1;
-        }
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
 
-        .error-code {
-            font-size: 8rem;
-            font-weight: bold;
-            margin: 0;
-            background: linear-gradient(45deg, #8ab2f5, #5a67d8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.4);
-        }
+body {
+font-family: 'Poppins', sans-serif;
+background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+color: var(--cinza-claro);
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+overflow-x: hidden;
+position: relative;
+}
 
-        .error-message {
-            font-size: 2rem;
-            margin: 1rem 0;
-            color: #dce3f1;
-        }
+body::before {
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: 
+radial-gradient(circle at 20% 30%, rgba(255, 77, 77, 0.15) 0%, transparent 30%),
+radial-gradient(circle at 80% 70%, rgba(255, 215, 0, 0.1) 0%, transparent 30%);
+z-index: -1;
+}
 
-        .error-description {
-            font-size: 1.1rem;
-            color: #b3c0e1;
-            margin: 1rem 0 2rem 0;
-            line-height: 1.6;
-        }
+.login-container {
+width: 100%;
+max-width: 450px;
+background: rgba(13, 13, 13, 0.95);
+border-radius: 16px;
+box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+overflow: hidden;
+border: 1px solid rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(10px);
+transform-style: preserve-3d;
+perspective: 1000px;
+transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+animation: float 6s ease-in-out infinite;
+}
 
-        .status-box {
-            background-color: rgba(138, 178, 245, 0.1);
-            border: 1px solid rgba(138, 178, 245, 0.3);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-        }
+.login-header {
+background: linear-gradient(90deg, var(--roxo) 0%, var(--roxo-escuro) 100%);
+padding: 30px;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
 
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+.login-header::after {
+content: "";
+position: absolute;
+top: -50%;
+left: -50%;
+width: 200%;
+height: 200%;
+background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+transform: rotate(30deg);
+animation: shine 3s infinite;
+}
 
-        .button {
-            background: linear-gradient(45deg, #8ab2f5, #5a67d8);
-            color: white;
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            text-decoration: none;
-            display: inline-block;
-        }
+.logo {
+font-size: 2.5rem;
+font-weight: 700;
+color: white;
+margin-bottom: 10px;
+text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+}
 
-        .button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(138, 178, 245, 0.3);
-        }
+.logo-icon {
+width: 40px;
+height: 40px;
+background: var(--azul);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+box-shadow: 0 0 20px var(--azul);
+}
 
-        .button.secondary {
-            background: transparent;
-            border: 2px solid #8ab2f5;
-        }
+.login-title {
+font-size: 1.2rem;
+font-weight: 300;
+opacity: 0.9;
+letter-spacing: 1px;
+}
 
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            top: 0;
-            left: 0;
-            z-index: 0;
-        }
+.login-content {
+padding: 30px;
+}
 
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            animation: twinkle 2s infinite alternate;
-        }
+.admin-badge {
+text-align: center;
+margin-bottom: 30px;
+position: relative;
+padding: 20px;
+background: rgba(0, 0, 0, 0.3);
+border-radius: 10px;
+border-left: 4px solid var(--azul);
+}
 
-        @keyframes twinkle {
-            from { opacity: 0.5; transform: scale(1); }
-            to { opacity: 1; transform: scale(1.3); }
-        }
+.welcome-text {
+font-size: 1.1rem;
+font-weight: 300;
+color: rgba(255, 255, 255, 0.8);
+margin-bottom: 5px;
+}
 
-        .shooting-star {
-            position: absolute;
-            width: 7px;
-            height: 7px;
-            background: rgba(255, 255, 255, 1);
-            box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.9);
-            border-radius: 15%;
-            animation: shooting 1.5s linear forwards;
-        }
+.admin-nickname {
+font-family: 'Montserrat', sans-serif;
+font-size: 2.2rem;
+font-weight: 700;
+background: linear-gradient(45deg, var(--azul), #ffffff);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+letter-spacing: 1px;
+margin: 10px 0;
+position: relative;
+display: inline-block;
+}
 
-        @keyframes shooting {
-            from {
-                transform: translateX(0) translateY(0) rotate(45deg);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(-50vw) translateY(30vh) rotate(45deg);
-                opacity: 0;
-            }
-        }
+.admin-nickname::after {
+content: "";
+position: absolute;
+bottom: -5px;
+left: 0;
+width: 100%;
+height: 2px;
+background: linear-gradient(90deg, transparent, var(--azul), transparent);
+}
 
-        footer {
-            width: 100%;
-            text-align: center;
-            padding: 1rem;
-            margin-top: auto;
-            background: rgba(10, 15, 28, 0.9);
-            color: #b3c0e1;
-            font-size: 0.9rem;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-        }
+.admin-role {
+font-size: 0.9rem;
+color: var(--azul);
+text-transform: uppercase;
+letter-spacing: 2px;
+}
 
-        footer a {
-            color: #8ab2f5;
-            text-decoration: none;
-        }
+.ip-info {
+background: rgba(255, 255, 255, 0.05);
+border: 1px solid rgba(255, 255, 255, 0.1);
+border-radius: 8px;
+padding: 12px;
+margin: 25px 0;
+font-family: 'Courier New', monospace;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
 
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+.ip-info::before {
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(90deg, transparent, rgba(255, 77, 77, 0.1), transparent);
+transform: translateX(-100%);
+animation: ipShine 2s infinite;
+}
+
+.ip-label {
+display: block;
+font-size: 0.8rem;
+color: var(--azul);
+margin-bottom: 5px;
+}
+
+.ip-address {
+font-size: 1.1rem;
+letter-spacing: 1px;
+}
+
+.enter-button {
+width: 100%;
+padding: 16px;
+background: linear-gradient(45deg, var(--roxo), var(--roxo-escuro));
+color: white;
+border: none;
+border-radius: 8px;
+font-size: 1.1rem;
+font-weight: 600;
+cursor: pointer;
+margin-top: 20px;
+position: relative;
+overflow: hidden;
+transition: all 0.3s ease;
+box-shadow: 0 5px 15px rgba(255, 77, 77, 0.4);
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+}
+
+.enter-button:hover {
+transform: translateY(-3px);
+box-shadow: 0 8px 20px rgba(255, 77, 77, 0.6);
+}
+
+.enter-button:active {
+transform: translateY(1px);
+}
+
+.enter-button::after {
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+transform: translateX(-100%);
+transition: transform 0.6s ease;
+}
+
+.enter-button:hover::after {
+transform: translateX(100%);
+}
+
+.access-denied {
+text-align: center;
+padding: 20px;
+background: rgba(255, 77, 77, 0.1);
+border-radius: 8px;
+margin-top: 20px;
+border-left: 4px solid var(--roxo);
+}
+
+.denied-title {
+color: var(--roxo);
+font-size: 1.3rem;
+margin-bottom: 10px;
+}
+
+.denied-message {
+font-size: 0.9rem;
+opacity: 0.8;
+}
+
+.pulse {
+animation: pulse 2s infinite;
+}
+
+@keyframes float {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+
+@keyframes shine {
+0% { transform: rotate(30deg) translate(-10%, -10%); }
+100% { transform: rotate(30deg) translate(100%, 100%); }
+}
+
+@keyframes ipShine {
+100% { transform: translateX(100%); }
+}
+
+@keyframes pulse {
+0% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0.7); }
+70% { box-shadow: 0 0 0 10px rgba(255, 77, 77, 0); }
+100% { box-shadow: 0 0 0 0 rgba(255, 77, 77, 0); }
+}
+.stars {
+position: absolute;
+width: 100%;
+height: 100%;
+overflow: hidden;
+top: 0;
+left: 0;
+z-index: 0;
+}
+
+.star {
+position: absolute;
+width: 2px;
+height: 2px;
+background: rgba(255, 255, 255, 0.8);
+box-shadow: 0px 0px 8px rgba(255, 255, 255, 0.8);
+border-radius: 50%;
+animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+from { opacity: 0.5; transform: scale(1); }
+to { opacity: 1; transform: scale(1.3); }
+}
+
+.shooting-star {
+position: absolute;
+width: 7px;
+height: 7px;
+background: rgba(255, 255, 255, 1);
+box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.9);
+border-radius: 15%;
+animation: shooting 1.5s linear forwards;
+}
+
+@keyframes shooting {
+from {
+transform: translateX(0) translateY(0) rotate(45deg);
+opacity: 1;
+}
+to {
+transform: translateX(-50vw) translateY(30vh) rotate(45deg);
+opacity: 0;
+}
+}
+/* Efeitos para dispositivos móveis */
+@media (max-width: 480px) {
+.login-container {
+max-width: 90%;
+border-radius: 12px;
+}
+
+.login-header {
+padding: 20px;
+}
+
+.logo {
+font-size: 2rem;
+}
+
+.admin-nickname {
+font-size: 1.8rem;
+}
+}
+</style>
 </head>
 <body>
-    <div class="stars" id="stars"></div>
+<div class="stars" id="stars"></div>
+<div class="login-container" id="loginContainer">
+<div class="login-header">
+<div class="logo">
+ 
+Moonlight API
+</div>
+<div class="login-title">ERROR 404</div>
+</div>
 
-    <div class="container">
-        <h1 class="error-code">404</h1>
-        <h2 class="error-message">Página não encontrada</h2>
-        <div class="status-box">
-            <p class="error-description">
-              Parece que você encontrou um buraco negro na internet
-            </p>
-        </div>
-        <a href="/" class="button">Voltar</a>
-    </div>
+<div class="login-content">
 
-    <footer>
-        &copy; <script>document.write(new Date().getFullYear());</script> - Todos os direitos reservados | <a href="https://m.youtube.com/@Moonlight_Devs">Moonlight_Devs</a>
-    </footer>
+<div class="ip-info">
+<span class="ip-label">Data de Hoje</span>
+<span class="ip-address" id="userIP"></span>
+</div>
+ 
 
-    <script>
-        function createStars() {
-            const starContainer = document.getElementById('stars');
-            for (let i = 0; i < 120; i++) {
-                let star = document.createElement('span');
-                star.classList.add('star');
-                let x = Math.random() * window.innerWidth;
-                let y = Math.random() * window.innerHeight;
-                star.style.top = `${y}px`;
-                star.style.left = `${x}px`;
-                star.style.animationDelay = `${Math.random() * 2}s`;
-                starContainer.appendChild(star);
-            }
-        }
+<div id="accessDenied" style="display: none;">
+<div class="access-denied">
+<div class="denied-title">PÁGINA NÃO ENCONTRADA</div>
+<div class="denied-message">Essa página não se encontra em minha constelação 🌙.</div>
+</div>
+</div>
+</div>
+</div>
 
-        function createShootingStar() {
-            let shootingStar = document.createElement('span');
-            shootingStar.classList.add('shooting-star');
+<!-- ALTERAÇÃO NO SCRIPT APENAS -->
+<script>
+// Efeito 3D no container
+const loginContainer = document.getElementById('loginContainer');
 
-            let startX = Math.random() * window.innerWidth;
-            let startY = Math.random() * window.innerHeight * 0.5;
+loginContainer.addEventListener('mousemove', (e) => {
+const xAxis = (window.innerWidth / 2 - e.pageX) / 15;
+const yAxis = (window.innerHeight / 2 - e.pageY) / 15;
+loginContainer.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+});
 
-            shootingStar.style.top = `${startY}px`;
-            shootingStar.style.left = `${startX}px`;
-            shootingStar.style.animationDuration = `${1.2 + Math.random()}s`;
+loginContainer.addEventListener('mouseenter', () => {
+loginContainer.style.transition = 'all 0.1s ease';
+});
 
-            document.body.appendChild(shootingStar);
+loginContainer.addEventListener('mouseleave', () => {
+loginContainer.style.transition = 'all 0.5s ease';
+loginContainer.style.transform = 'rotateY(0deg) rotateX(0deg)';
+});
 
-            setTimeout(() => {
-                shootingStar.remove();
-            }, 1500);
-        }
+// Quando a página carregar
+window.onload = function() {
+const adminBadge = document.getElementById('adminBadge');
+const adminNickname = document.getElementById('adminNickname');
+const userIP = document.getElementById('userIP');
+const enterButton = document.getElementById('enterButton');
+const accessDenied = document.getElementById('accessDenied');
 
-        setInterval(createShootingStar, 1000);
-        createStars();
-    </script>
+// Apenas mostra o IP como data atual (como estava)
+document.getElementById("userIP").textContent = new Date().toLocaleDateString("pt-BR");
+
+// Sempre mostra acesso negado (sem checagem de IP)
+accessDenied.style.display = 'block';
+};
+
+function createStars() {
+const starContainer = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+let star = document.createElement('span');
+star.classList.add('star');
+let x = Math.random() * window.innerWidth;
+let y = Math.random() * window.innerHeight;
+star.style.top = `${y}px`;
+star.style.left = `${x}px`;
+star.style.animationDelay = `${Math.random() * 2}s`;
+starContainer.appendChild(star);
+}
+}
+
+function createShootingStar() {
+let shootingStar = document.createElement('span');
+shootingStar.classList.add('shooting-star');
+
+let startX = Math.random() * window.innerWidth;
+let startY = Math.random() * window.innerHeight * 0.5;
+
+shootingStar.style.top = `${startY}px`;
+shootingStar.style.left = `${startX}px`;
+shootingStar.style.animationDuration = `${1.2 + Math.random()}s`;
+
+document.body.appendChild(shootingStar);
+
+setTimeout(() => {
+shootingStar.remove();
+}, 1500);
+}
+
+setInterval(createShootingStar, 1000);
+createStars();
+</script>
 </body>
 </html>

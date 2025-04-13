@@ -39,15 +39,14 @@ href="https://ferdiz-afk.github.io/deskapp/src/plugins/datatables/css/dataTables
 href="https://ferdiz-afk.github.io/deskapp/src/plugins/datatables/css/responsive.bootstrap4.min.css">
 <link rel="stylesheet" type="text/css" href="https://ferdiz-afk.github.io/deskapp/vendors/styles/style.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-
-function gtag() {
-dataLayer.push(arguments);
-}
-gtag('js', new Date());
-gtag('config', 'UA-119386393-1');
-</script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "r246lwmtd1");
+  </script>
+  
 <style>
 body {
 min-height: 100vh;
@@ -512,6 +511,12 @@ Redefinir configurações
 <ul class="submenu">
 <li>
 <a href="/api/ai/texto/gemini?query=Bom dia&apikey=<%= user.key %>">Gemini</a>
+<a href="/api/ai2/texto/llma?query=Bom dia&apikey=<%= user.key %>">Llama</a>
+<a href="/api/ai2/texto/llma2?query=Bom dia&apikey=<%= user.key %>">Llama 2</a>
+<a href="/api/ai2/texto/sqlcode?query=Bom dia&apikey=<%= user.key %>">Sqlcode</a>
+<a href="/api/ai2/texto/mistral?query=Bom dia&apikey=<%= user.key %>">Mistral</a>
+<a href="/api/ai2/texto/deepseek?query=Bom dia&apikey=<%= user.key %>">Deepseek</a>
+<a href="/api/ai2/texto/deepseek-code?query=Bom dia&apikey=<%= user.key %>">Deepseek-Code</a>
 <a href="/api/ai/texto/chatGpt?query=Bom dia&apikey=<%= user.key %>">Chat Gpt</a>
 <a href="/api/ai/texto/gptPrompt?prompt=Voce e um chat bot do whatsapp&query=Bom dia&apikey=<%= user.key %>">Gpt Prompt</a>
 <a href="/api/ai/imagem/similar?url=https://files.catbox.moe/hhvsrn.jpg&apikey=<%= user.key %>">Rosto similar</a>
@@ -523,6 +528,36 @@ Redefinir configurações
 </ul>
 </li>
 <!------>
+<li class="dropdown">
+<a href="javascript:;" class="dropdown-toggle" data-option="off">
+<span class="micon fa-thin fa-note-sticky"></span>
+<span class="mtext">Figurinhas</span>
+</a>
+<ul class="submenu">
+<li>
+<a href="/api/sticker/emojimix?emoji1=🌙&emoji2=😍&apikey=<%= user.key %>">EmojiMix</a>
+<a href="/api/sticker/emojimix2?emoji=😍&apikey=<%= user.key %>">EmojiMix 2</a>
+<a href="/api/sticker/Figu aleatori?apikey=<%= user.key %>">Figu Aleatoria</a>
+<a href="/api/sticker/Figu random?apikey=<%= user.key %>">Figu Random</a>
+<a href="/api/sticker/Figu emoji?apikey=<%= user.key %>">Figu Emoji</a>
+<a href="/api/sticker/Figu desenho2?apikey=<%= user.key %>">Figu Desenho</a>
+<a href="/api/sticker/Figu memes?apikey=<%= user.key %>">Figu Memes</a>
+<a href="/api/sticker/Figu anime?apikey=<%= user.key %>">Figu Anime</a>
+<a href="/api/sticker/Figu coreana?apikey=<%= user.key %>">Figu Coreana</a>
+<a href="/api/sticker/Figu bebe?apikey=<%= user.key %>">Figu Bebe</a>
+<a href="/api/sticker/Figu desenho?apikey=<%= user.key %>">Figu Desenho</a>
+<a href="/api/sticker/Figu animais?apikey=<%= user.key %>">Figu Animais</a>
+<a href="/api/sticker/figu+18?apikey=<%= user.key %>">figu+18</a>
+<a href="/api/sticker/Figu memes2?apikey=<%= user.key %>">Figu Memes2</a>
+<a href="/api/sticker/Figu anime2?apikey=<%= user.key %>">Figu Anime2</a>
+<a href="/api/sticker/Figu coreanas2?apikey=<%= user.key %>">Figu Coreanas2</a>
+<a href="/api/sticker/Figu bts?apikey=<%= user.key %>">Figu Bts</a>
+<a href="/api/sticker/Figu gatos?apikey=<%= user.key %>">Figu Gatos</a>
+</li>
+</ul>
+</li>
+<!------>
+
 <li class="dropdown">
 <a href="javascript:;" class="dropdown-toggle" data-option="off">
 <span class="micon fa-thin fa-pencil"></span>
@@ -646,6 +681,7 @@ Redefinir configurações
 <ul class="submenu">
 <li>
 <a href="#">Moon Bot</a>
+<a href="https://t.me/lunarNoturno_bot">Lunar Tele</a>
 </li>
 </ul>
 </li>
