@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Moonlight API 🌙</title>
+  <meta name="description" content="Seja bem-vindo à Moonlight API 🌙, sua solução confiável para integrações modernas.">
+  <meta property="og:title" content="Moonlight API 🌙">
+  <meta property="og:description" content="Seja bem-vindo à Moonlight API 🌙">
+
+  <link rel="apple-touch-icon" href="https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg" />
+
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "r246lwmtd1");
+  </script>
+
+  <style>
+    :root {
+      --primary: #8ab2f5;
+      --accent: #5a67d8;
+      --bg-dark: #0a0f1c;
+      --bg-panel: rgba(15, 20, 35, 0.95);
+      --text-light: #dce3f1;
+      --text-muted: #b3c0e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-dark);
+      color: white;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--bg-panel);
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .star, .shooting-star {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .star {
+      width: 2px;
+      height: 2px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      animation: twinkle 2s infinite alternate;
+    }
+
+    .shooting-star {
+      width: 6px;
+      height: 6px;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+      animation: shooting 1.5s linear forwards;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.5; transform: scale(1); }
+      to { opacity: 1; transform: scale(1.3); }
+    }
+
+    @keyframes shooting {
+      from { transform: translateX(0) translateY(0) rotate(45deg); opacity: 1; }
+      to { transform: translateX(-60vw) translateY(40vh) rotate(45deg); opacity: 0; }
+    }
+
+    @keyframes pulse {
+      from { opacity: 0.5; transform: scale(1); }
+      to { opacity: 1; transform: scale(1.04); }
+    }
+
+    main.hero {
+      padding: 9rem 2rem 3rem;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: 3rem;
+      color: var(--primary);
+    }
+
+    .hero-text {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+      line-height: 1.7;
+    }
+
+    .button-container {
+      margin-top: 2rem;
+    }
+
+    .button {
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      color: white;
+      padding: 0.9rem 2rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      margin: 0.5rem;
+      display: inline-block;
+      animation: pulse 2s infinite alternate;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(138, 178, 245, 0.4);
+    }
+
+    .projects {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .projects-title {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
+    }
+
+    .project-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: rgba(20, 28, 45, 0.9);
+      border: 1px solid rgba(138, 178, 245, 0.2);
+      border-radius: 12px;
+      padding: 1rem;
+      width: 280px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(138, 178, 245, 0.2);
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .project-name {
+      font-size: 1.3rem;
+      margin: 0.8rem 0;
+      color: var(--text-light);
+    }
+
+    .project-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    footer {
+      background: var(--bg-panel);
+      color: var(--text-muted);
+      padding: 3rem 1rem 1rem;
+      text-align: center;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      padding: 1rem;
+    }
+
+    .footer-title {
+      font-size: 1.2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .footer-bottom {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(138, 178, 245, 0.3);
+      padding-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+
+  <header>
+    <div class="logo" aria-label="Logo Moonlight API">Moonlight API</div>
+  </header>
+
+  <main class="hero">
+    <h1 class="hero-title">Potencialize seus projetos com a Moonlight API</h1>
+    <p class="hero-text">Uma API poderosa, confiável e de alto desempenho para integrar suas aplicações. Recursos exclusivos, planos acessíveis e suporte dedicado.</p>
+
+    <div class="button-container">
+      <a href="/dashboard" class="button" aria-label="Acessar Dashboard">Dashboard</a>
+      <a href="/planos" class="button" aria-label="Ver Planos">Planos</a>
+    </div>
+  </main>
+
+  <section class="projects">
+    <h2 class="projects-title">Projetos em Destaque</h2>
+    <div class="project-list">
+      <div class="project-card">
+        <img src="https://files.catbox.moe/z5cghd.jpg" alt="Imagem do MoonBot" />
+        <h3 class="project-name">MoonBot 🌙</h3>
+        <p class="project-desc">Um bot avançado para WhatsApp, impulsionado pela Moonlight API.</p>
+        <p class="project-desc" style="color: gray;">Em desenvolvimento...</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3 class="footer-title">Sobre</h3>
+        <p class="footer-text">A Moonlight API é uma plataforma completa para desenvolvedores que buscam eficiência e confiabilidade.</p>
+      </div>
+      <div class="footer-section">
+        <h3 class="footer-title">Créditos</h3>
+        <p class="footer-text">Desenvolvido por Moonlight Devs</p>
+        <p class="footer-text">Base API por @Clovermyt</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; <script>document.write(new Date().getFullYear());</script> Moonlight API - Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <script>
+    const starsContainer = document.getElementById('stars');
+
+    function createStars() {
+      for (let i = 0; i < 120; i++) {
+        const star = document.createElement('span');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * window.innerHeight}px`;
+        star.style.left = `${Math.random() * window.innerWidth}px`;
+        star.style.animationDelay = `${Math.random() * 2}s`;
+        starsContainer.appendChild(star);
+      }
+    }
+
+    function createShootingStar() {
+      const star = document.createElement('span');
+      star.classList.add('shooting-star');
+      star.style.top = `${Math.random() * window.innerHeight * 0.5}px`;
+      star.style.left = `${Math.random() * window.innerWidth}px`;
+      star.style.animationDuration = `${1.2 + Math.random()}s`;
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1500);
+    }
+
+    createStars();
+    setInterval(createShootingStar, 2500);
+  </script>
+</body>
+</html>

