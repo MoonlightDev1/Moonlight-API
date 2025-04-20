@@ -4,218 +4,335 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Moonlight API 🌙</title>
-  <meta name="description" content="Moonlight API 🌙 - Solução avançada para suas integrações.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="description" content="Seja bem-vindo à Moonlight API 🌙, sua solução confiável para integrações modernas.">
+  <meta property="og:title" content="Moonlight API 🌙">
+  <meta property="og:description" content="Seja bem-vindo à Moonlight API 🌙">
+
+  <link rel="apple-touch-icon" href="https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg" />
+
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "r246lwmtd1");
+  </script>
+
   <style>
-    body {
+    :root {
+      --primary: #8ab2f5;
+      --accent: #5a67d8;
+      --bg-dark: #0a0f1c;
+      --bg-panel: rgba(15, 20, 35, 0.95);
+      --text-light: #dce3f1;
+      --text-muted: #b3c0e1;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000000 100%);
-      color: #ffffff;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-dark);
+      color: white;
       overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--bg-panel);
+      padding: 1rem 2rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: var(--primary);
     }
 
     .stars {
       position: fixed;
       width: 100%;
       height: 100%;
-      z-index: -2;
-      background: transparent;
-      pointer-events: none;
-    }
-
-    .stars::after {
-      content: '';
-      position: absolute;
-      width: 2000px;
-      height: 2000px;
-      background: transparent url('https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/stars.png') repeat;
-      animation: moveStars 200s linear infinite;
-      opacity: 0.3;
-    }
-
-    @keyframes moveStars {
-      from { transform: translateY(0); }
-      to { transform: translateY(-1000px); }
-    }
-
-    header {
-      background-color: rgba(13, 27, 42, 0.9);
-      padding: 1rem 2rem;
-      text-align: center;
-      position: sticky;
       top: 0;
-      z-index: 100;
-      border-bottom: 1px solid #2c3e50;
+      left: 0;
+      z-index: -1;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: #8ab2f5;
+    .star, .shooting-star {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
     }
 
-    .hero {
+    .star {
+      width: 2px;
+      height: 2px;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+      animation: twinkle 2s infinite alternate;
+    }
+
+    .shooting-star {
+      width: 6px;
+      height: 6px;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.9);
+      animation: shooting 1.5s linear forwards;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.5; transform: scale(1); }
+      to { opacity: 1; transform: scale(1.3); }
+    }
+
+    @keyframes shooting {
+      from { transform: translateX(0) translateY(0) rotate(45deg); opacity: 1; }
+      to { transform: translateX(-60vw) translateY(40vh) rotate(45deg); opacity: 0; }
+    }
+
+    @keyframes pulse {
+      from { opacity: 0.5; transform: scale(1); }
+      to { opacity: 1; transform: scale(1.04); }
+    }
+
+    main.hero {
+      padding: 9rem 2rem 3rem;
       text-align: center;
-      padding: 6rem 2rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: #a2d2ff;
+    .hero-title {
+      font-size: 3rem;
+      color: var(--primary);
     }
 
-    .hero p {
-      font-size: 1.2rem;
-      color: #cbd5e1;
-      max-width: 700px;
-      margin: auto;
+    .hero-text {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-top: 1rem;
+      line-height: 1.7;
     }
 
-    .buttons {
+    .button-container {
       margin-top: 2rem;
     }
 
     .button {
-      background: linear-gradient(45deg, #8ab2f5, #5a67d8);
+      background: linear-gradient(45deg, var(--primary), var(--accent));
       color: white;
-      padding: 0.8rem 2rem;
+      padding: 0.9rem 2rem;
       border: none;
       border-radius: 10px;
       font-size: 1rem;
-      margin: 0.5rem;
+      cursor: pointer;
       text-decoration: none;
+      margin: 0.5rem;
       display: inline-block;
-      transition: transform 0.3s, box-shadow 0.3s;
+      animation: pulse 2s infinite alternate;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(138, 178, 245, 0.4);
+      box-shadow: 0 4px 12px rgba(138, 178, 245, 0.4);
     }
 
-    section {
+    .projects {
       padding: 4rem 2rem;
       text-align: center;
     }
 
-    section h3 {
+    .projects-title {
       font-size: 2rem;
-      color: #8ab2f5;
-      margin-bottom: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 2rem;
     }
 
-    .features, .projects {
+    .project-list {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 1.5rem;
     }
 
-    .card {
-      background-color: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .project-card {
+      background: rgba(20, 28, 45, 0.9);
+      border: 1px solid rgba(138, 178, 245, 0.2);
       border-radius: 12px;
-      padding: 1.5rem;
+      padding: 1rem;
       width: 280px;
-      backdrop-filter: blur(6px);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .card h4 {
-      margin-bottom: 0.5rem;
-      color: #dce3f1;
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(138, 178, 245, 0.2);
     }
 
-    .card p {
-      color: #b3c0e1;
+    .project-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .project-name {
+      font-size: 1.3rem;
+      margin: 0.8rem 0;
+      color: var(--text-light);
+    }
+
+    .project-desc {
       font-size: 0.95rem;
-      line-height: 1.4;
-    }
-
-    .card img {
-      max-width: 100%;
-      border-radius: 10px;
-      margin-bottom: 1rem;
+      color: var(--text-muted);
+      line-height: 1.5;
     }
 
     footer {
-      background-color: rgba(10, 15, 28, 0.95);
-      padding: 2rem 1rem;
+      background: var(--bg-panel);
+      color: var(--text-muted);
+      padding: 3rem 1rem 1rem;
       text-align: center;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      padding: 1rem;
+    }
+
+    .footer-title {
+      font-size: 1.2rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-text {
       font-size: 0.9rem;
-      color: #b3c0e1;
+      line-height: 1.5;
     }
 
-    footer a {
-      color: #8ab2f5;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    @media (max-width: 600px) {
-      .card {
-        width: 90%;
-      }
-
-      .hero h2 {
-        font-size: 2rem;
-      }
+    .footer-bottom {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      border-top: 1px solid rgba(138, 178, 245, 0.3);
+      padding-top: 1rem;
     }
   </style>
 </head>
 <body>
-  <div class="stars"></div>
+  <div class="stars" id="stars"></div>
 
   <header>
-    <h1>Moonlight API 🌙</h1>
+    <div class="logo" aria-label="Logo Moonlight API">Moonlight API</div>
   </header>
 
-  <section class="hero">
-    <h2>Potencialize seus projetos com a Moonlight API</h2>
-    <p>Uma API poderosa e confiável para desenvolvedores modernos. Desempenho rápido, suporte ativo e integração fácil com diversos serviços.</p>
-    <div class="buttons">
-      <a href="/dashboard" class="button">Dashboard</a>
-      <a href="/planos" class="button">Ver Planos</a>
-    </div>
-  </section>
+  <main class="hero">
+    <h1 class="hero-title">Potencialize seus projetos com a Moonlight API</h1>
+    <p class="hero-text">Uma API poderosa, confiável e de alto desempenho para integrar suas aplicações. Recursos exclusivos, planos acessíveis e suporte dedicado.</p>
 
-  <section>
-    <h3>Por que escolher a Moonlight?</h3>
-    <div class="features">
-      <div class="card">
-        <h4>Alta Performance</h4>
-        <p>Processamento rápido e respostas em tempo real para aplicações exigentes.</p>
-      </div>
-      <div class="card">
-        <h4>Infraestrutura Estável</h4>
-        <p>Servidores seguros e disponíveis 24/7 com monitoramento constante.</p>
-      </div>
-      <div class="card">
-        <h4>Planos Acessíveis</h4>
-        <p>Modelos flexíveis para todos os tipos de projetos e necessidades.</p>
-      </div>
+    <div class="button-container">
+      <a href="/dashboard" class="button" aria-label="Acessar Dashboard">Dashboard</a>
+      <a href="/planos" class="button" aria-label="Ver Planos">Planos</a>
     </div>
-  </section>
+  </main>
 
-  <section>
-    <h3>Projetos em Destaque</h3>
-    <div class="projects">
-      <div class="card">
-        <img src="https://files.catbox.moe/z5cghd.jpg" alt="MoonBot" />
-        <h4>MoonBot 🌙</h4>
-        <p>Um bot inteligente para WhatsApp integrado com a Moonlight API. Em desenvolvimento...</p>
+  <section class="projects">
+    <h2 class="projects-title">Projetos em Destaque</h2>
+    <div class="project-list">
+      <div class="project-card">
+        <img src="https://files.catbox.moe/z5cghd.jpg" alt="Imagem do MoonBot" />
+        <h3 class="project-name">MoonBot 🌙</h3>
+        <p class="project-desc">Um bot avançado para WhatsApp, impulsionado pela Moonlight API.</p>
+        <p class="project-desc" style="color: white;">Status: <span style="color: red;">Desenvolvimento</span></p>
+      </div>
+    </div><br>
+    
+    <div class="project-list">
+      <div class="project-card">
+        <a href="https://t.me/@lunarNoturno_bot"><img src="https://files.catbox.moe/yie1yr.png" alt="Imagem do lunar" /></a>
+        <h3 class="project-name">Lunar bot 🌕</h3>
+        <p class="project-desc">O bot oficial da Moonlight API.</p>
+        <p class="project-desc" style="color: white;">Status: <span style="color: green;">Online</span></p>
+      </div>
+    </div><br>
+    
+    <div class="project-list">
+      <div class="project-card">
+        <a href="https://moonlight-api.onrender.com"><img src="https://files.catbox.moe/qs6ahh.png" alt="Imagem do moon" /></a>
+        <h3 class="project-name">Moonlight Api 🌙</h3>
+        <p class="project-desc">Api oficial da moonlight Devs 🌸</p>
+        <p class="project-desc" style="color: white;">Status: <span style="color: green;">Online</span></p>
       </div>
     </div>
+    
   </section>
 
   <footer>
-    <p>Desenvolvido por <a href="#">Moonlight Devs</a> | Base API por <a href="#">@Clovermyt</a></p>
-    <p>&copy; <script>document.write(new Date().getFullYear());</script> Moonlight API - Todos os direitos reservados.</p>
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3 class="footer-title">Sobre</h3>
+        <p class="footer-text">A Moonlight API é uma plataforma completa para desenvolvedores que buscam eficiência e confiabilidade.</p>
+      </div>
+      <div class="footer-section">
+        <h3 class="footer-title">Créditos</h3>
+        <p class="footer-text">Desenvolvido por Moonlight Devs</p>
+        <p class="footer-text">Base API por @Clovermyt</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; <script>document.write(new Date().getFullYear());</script> Moonlight API - Todos os direitos reservados.
+    </div>
   </footer>
+
+  <script>
+    const starsContainer = document.getElementById('stars');
+
+    function createStars() {
+      for (let i = 0; i < 120; i++) {
+        const star = document.createElement('span');
+        star.classList.add('star');
+        star.style.top = `${Math.random() * window.innerHeight}px`;
+        star.style.left = `${Math.random() * window.innerWidth}px`;
+        star.style.animationDelay = `${Math.random() * 2}s`;
+        starsContainer.appendChild(star);
+      }
+    }
+
+    function createShootingStar() {
+      const star = document.createElement('span');
+      star.classList.add('shooting-star');
+      star.style.top = `${Math.random() * window.innerHeight * 0.5}px`;
+      star.style.left = `${Math.random() * window.innerWidth}px`;
+      star.style.animationDuration = `${1.2 + Math.random()}s`;
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1500);
+    }
+
+    createStars();
+    setInterval(createShootingStar, 2500);
+  </script>
 </body>
 </html>
