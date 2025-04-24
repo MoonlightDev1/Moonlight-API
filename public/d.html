@@ -1,8 +1,702 @@
-<iframe id="cardApiIframe" scrolling="no" width="100%" height="100%" allowtransparency="true" scrolling="no" style="border: none" src="https://p.oceansaver.in/api/card2/?url=https://youtu.be/0-HfpQGAQX8?si=hocE4mNR7Nivzvth&adUrl=https://myAdurl.com"></iframe>
-<!-- Put the Library in your <head> tag -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.min.js"></script>
-<!-- Put the resizer code after the <iframe> tag --><script>
-    iFrameResize({
-        log: false
-    }, "#cardApiIframe")
-</script>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="robots" content="noindex">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="language" content="en">
+        <meta name="description" content="Download your favorite YouTube videos and playlists from the internet without registration for free. Convert your favorite YouTube videos to MP3, MP4 and M4A.">
+        <meta name="google" content="notranslate">
+        <title>Loader.to Card API</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="UTF-8">
+        <script>
+        const countryCodeExpression = /loc=([\w]{2})/;
+        const userIPExpression = /ip=([\w\.]+)/;
+        var user_country;
+        </script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149443495-1"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+        gtag("config", "UA-149443495-1");
+        </script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.3.9/iframeResizer.contentWindow.js"
+            integrity="sha512-hBWsS94l8+snzSPo759jDKZ3z3jn3WT4snJZTBaeMPbrCGzDrYdl2pN9EaXjh6IqEZC7wF10qcmp42TPRVgAYQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+    </head>
+    <style>
+    @import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap");
+
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    * {
+        box-sizing: border-box;
+        font-family: "Spartan", "League Spartan", sans-serif;
+    }
+
+    .card-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 638px;
+    }
+
+    .card-container .card-wrapper {
+        width: 100%;
+        border: 1px solid #121316;
+        padding: 20px;
+        border-radius: 24px;
+        display: flex;
+        gap: 20px;
+        background-color: #191a1d;
+    }
+
+    .card-container .card-image {
+        width: 243px;
+        padding-bottom: 198px;
+        background-image: url("https://images.unsplash.com/photo-1557683316-973673baf926?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+        background-size: cover;
+        background-position: center;
+        border-radius: 24px;
+    }
+
+    .card-container .card-content {
+        padding-top: 10px;
+        width: calc(100% - 243px);
+    }
+
+    .card-container .card-content-title {
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 14px;
+        letter-spacing: -0.6002039313px;
+        text-transform: uppercase;
+        color: #fff;
+    }
+
+    .card-container .card-content-url {
+        margin-top: 10px;
+        color: #6c5ce7;
+        font-size: 14px;
+        font-weight: 400;
+        margin-bottom: 10px;
+    }
+
+    .card-container .card-content-select {
+        margin-top: 20px;
+        /* interactivity */
+    }
+
+    .card-container .card-content-button {
+        margin-top: 20px;
+    }
+
+    .card-container .card-content-button .download-button {
+        overflow: hidden;
+        text-decoration: none;
+        width: 100%;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 12px;
+        background-color: rgba(108, 92, 231, 0.86);
+        color: #fff;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 14px;
+        letter-spacing: -0.6002039313px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        position: relative;
+        gap: 8px;
+    }
+
+    .card-container .card-content-button .download-button .error {
+        color: #ff7d7e;
+    }
+
+    .card-container .card-content-button .download-button:hover {
+        background-color: #a79df0;
+    }
+
+    .card-container .card-content-button .download-button-progress {
+        height: 100%;
+        width: 0;
+        background: #6c5ce7;
+        position: absolute;
+        left: 0;
+        z-index: 2;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+    }
+
+    .card-container .card-content-button .download-button #message {
+        z-index: 3;
+    }
+
+    .loader {
+        color: #ffffff;
+        font-size: 12px;
+        text-indent: -9999em;
+        margin: 10px;
+        overflow: hidden;
+        width: 1em;
+        height: 1em;
+        z-index: 4;
+        border-radius: 50%;
+        position: relative;
+        transform: translateZ(0);
+        animation: load6 1.7s infinite ease, round 1.7s infinite ease;
+    }
+
+    @keyframes load6 {
+        0% {
+            box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+                0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+        }
+
+        5%,
+        95% {
+            box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+                0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+        }
+
+        10%,
+        59% {
+            box-shadow: 0 -0.83em 0 -0.4em, -0.087em -0.825em 0 -0.42em,
+                -0.173em -0.812em 0 -0.44em, -0.256em -0.789em 0 -0.46em,
+                -0.297em -0.775em 0 -0.477em;
+        }
+
+        20% {
+            box-shadow: 0 -0.83em 0 -0.4em, -0.338em -0.758em 0 -0.42em,
+                -0.555em -0.617em 0 -0.44em, -0.671em -0.488em 0 -0.46em,
+                -0.749em -0.34em 0 -0.477em;
+        }
+
+        38% {
+            box-shadow: 0 -0.83em 0 -0.4em, -0.377em -0.74em 0 -0.42em,
+                -0.645em -0.522em 0 -0.44em, -0.775em -0.297em 0 -0.46em,
+                -0.82em -0.09em 0 -0.477em;
+        }
+
+        100% {
+            box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em,
+                0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
+        }
+    }
+
+    @keyframes round {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    @media screen and (max-width: 649px) {
+        .card-wrapper {
+            flex-direction: column;
+            width: 340px !important;
+        }
+
+        .card-wrapper .card-image {
+            width: 100%;
+            height: 178px;
+        }
+
+        .card-wrapper .card-content {
+            width: 100%;
+        }
+    }
+
+    .card-content-select select {
+        width: 100%;
+        margin-top: 14px;
+        padding: 15px;
+        color: #f5f6fa;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14px;
+        letter-spacing: 0px;
+        border: 1px solid #1f2023;
+        border-radius: 12px;
+        box-shadow: 0px 7px 8px 0px rgba(11, 11, 14, 0.6);
+        background: #191a1d;
+        border: none;
+        outline: none;
+        -moz-appearance: none;
+        /* Firefox */
+        -webkit-appearance: none;
+        /* Safari and Chrome */
+        appearance: none;
+        background-image: url('data:image/svg+xml,<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="22" height="22" rx="6" fill="%2328292C"/><path d="M8.20215 10L11.2021 13L14.2021 10" stroke="%23F5F6FA" stroke-linecap="round"/></svg>');
+        background-repeat: no-repeat;
+        background-position-x: calc(100% - 7px);
+        background-position-y: center;
+        cursor: pointer;
+    }
+    </style>
+    <body>
+        <div class="card-container">
+            <div class="card-wrapper">
+                <div class="card-image" id="cardThumbnail"></div>
+                <div class="card-content">
+                    <div class="card-content-title" id="cardTitle">Video Title</div>
+                    <div class="card-content-url" id="cardUrl">Video url</div>
+                    <div class="card-content-select">
+                        <select class="custom-select"></select>
+                    </div>
+                    <div class="card-content-button">
+                        <a class="download-button" id="downloadButton">
+                            <div class="download-button-progress"></div>
+                            <svg
+                                width="20"
+                                height="23"
+                                viewBox="0 0 20 23"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                id="downloadSvg"
+                                style="z-index: 4; display: none"
+                            >
+                                <path
+                                    d="M6.66663 18.0003H13.3333C15.6903 18.0003 16.8688 18.0003 17.601 17.2681C18.3333 16.5359 18.3333 15.3573 18.3333 13.0003V12.167C18.3333 9.81 18.3333 8.6315 17.601 7.89925C16.9607 7.25892 15.9791 7.17855 14.1666 7.16846M5.83329 7.16846C4.02077 7.17855 3.03918 7.25892 2.39886 7.89924C1.66663 8.6315 1.66663 9.81 1.66663 12.167V13.0003C1.66663 15.3573 1.66663 16.5359 2.39886 17.2681C2.64869 17.5179 2.95048 17.6825 3.33329 17.791"
+                                    stroke="white"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                />
+                                <path
+                                    d="M9.99988 1.3335V12.1668M9.99988 12.1668L7.49988 9.25016M9.99988 12.1668L12.4999 9.25016"
+                                    stroke="white"
+                                    stroke-width="1.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                            <svg
+                                id="errorSvg"
+                                width="23"
+                                height="22"
+                                viewBox="0 0 23 22"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                                style="z-index: 4; display: none"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    clip-rule="evenodd"
+                                    d="M11.5 19C16.4707 19 20.5 14.9707 20.5 10C20.5 5.0293 16.4707 1 11.5 1C6.5293 1 2.5 5.0293 2.5 10C2.5 14.9707 6.5293 19 11.5 19ZM10.15 14.4919C10.15 13.7116 10.7431 13.15 11.4919 13.15C12.2569 13.15 12.85 13.7116 12.85 14.4919C12.85 15.2722 12.2569 15.85 11.4919 15.85C10.7431 15.85 10.15 15.2722 10.15 14.4919ZM10.7548 4.6C10.6941 4.60006 10.634 4.61241 10.5782 4.63631C10.5223 4.66021 10.4719 4.69515 10.43 4.73905C10.388 4.78294 10.3554 4.83487 10.334 4.89172C10.3127 4.94856 10.303 5.00914 10.3057 5.0698L10.5811 11.3698C10.5862 11.4857 10.6359 11.5951 10.7197 11.6753C10.8035 11.7554 10.9151 11.8001 11.0311 11.8H11.9698C12.0858 11.8001 12.1974 11.7554 12.2812 11.6753C12.365 11.5951 12.4147 11.4857 12.4198 11.3698L12.6943 5.0698C12.697 5.00906 12.6873 4.94841 12.6659 4.89151C12.6445 4.8346 12.6118 4.78263 12.5697 4.73872C12.5277 4.69482 12.4771 4.65989 12.4212 4.63605C12.3653 4.6122 12.3051 4.59994 12.2443 4.6H10.7548Z"
+                                    fill="#FF7D7E"
+                                />
+                            </svg>
+                            <span class="loader" style="display: none"></span>
+                            <span id="message">Download</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+    // Select functionality
+    const selectEl = document.querySelector(".custom-select");
+    // Render options for select dropdown
+    const optionsRender = () => {
+        const options = [
+            {
+                key: "mp3",
+                label: "MP3",
+                quality: "",
+            },
+            {
+                key: "m4a",
+                label: "M4A",
+                quality: "",
+            },
+            {
+                key: "360",
+                label: "MP4",
+                quality: "360p",
+            },
+            {
+                key: "480",
+                label: "MP4",
+                quality: "480p",
+            },
+            {
+                key: "720",
+                label: "MP4",
+                quality: "720p",
+            },
+            {
+                key: "1080",
+                label: "MP4",
+                quality: "1080p",
+            },
+            {
+                key: "4k",
+                label: "MP4",
+                quality: "4K",
+            },
+            {
+                key: "8k",
+                label: "MP4",
+                quality: "8K",
+            },
+            {
+                key: "webm_audio",
+                label: "WEBM",
+                quality: "Audio",
+            },
+            {
+                key: "aac",
+                label: "AAC",
+                quality: "",
+            },
+            {
+                key: "flac",
+                label: "FLAC",
+                quality: "",
+            },
+            {
+                key: "ogg",
+                label: "OGG",
+                quality: "",
+            },
+            {
+                key: "opus",
+                label: "OPUS",
+                quality: "",
+            },
+            {
+                key: "wav",
+                label: "WAV",
+                quality: "",
+            },
+        ];
+
+        const optionsHTML = options
+            .map(
+                (option) => `
+        <option value="${option.key}">${option.label} ${option.quality ? `(${option.quality})` : ""
+                    }</option>
+  `
+            )
+            .join("");
+        selectEl.innerHTML = optionsHTML;
+    };
+    optionsRender();
+    </script>
+    <script>
+    function get(url, callback, responseType = "json") {
+        fetch(url)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response[responseType]();
+            })
+            .then((data) => {
+                callback(data, data.success);
+            })
+            .catch((error) => {
+                console.log(
+                    "There was a problem with the fetch operation: " + error.message
+                );
+            });
+    }
+
+    function thumbnail(url) {
+        get(
+            "https://www.youtube.com/oembed?type=json&url=" + url,
+            function (data, status) {
+                document.getElementById(
+                    "cardThumbnail"
+                ).style.backgroundImage = `url(${data.thumbnail_url})`;
+                document.getElementById("cardTitle").innerText = data.title;
+                document.getElementById("cardUrl").innerText = url;
+            },
+            "json"
+        ).catch(() => {
+            get(
+                "https://noembed.com/embed?url=" + url,
+                function (data, status) {
+                    document.getElementById(
+                        "cardThumbnail"
+                    ).style.backgroundImage = `url(${data.thumbnail_url})`;
+                    document.getElementById("cardTitle").innerText = data.title;
+                    document.getElementById("cardUrl").innerText = data.url;
+                },
+                "json"
+            );
+        });
+    }
+    const url2 = new URL(location.href);
+
+    const urlParam = url2.searchParams.get("url");
+    const adUrlParam = url2.searchParams.get("adUrl");
+    thumbnail(urlParam);
+    </script>
+    <script>
+    const downloadProgressButton = document.querySelector(
+        ".download-button-progress"
+    );
+    const downloadButton = document.getElementById("downloadButton");
+
+    const setProgressNumber = (progress) => {
+        downloadProgressButton.style.width = progress + "%";
+    };
+    const setProgressStatus = (status) => {
+        const loader = document.querySelector(".loader");
+        const errorSvg = document.getElementById("errorSvg");
+        const downloadSvg = document.getElementById("downloadSvg");
+        const progressStatus = document.querySelector(".progress-bar");
+        const messageEl = document.getElementById("message");
+        const messageText = document.querySelector(".messsage-text");
+        if (status == "success") {
+            errorSvg.style.display = "none";
+            downloadSvg.style.display = "block";
+            messageEl.classList.remove("error");
+            messageEl.innerHTML = "Download &nbsp;";
+            loader.style.display = "none";
+        } else if (status == "error") {
+            errorSvg.style.display = "block";
+            downloadSvg.style.display = "none";
+            messageEl.classList.add("error");
+            messageEl.innerHTML = "Error &nbsp;";
+            loader.style.display = "none";
+        } else if (status == "downloading") {
+            messageEl.classList.remove("error");
+            messageEl.innerHTML = "Downloading... &nbsp;";
+            loader.style.display = "block";
+            errorSvg.style.display = "none";
+            downloadSvg.style.display = "none";
+        }
+    };
+
+    var link_now = new URL(window.location.href);
+    if (link_now.searchParams.get("css") != null) {
+        document
+            .getElementsByTagName("head")[0]
+            .insertAdjacentHTML(
+                "beforeend",
+                '<link rel="stylesheet" href="' +
+                link_now.searchParams.get("css") +
+                '" />'
+            );
+    }
+
+    var url = link_now.searchParams.get("url");
+    var f = link_now.searchParams.get("f");
+    var color = link_now.searchParams.get("color");
+
+    switch (f) {
+        case "mp3":
+            selectEl.value = "mp3";
+            break;
+        case "m4a":
+            selectEl.value = "m4a";
+            break;
+        case "360":
+            selectEl.value = "360";
+            break;
+        case "480":
+            selectEl.value = "480";
+            break;
+        case "720":
+            selectEl.value = "720";
+            break;
+        case "1080":
+            selectEl.value = "1080";
+            break;
+        case "4k":
+            selectEl.value = "4k";
+            break;
+        case "8k":
+            selectEl.value = "8k";
+            break;
+        case "webm_audio":
+            selectEl.value = "webm_audio";
+            f = "webm";
+            break;
+        case "aac":
+            selectEl.value = "aac";
+            f = "aac";
+            break;
+        case "flac":
+            selectEl.value = "flac";
+            f = "flac";
+            break;
+        case "opus":
+            selectEl.value = "opus";
+            f = "opus";
+            break;
+        case "ogg":
+            selectEl.value = "ogg";
+            f = "ogg";
+            break;
+        case "wav":
+            selectEl.value = "wav";
+            f = "wav";
+            break;
+        default:
+            selectEl.value = "720";
+            f = "720";
+    }
+
+    function d() {
+
+        if (isIframeSandboxed()) {
+            alert("The iframe is sandboxed.");
+            return;
+        }
+
+        // console.log(location.ancestorOrigins);
+        let iframe_source = "";
+
+        if (location.ancestorOrigins) {
+            for (let i = 0; i < location.ancestorOrigins.length; i++) {
+                let origin = location.ancestorOrigins.item(i);
+                get("https://p.oceansaver.in/ajax/button_origin.php?origin=" + origin);
+                iframe_source = iframe_source + origin + ",";
+            }
+
+            // If iframe_source has 2 commas then we are sandboxed:
+            if (iframe_source.split(',').length > 2) {
+                document.getElementById("downloadButton").innerHTML = "The iframe is sandboxed.";
+                return;
+            }
+
+            // If iframe_source is empty then we will use document.referrer
+            if (iframe_source == "") {
+                iframe_source = document.referrer;
+            }
+        }
+
+        if (iframe_source == "") {
+            iframe_source = document.referrer;
+        }
+
+        try {
+            if (
+                location.ancestorOrigins.item(0).includes("gudanglagu456") == true ||
+                location.ancestorOrigins.item(0).includes("gudanglagu321") == true ||
+                location.ancestorOrigins.item(0).includes("lagu.club") == true ||
+                location.ancestorOrigins.item(0).includes("carriethemusical") ==
+                true ||
+                location.ancestorOrigins.item(0).includes("cafelagu.me") == true ||
+                location.ancestorOrigins.item(0).includes("ytmp3id.net") == true ||
+                location.ancestorOrigins.item(0).includes("mp3clip") == true ||
+                location.ancestorOrigins.item(0).includes("mp3clip") == true ||
+                location.ancestorOrigins.item(0).includes("downloadlagu-321") ==
+                true ||
+                location.ancestorOrigins.item(1).includes("downloadlagu-321") ==
+                true ||
+                location.ancestorOrigins.item(1).includes("gudanglagu456") == true ||
+                location.ancestorOrigins.item(1).includes("downloadlagu.app") ==
+                true ||
+                location.ancestorOrigins.item(0).includes("downloadlagu.app") ==
+                true ||
+                location.ancestorOrigins.item(1).includes("metrolagu.site") == true ||
+                location.ancestorOrigins.item(0).includes("metrolagu.site") == true ||
+                location.ancestorOrigins.item(0).includes("lagu456.wapqaw.com") ==
+                true
+            ) {
+                return;
+            }
+        } catch (error) { }
+
+        link = link_now.searchParams.get("url");
+        format = selectEl.value ? selectEl.value : f;
+        start = 1;
+        end = 1;
+
+        downloadButton.addEventListener("click", () => { });
+        get(
+            "https://p.oceansaver.in/ajax/download.php?button=1&start=" +
+            start +
+            "&end=" +
+            end +
+            "&format=" +
+            format +
+            "&iframe_source=" +
+            iframe_source +
+            "&url=" +
+            encodeURIComponent(link),
+            function (data, status) {
+                p(data.id);
+            },
+            "json"
+        );
+    }
+
+    function p(i) {
+        get(
+            "https://p.oceansaver.in/api/progress?id=" + i,
+            function (data) {
+                setProgressNumber(data.progress / 10);
+                setProgressStatus("downloading");
+                if (data.download_url != null && data.success == 1) {
+                    setProgressStatus("success");
+                    downloadButton.setAttribute("href", data.download_url);
+                    if (link_now.searchParams.get("adUrl") != null) {
+                        if (Math.random() < 0.65) {
+                            let adjustedAdUrl = "https://p.oceansaver.in/ajax/ad/b.php?id=" + i;
+                            document
+                                .getElementById("downloadButton")
+                                .addEventListener("click", () => {
+                                    window.open(adjustedAdUrl);
+                                });
+                        } else {
+                            console.log("'" + link_now.searchParams.get("adUrl") + "'");
+                            document
+                                .getElementById("downloadButton")
+                                .addEventListener("click", () => {
+                                    window.open(
+                                        "'" + link_now.searchParams.get("adUrl") + "'"
+                                    );
+                                });
+                        }
+                    } else {
+                        document
+                            .getElementById("downloadButton")
+                            .addEventListener("click", () => {
+                                window.open("https://p.oceansaver.in/ajax/ad/b.php?id=" + i);
+                            });
+                    }
+                    return;
+                }
+
+                if (data.download_url == null && data.success == 1) {
+                    setProgressStatus("error");
+                    return;
+                }
+
+                setTimeout(p.bind(null, i), 1500);
+            },
+            "json"
+        );
+    }
+
+    downloadButton.addEventListener("click", () => {
+        d();
+        window.open("https://p.oceansaver.in/ajax/ad/b.php");
+        gtag("event", "dl", { event_category: "dl", event_label: "dl_button" });
+    });
+    </script>
+    <script src="/js/loader/iframe_abuse.js"></script>
+</html>
