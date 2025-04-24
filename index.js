@@ -2014,6 +2014,82 @@ console.error('Erro no endpoint:', error);
 res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
 }
 }) 
+//MOON AI CHAT 
+app.post('/send', async (req, res) => {
+
+const speed = require('performance-now');
+const prefix = "/";
+const botName = '𝐊𝐘𝐓𝐓𝐘 𝐁𝐎𝐓'
+const emoji = '👑'
+
+if(hora > "00:00:00"){
+var timed = '𝐁𝐨𝐚 𝐌𝐚𝐝𝐫𝐮𝐠𝐚𝐝𝐚 🌆' 
+} 
+if(hora > "05:00:00"){
+var timed = '𝐁𝐨𝐦 𝐃𝐢𝐚 🏙️' 
+}
+if(hora > "12:00:00"){
+var timed = '𝐁𝐨𝐚 𝐓𝐚𝐫𝐝𝐞 🌇' 
+}
+if(hora > "19:00:00"){
+var timed = '𝐁𝐨𝐚 𝐍𝐨𝐢𝐭𝐞 🌃' 
+} 
+    const command = req.body.command;
+    const parts = command.split(' ');
+    const baseCommand = parts[0].substring(prefix.length);
+    const q = parts.slice(1).join(' ');
+
+    let response;
+
+    const enviar = (texto) => {
+        response = texto;
+    }
+
+    const esperar = async (tempo) => {
+        return new Promise(funcao => setTimeout(funcao, tempo));
+    }
+
+    // Verificação para comandos sem prefixo
+    if (command.toLowerCase() === 'oi') {
+        response = `Olá 👋 usuário`;
+    } else if (command.toLowerCase() === 'olá') {
+        response = `Oi 👋 usuário`;
+    } else if (command.toLowerCase() === 'moon') {
+        response = `Este e minha criadora 😌`;
+    } else if (command.toLowerCase() === 'bom dia') {
+        response = `Bom dia usuário 🤗`;
+    } else if (command.toLowerCase() === 'boa tarde') {
+        response = `Boa tarde usuário 🤗`;
+    } else if (command.toLowerCase() === 'boa noite') {
+        response = `Boa noite usuário 🤗`;
+    } else if (command.toLowerCase() === 'comunidade') {
+        response = ` Aqui o link: <br>https://chat.whatsapp.com/IeINkpVR5C3HTM6Gwe0Onv`;        
+    } else if (command.toLowerCase().includes('bot')) {
+        response = `𝐏𝐫𝐚𝐳𝐞𝐫 𝐦𝐞 𝐜𝐡𝐚𝐦𝐨 𝐊𝐢𝐭𝐭𝐲 𝐮𝐦𝐚 𝐜𝐡𝐚𝐭 𝐛𝐨𝐭 𝐟𝐞𝐢𝐭𝐚 𝐩𝐚𝐫𝐚 𝐬𝐮𝐚𝐬 𝐧𝐞𝐜𝐞𝐬𝐬𝐢𝐝𝐚𝐝𝐞𝐬 🥰`;
+    } else {
+switch (baseCommand) {
+//COMEÇO DOS COMANDOS DO BOT
+case 'imagine':
+
+break
+//
+case 'voz':
+response = { type: 'image', url: fotoMenu };
+break
+//
+case 'midias':
+response = { type: 'video', url: `${BaseApiDark}/api/download/youtube-video?url=${api.url}&apikey=pedrozz1&username=pedrozzMods` };
+response = { type: 'audio', url: `${BaseApiDark}/api/download/youtube-audio?url=${api.url}&apikey=pedrozz1&username=pedrozzMods` }
+response = { type: 'image', url: api };
+break
+//FIM DOS COMANDO DO BOT
+default:
+enviar(`comando não existe`)
+}
+}
+
+res.json(response);
+});
 
 //EJS
 app.get('/login', (req, res) => {
@@ -2026,9 +2102,9 @@ res.render('register', { aviso: false, aviso2: null });
 
 //HTML
 app.get('/planos', (req, res) => res.sendFile(__dirname + '/public/plano.html'));
-
+app.get('/MoonAi', (req, res) => res.sendFile(__dirname + '/public/aiMoon.html'));
 app.get('/ko', (req, res) => res.sendFile(__dirname + '/public/ko.html'));
-
+app.get('/Moondownload', (req, res) => res.sendFile(__dirname + '/public/d.html'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
 app.get("*", function(req, res) {

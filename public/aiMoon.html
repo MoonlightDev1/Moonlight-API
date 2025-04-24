@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="https://telegra.ph/file/438e3679e2f8147c37748.jpg" />
+    <title>Moonlight Ai</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 94vh;
+            background: url(https://telegra.ph/file/03dd614f526f1a7fee794.jpg) no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 900px;
+            height: 100%;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-image: url("https://telegra.ph/file/03dd614f526f1a7fee794.jpg");
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: #121b22;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .chat-header img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .chat-header .name-status {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header .name-status .name {
+            font-weight: bold;
+            color: white;
+        }
+
+        .chat-header .name-status .status {
+            color: green; /* Status online em verde */
+        }
+
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            background-image: url("https://telegra.ph/file/03dd614f526f1a7fee794.jpg");
+            background-size: cover;
+            padding: 10px;
+        }
+
+        .message {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .user-message img {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+
+        .message p {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: white;
+            border-radius: 10px;
+            word-wrap: break-word;
+            display: inline-block;
+            position: relative;
+        }
+
+        .message .timestamp {
+            font-size: 0.8em;
+            color: #4F4F4F;
+            position: 10;
+            bottom: -10px;
+            right: 10px;
+        }
+
+        .message img.bot-image {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 0;
+            margin: 10px 0;
+        }
+        
+        .message img.bot-menu {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 400px;
+            border-radius: 8px;
+            margin: 5px 0;
+        }
+
+        .message video.bot-video {
+            width: 100%;
+            height: auto;
+            max-width: 400px; /* Ajuste para manter o tamanho do vídeo */
+            max-height: 400px; /* Manter o vídeo quadrado */
+            object-fit: cover; /* Manter o vídeo dentro do espaço */
+            border-radius: 0;
+            margin: 10px 0;
+        }
+
+        .bot-audio {
+            background-color: white;
+            border-radius: 20px;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            max-width: 400px;
+            
+        }
+
+        .bot-audio audio {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .bot-audio img {
+            border-radius: 100%;
+            width: 50px;
+            height: 50px;
+        }
+
+        .copy-button {
+            padding: 5px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .copy-button:hover {
+            background-color: #218838;
+        }
+
+        #question {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 10px;
+            width: calc(100% - 90px);
+        }
+
+        #ask-form {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 50px;
+        }
+        #ask-form input {
+            margin-top: 1px;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 50px;
+        }
+
+        #ask-button {
+            padding: 10px 20px;
+            background-color: pink;
+            color: black;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        #ask-button:hover {
+            background-color: hotpink;
+        }
+
+        .cabeca {
+            font-size: 45px;
+            background-color: black;
+            color: red;
+            text-align: center;
+            padding: 5px;
+        }
+        
+        h3 {
+            font-family: 'Kaushan Script', cursive;
+            text-align: center;
+        }
+
+        .download-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 16px;
+        }
+
+        .download-button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
+</head>
+<body>
+<div class="chat-container">
+<div class="chat-header">
+<img src="https://telegra.ph/file/438e3679e2f8147c37748.jpg" alt="by Pedrozz">
+<div class="name-status">
+<span class="name">Moonlight Ai</span>
+<!----<span class="status" style="color: green;"><span style="color: white;">Status: </span>online</span>----->
+</div>
+</div>
+        
+<div class="chat-box" id="chat-box">
+<div class="message bot-message" style="flex-direction: column;">
+<img src="https://telegra.ph/file/3f36a107cf499f07e6351.jpg" alt="Imagem do Bot" class="bot-menu"><br>
+<p>_____________SEJA BEM VINDO__________<br>Para poder ver meu menu digite: <span style="color: red;">/menu</span><br><span style="color: red;">Criador: </span><span style="color: green;">Pedrozz Mods</span><br>Bot: </span> <span style="color: DeepPink;">Moonlight Bot</span><br>________________________________________</p>
+</div>
+</div>
+<div id="question-container">
+<form id="ask-form">
+<input type="text" id="question" placeholder="Digite seu comando...">
+<button type="submit" id="ask-button">Enviar</button>
+</form>
+</div>
+</div>
+<audio id="notification-sound" src="https://f.top4top.io/m_31176uvel0.mp3" preload="auto"></audio>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+const chatBox = document.getElementById('chat-box');
+const askForm = document.getElementById('ask-form');
+
+askForm.addEventListener('submit', async (e) => {
+e.preventDefault();
+const question = document.getElementById('question').value;
+addMessage('user', question);
+document.getElementById('question').value = '';
+
+const response = await fetch('/send', {
+method: 'POST',
+headers: {
+'Content-Type': 'application/json',
+},
+body: JSON.stringify({ command: question }),
+});
+
+if (response.ok) {
+const answer = await response.json();
+handleResponse(answer);
+} else {
+const error = await response.json();
+addMessage('bot', error.error || 'Erro ao processar a solicitação.');
+}
+});
+
+function handleResponse(answer) {
+if (answer.type === 'audio') {
+addMessage('bot', { url: answer.url, type: 'audio' });
+} else if (answer.type === 'image') {
+addMessage('bot', { url: answer.url, type: 'image' });
+} else if (answer.type === 'video') {
+addMessage('bot', { url: answer.url, type: 'video' });
+} else {
+addMessage('bot', answer.response || answer);
+}
+
+playNotificationSound();
+
+if (document.visibilityState !== 'visible') {
+sendBrowserNotification('Nova mensagem do bot', answer.response || 'Nova resposta disponível.');
+}
+}
+
+function addMessage(sender, content) {
+const messageDiv = document.createElement('div');
+messageDiv.classList.add('message');
+
+const timestamp = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+if(timestamp > "00:00:00"){
+var timed = 'da madrugada' 
+} 
+if(timestamp > "05:00:00"){
+var timed = 'do dia' 
+}
+if(timestamp > "12:00:00"){
+var timed = 'da tarde' 
+}
+if(timestamp > "19:00:00"){
+var timed = 'da noite' 
+}                
+        
+if (sender === 'user') {
+messageDiv.classList.add('user-message');
+messageDiv.innerHTML = `
+<p>${content} <span class="timestamp">${timestamp} ${timed}</span></p>`;
+} else {
+messageDiv.classList.add('bot-message');
+
+if (typeof content === 'object' && content.type === 'audio') {
+messageDiv.innerHTML = `
+<div class="bot-audio">
+<audio controls src="${content.url}"></audio><br>
+
+<img src='https://telegra.ph/file/438e3679e2f8147c37748.jpg' alt="Bot">
+</div>
+`;
+} else if (typeof content === 'object' && content.type === 'video') {
+messageDiv.innerHTML = `
+<video controls src="${content.url}" class="bot-video"></video>
+`;
+} else if (typeof content === 'object' && content.type === 'image') {
+messageDiv.innerHTML = `
+<img src="${content.url}" alt="Imagem do Bot" class="bot-image"><br>
+`;
+} else {
+messageDiv.innerHTML = `
+<img src="https://telegra.ph/file/438e3679e2f8147c37748.jpg" alt="${sender}"><p>${content} <span class="timestamp">${timestamp} ${timed}</span></p>`;
+}
+}
+
+chatBox.appendChild(messageDiv);
+chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+function playNotificationSound() {
+const audio = document.getElementById('notification-sound');
+audio.play().catch(error => {
+console.error('Erro ao reproduzir o som:', error);
+});
+}
+
+function sendBrowserNotification(title, message) {
+                if (Notification.permission === 'granted') {
+                    new Notification(title, {
+                        body: message,
+                        icon: 'https://telegra.ph/file/438e3679e2f8147c37748.jp'
+                    });
+                }
+}
+
+// Solicitar permissão para notificações
+if (Notification.permission !== 'granted') {
+Notification.requestPermission();
+}
+});
+    </script>
+</body>
+</html>
