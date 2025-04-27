@@ -13,7 +13,8 @@ const { tokenDB, tokenTele, botName, donoName, donoTele, apiLink, donoId, siteNa
 const admList = ["Moonlight_Devs", "pedrozzMods", "BotAdmMoon"]
 const htmlPath = path.join(__dirname, './public/error.html');
 const criadora = "Moonlight";
-
+const apikeys = ["dvwMKhxevo", "OGsFBtPL3o", "YwV5TMeKSV"]
+const apikeyKamui = apikeys[Math.floor(Math.random() * apikeys.length)]
 //EXPORTANDO MÓDULOS
 const { botVersion, msg, msgApi, consoleVerde, consoleVerde2, consoleVermelho, consoleVermelho2, consoleAmarelo, consoleAmarelo2, consoleAzul, consoleAzul2, consoleErro, consoleAviso, consoleInfo, consoleOnline, consoleSucesso, fetchJson, getBuffer, timed, data, hora } = require("./dados/dados.js")
 //SCRAPEER
@@ -1153,6 +1154,56 @@ erro: "Deu erro na sua solicitação"
 }
 })
 
+app.get("/api/pesquisa/pinterestVideo", async (req, res) => {
+const query = req.query.query
+if (!query) return res.status(500).send("Parâmetro query obrigatório")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/pesquisa/pinterestvideo?nome=${query}&apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/pesquisa/pinterestGif", async (req, res) => {
+const query = req.query.query
+if (!query) return res.status(500).send("Parâmetro query obrigatório")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/pesquisa/pinterestgif?nome=${query}&apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
 app.get("/api/pesquisa/PinterestMultiMidia", async (req, res) => {
 const url = req.query.url
 if (!url) return res.status(500).send("Parâmetro url obrigatório")
@@ -1172,6 +1223,105 @@ status: "offline",
 criadora,
 erro: "Deu erro na sua solicitação"
 })
+console.log(e)
+}
+})
+
+app.get("/api/pesquisa/pensador", async (req, res) => {
+const query = req.query.query
+if (!query) return res.status(500).send("Parâmetro query obrigatório")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/pesquisa/pensador?nome=${query}&apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/pesquisa/dafont", async (req, res) => {
+const query = req.query.query
+if (!query) return res.status(500).send("Parâmetro query obrigatório")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/pesquisa/dafontSearch?nome=${query}&apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/pesquisa/biblia", async (req, res) => {
+const query = req.query.query
+if (!query) return res.status(500).send("Parâmetro query obrigatório")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/pesquisa/biblia?versiculo=${query}&apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/pesquisa/portalZacaria", async (req, res) => {
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/pesquisa/portalzacarias?apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
 }
 })
 
@@ -1216,6 +1366,156 @@ status: "offline",
 criadora,
 erro: "Deu erro na sua solicitação"
 })
+}
+})
+
+//======[ OUTROS ]======\\
+
+app.get("/api/outro/jogo", async (req, res) => {
+const query = req.query.query
+if (!query) return res.status(500).send("Parâmetro query obrigatório")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/outros/proximos_jogos?query=${query}&apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/outro/placarTime", async (req, res) => {
+const query = req.query.query
+if (!query) return res.status(500).send("Parâmetro query obrigatório")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/outros/placares?query=${query}&apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/outro/porcentagem", async (req, res) => {
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/outros/porcentagens?apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2.platforms
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/outro/horarios", async (req, res) => {
+const query = req.query.hora
+if (!query) return res.status(500).send("Parâmetro hora obrigatório")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/outros/horarios?hora=${query}&apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2.platforms
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/outro/ddd", async (req, res) => {
+const query = req.query.id
+if (!query) return res.status(500).send("Parâmetro query obrigatório")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/outros/ddd?query=${query}&apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/outro/signos", async (req, res) => {
+const query = req.query.signo
+if (!query) return res.status(500).send("Parâmetro query obrigatório")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+api = await fetch(`https://kamuiapi.shop/api/outros/signos?signo=${query}&apikey=${apikeyKamui}`)
+data2 = await api.json()
+res.json({
+status: "online",
+criadora,
+resultado: data2
+})
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
 }
 })
 
