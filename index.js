@@ -2468,6 +2468,7 @@ res.render('register', { aviso: false, aviso2: null });
 //HTML
 app.get('/planos', (req, res) => res.sendFile(__dirname + '/public/plano.html'));
 app.get('/MoonAi', (req, res) => res.sendFile(__dirname + '/public/aiMoon.html'));
+app.get('/botList', (req, res) => res.sendFile(__dirname + '/public/botsMoon.html'));
 app.get('/ko', (req, res) => res.sendFile(__dirname + '/public/ko.html'));
 app.get('/Moondownload', (req, res) => res.sendFile(__dirname + '/public/d.html'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
