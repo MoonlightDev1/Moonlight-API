@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="https://telegra.ph/file/438e3679e2f8147c37748.jpg" />
+    <link rel="shortcut icon" type="image/png" href="https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg" />
     <title>Moonlight Ai</title>
     <style>
         body {
@@ -14,7 +14,7 @@
             justify-content: center;
             align-items: center;
             height: 94vh;
-            background: url(https://telegra.ph/file/03dd614f526f1a7fee794.jpg) no-repeat center center fixed;
+            background: url(https://i.pinimg.com/564x/53/f3/1f/53f31fae1e4cd408af9548a51f076e9a.jpg) no-repeat center center fixed;
             background-size: cover;
             color: white;
         }
@@ -28,7 +28,7 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            background-image: url("https://telegra.ph/file/03dd614f526f1a7fee794.jpg");
+            background-image: url("https://i.pinimg.com/564x/53/f3/1f/53f31fae1e4cd408af9548a51f076e9a.jpg");
         }
 
         .chat-header {
@@ -63,7 +63,7 @@
         .chat-box {
             flex: 1;
             overflow-y: auto;
-            background-image: url("https://telegra.ph/file/03dd614f526f1a7fee794.jpg");
+            
             background-size: cover;
             padding: 10px;
         }
@@ -135,9 +135,9 @@
         .message video.bot-video {
             width: 100%;
             height: auto;
-            max-width: 400px; /* Ajuste para manter o tamanho do vídeo */
-            max-height: 400px; /* Manter o vídeo quadrado */
-            object-fit: cover; /* Manter o vídeo dentro do espaço */
+            max-width: 400px;
+            max-height: 400px;
+            object-fit: cover; 
             border-radius: 0;
             margin: 10px 0;
         }
@@ -250,17 +250,17 @@
 <body>
 <div class="chat-container">
 <div class="chat-header">
-<img src="https://telegra.ph/file/438e3679e2f8147c37748.jpg" alt="by Pedrozz">
+<img src="https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg" alt="by Pedrozz">
 <div class="name-status">
-<span class="name">Moonlight Ai</span>
+<span class="name">Moonlight Api</span>
 <!----<span class="status" style="color: green;"><span style="color: white;">Status: </span>online</span>----->
 </div>
 </div>
         
 <div class="chat-box" id="chat-box">
 <div class="message bot-message" style="flex-direction: column;">
-<img src="https://telegra.ph/file/3f36a107cf499f07e6351.jpg" alt="Imagem do Bot" class="bot-menu"><br>
-<p>_____________SEJA BEM VINDO__________<br>Para poder ver meu menu digite: <span style="color: red;">/menu</span><br><span style="color: red;">Criador: </span><span style="color: green;">Pedrozz Mods</span><br>Bot: </span> <span style="color: DeepPink;">Moonlight Bot</span><br>________________________________________</p>
+<img src="https://files.catbox.moe/qs6ahh.png" alt="Imagem do Bot" class="bot-menu"><br>
+<p>_____________SEJA BEM VINDO__________<br>Para poder ver meu menu digite: <span style="color: red;">/menu</span><br>Bot: </span> <span style="color: DeepPink;">Moonlight Bot</span><br><span style="color: purple;">Que a lua ilumine nossos caminhos</span><br>________________________________________</p>
 </div>
 </div>
 <div id="question-container">
@@ -340,7 +340,7 @@ var timed = 'da noite'
 if (sender === 'user') {
 messageDiv.classList.add('user-message');
 messageDiv.innerHTML = `
-<p>${content} <span class="timestamp">${timestamp} ${timed}</span></p>`;
+<p>${content} <br><span class="timestamp">${timestamp} ${timed}</span></p>`;
 } else {
 messageDiv.classList.add('bot-message');
 
@@ -349,7 +349,7 @@ messageDiv.innerHTML = `
 <div class="bot-audio">
 <audio controls src="${content.url}"></audio><br>
 
-<img src='https://telegra.ph/file/438e3679e2f8147c37748.jpg' alt="Bot">
+<img src='https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg' alt="Bot">
 </div>
 `;
 } else if (typeof content === 'object' && content.type === 'video') {
@@ -362,7 +362,7 @@ messageDiv.innerHTML = `
 `;
 } else {
 messageDiv.innerHTML = `
-<img src="https://telegra.ph/file/438e3679e2f8147c37748.jpg" alt="${sender}"><p>${content} <span class="timestamp">${timestamp} ${timed}</span></p>`;
+<img src="https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg" alt="${sender}"><p>${content} <br><span class="timestamp">${timestamp} ${timed}</span></p>`;
 }
 }
 
@@ -381,12 +381,11 @@ function sendBrowserNotification(title, message) {
                 if (Notification.permission === 'granted') {
                     new Notification(title, {
                         body: message,
-                        icon: 'https://telegra.ph/file/438e3679e2f8147c37748.jp'
+                        icon: 'https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg'
                     });
                 }
 }
 
-// Solicitar permissão para notificações
 if (Notification.permission !== 'granted') {
 Notification.requestPermission();
 }

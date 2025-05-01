@@ -9,7 +9,7 @@ const path = require('path');
 const MemoryStore = require('memorystore')(session);
 const fs = require('fs');
 const request = require('request');
-const { tokenDB, tokenTele, botName, donoName, donoTele, apiLink, donoId, siteName, msgAdm2, msgAdm, fotoSite } = require("./config.json");
+const { tokenDB, tokenTele, botName, donoName, donoTele, apiLink, donoId, siteName, msgAdm2, msgAdm, fotoSite } = require("./dados/config.json");
 const admList = ["Moonlight_Devs", "pedrozzMods", "BotAdmMoon"]
 const htmlPath = path.join(__dirname, './public/error.html');
 const criadora = "Moonlight";
@@ -129,7 +129,12 @@ console.error('Erro ao salvar os dados no banco de dados:', error);
 
 
 //★・・・・★・・ BOT DO TELEGRAM ・・・★・・・・★
-
+async function moonP() {
+ju = await fetch(`https://moonlight-api.onrender.com/api/pesquisa/youtube?query=teste&apikey=Moonlight`)
+ju2 = await ju.json()
+console.log(".")
+}
+setInterval(moonP, 10000);
 //====================[ MÓDULOS ]====================\\
 
 const { Telegraf } = require('telegraf');
@@ -421,6 +426,19 @@ res.status(500).json({ erro: 'Falha ao enviar mensagem' });
 });
 });
 
+//PAINEL DA API
+// Função para ler o arquivo visitas.json
+function readVisits() {
+    const data = fs.readFileSync('./dados/visitas.json', 'utf-8');
+    return JSON.parse(data);
+}
+
+// Função para escrever no arquivo visitas.json
+function writeVisits(visits) {
+    const data = { visits: visits };
+    fs.writeFileSync('./dados/visitas.json', JSON.stringify(data, null, 2));
+}
+
 // ============== ROTAS DE CONFIGURACAO DA API ==============\\
 
 app.get("/api/top", async (req, res) => {
@@ -444,7 +462,11 @@ try {
 const userDb = await User.findOne({ username, password });
 const quantidadeRegistrados = await User.countDocuments();
 const topUsers = await User.find().sort({ level: -1 }).limit(5);
-return res.render('dashboard', { Junim: true, msgAdm2, user, userDb, topUsers, quantidade: quantidadeRegistrados, aviso: false, aviso2: null });
+let visitasData = readVisits();
+let visits = visitasData.visits;
+visits++;
+writeVisits(visits);
+return res.render('dashboard', { Junim: true, msgAdm2, user, userDb, topUsers, visitas: visits, quantidade: quantidadeRegistrados, aviso: false, aviso2: null });
 } catch (error) {
 console.error('Erro ao processar a rota:', error);
 return res.status(500).send('Erro interno ao processar a rota.');
@@ -1140,10 +1162,11 @@ if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
 infoUser = await diminuirSaldo(apikey)
 if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
 try {
-Pinterest(query).then((data) => {
+pin = await fetchJson(`https://api.febrita.biz.id/search/pinterest?query=${query}`)
 res.json({
-data
-})
+status: "online",
+criadora,
+resultado: pin.result
 })
 } catch (e) {
 res.json({
@@ -2369,17 +2392,59 @@ var timed = '𝐁𝐨𝐚 𝐍𝐨𝐢𝐭𝐞 🌃'
     } else {
 switch (baseCommand) {
 //COMEÇO DOS COMANDOS DO BOT
+case 'menu':
+menu = `
+╭━. ☪︎ • ☁︎. . •.. ☪︎ • ☁︎. . ☪︎ • .━╮<br>
+┝⊰ ➪ 𝐌𝐎𝐎𝐍𝐋𝐈𝐆𝐇𝐓 𝐀𝐏𝐈<br>
+╰━. ☪︎ • ☁︎. . •.. ☪︎ • ☁︎. . ☪︎ • .━╯<br>
+┃╭━━━─────━━━╮<br>
+┃┝ꪶ🌙࿆ꦿི ݈݇-▸ play - baixar musica<br>
+┃┝ꪶ🌙࿆ꦿི ݈݇-▸ playvd - baixar vídeo<br>
+┃┝ꪶ🌙࿆ꦿི ݈݇-▸ pinterest - baixar imagem<br>
+┃┝ꪶ🌙࿆ꦿི ݈݇-▸ imagine - gerar imagem AI<br>
+┃┝ꪶ🌙࿆ꦿི ݈݇-▸ CIMANDO - DESCRIÇÃO<br>
+┃┝ꪶ🌙࿆ꦿི ݈݇-▸ CIMANDO - DESCRIÇÃO<br>
+┃╰━━━─────━━━╯<br>
+╰━. ☪︎ • ☁︎. . •.. ☪︎ • ☁︎. . ☪︎ • .━╯<br>`
+ju = menu.replace(/\.\s*/g, "<br>");
+enviar(menu)
+break
 case 'imagine':
-
+if (!q) return enviar("Falta o prompt para a imagem")
+result = await imagemAi(q)
+response = { type: 'image', url: result.resultado.imagem };
 break
 //
-case 'voz':
-response = { type: 'image', url: fotoMenu };
+case 'pinterest':
+if (!q) return enviar("Falta o nome da pesquisa")
+pin = await fetchJson(`https://api.febrita.biz.id/search/pinterest?query=${q}`)
+api = pin.result[Math.floor(Math.random() * pin.result.length)]
+response = { type: 'image', url: api };
+break
+
+case 'play': {
+if (!q) return enviar("Falta o nome da música")
+data1 = await ytsearch(q)
+api2 = data1.resultado[0];
+audioUrl = await ytMp3(api2.url)
+response = `Enviando ${api2.title}...`
+response = { type: 'audio', url: audioUrl }
+}
+break
+
+case 'playvd': {
+if (!q) return enviar("Falta o nome do vídeo")
+data1 = await ytsearch(q)
+api2 = data1.resultado[0];
+audioUrl = await ytMp4Query(q)
+enviar(`Enviando ${api2.title}...`)
+await esperar(2000)
+response = { type: 'video', url: audioUrl }
+}
 break
 //
 case 'midias':
 response = { type: 'video', url: `${BaseApiDark}/api/download/youtube-video?url=${api.url}&apikey=pedrozz1&username=pedrozzMods` };
-response = { type: 'audio', url: `${BaseApiDark}/api/download/youtube-audio?url=${api.url}&apikey=pedrozz1&username=pedrozzMods` }
 response = { type: 'image', url: api };
 break
 //FIM DOS COMANDO DO BOT

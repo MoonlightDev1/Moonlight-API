@@ -339,6 +339,7 @@ Seja bem-vindos a nossa rest API 🌙
 </a>
 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
 <a class="dropdown-item"><i class="fa fa-calendar"></i> <span id="current-date"></span></a>
+<a class="dropdown-item"><i class="fas fa-timer"></i> <span id="current-time"></span></a>
 <hr>
 <a class="dropdown-item" href="/myperfil"><i class="dw dw-user1"></i> Perfil</a>
 <a class="dropdown-item" href="/planos"><i class="dw dw-shop"></i> Planos</a>
@@ -829,6 +830,25 @@ Redefinir configurações
 
 <% } %>
 
+<div class="col-xl-3 col-lg-3 col-md-6 mb-20">
+<div class="card-box height-100-p widget-style3">
+<div class="d-flex flex-wrap">
+<div class="widget-data">
+<div class="weight-700 font-16 text-dark">
+<%= visitas %>
+</div>
+<div class="font-14 text-secondary weight-500">
+Visitas Global
+</div>
+</div>
+<div class="widget-icon">
+<div class="icon">
+<i class="icon-copy fa-thin fa-eye faa-pulse animated faa-slow"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
 <div class="card-box height-100-p widget-style3">
@@ -849,6 +869,7 @@ Registrados
 </div>
 </div>
 </div>
+
 <div class="col-xl-3 col-lg-3 col-md-6 mb-20">
 <div class="card-box height-100-p widget-style3">
 <div class="d-flex flex-wrap">
@@ -1071,6 +1092,15 @@ createStars();
 </script>
 <script>
   document.getElementById("current-date").textContent = new Date().toLocaleDateString("pt-BR");
+  
+  const currentTimeElement = document.getElementById("current-time");
+
+  function updateTime() {
+    currentTimeElement.textContent = new Date().toLocaleTimeString("pt-BR");
+  }
+
+  updateTime(); 
+  setInterval(updateTime, 1000);
 </script>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXZMQSS" height="0" width="0"
 style="display: none; visibility: hidden"></iframe></noscript>
