@@ -1554,10 +1554,8 @@ if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
 try {
 data = await CanvabemVindo(titulo, avatar, fundo, desc, nome);
 const response = await axios.get(data, { responseType: "arraybuffer" });
-
-  res.setHeader("Content-Type", response.headers["content-type"]);
-
-  res.send(response.data);
+res.setHeader("Content-Type", response.headers["content-type"]);
+res.send(response.data);
 } catch (e) {
 res.json({
 status: "offline",
@@ -1651,6 +1649,95 @@ if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
 try {
 data = await canvaMontagem(nome, link)
 const response = await axios.get(data, { responseType: "arraybuffer" });
+res.setHeader("Content-Type", response.headers["content-type"]);
+res.send(response.data);
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+
+app.get("/api/canva/perfil", async (req, res) => {
+const {fotoUrl, bio, genero, idade, nome} = req.query
+if (!fotoUrl || !bio || !genero || !idade || !nome) return res.status(500).send("Parâmetro fotoUrl, bio, genero, idade, nome são obrigatórios")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+data2 = await `http://speedhosting.cloud:2018/perfil?fotoUrl=${fotoUrl}&bio=${encodeURIComponent(bio)}&genero=${genero}&idade=${idade}&nome=${encodeURIComponent(nome)}`;
+const response = await axios.get(data2, { responseType: "arraybuffer" });
+res.setHeader("Content-Type", response.headers["content-type"]);
+res.send(response.data);
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/canva/perfilWhatsapp", async (req, res) => {
+const {fotoUrl, bio, numero, hora, nome} = req.query
+if (!fotoUrl || !bio || !numero || !hora || !nome) return res.status(500).send("Parâmetro fotoUrl, bio, numero, hora, nome são obrigatórios")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+data2 = await `https://kamuiapi.shop/api/canvas/perfilzap?nome=${encodeURIComponent(nome)}&numero=${encodeURIComponent(numero)}&bio=${encodeURIComponent(bio)}&horas=${encodeURIComponent(hora)}&perfil=${fotoUrl}&apikey=${apikeyKamui}`;
+const response = await axios.get(data2, { responseType: "arraybuffer" });
+res.setHeader("Content-Type", response.headers["content-type"]);
+res.send(response.data);
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/canva/eununca", async (req, res) => {
+const texto = req.query.texto
+if (!texto) return res.status(500).send("Parâmetro texto são obrigatórios")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+data2 = await `http://speedhosting.cloud:2018/eu-nunca?texto=${encodeURIComponent(texto)}`;
+const response = await axios.get(data2, { responseType: "arraybuffer" });
+res.setHeader("Content-Type", response.headers["content-type"]);
+res.send(response.data);
+} catch (e) {
+res.json({
+status: "offline",
+criadora,
+erro: "Deu erro na sua solicitação"
+})
+console.log(e)
+}
+})
+
+app.get("/api/canva/escolha", async (req, res) => {
+const {texto1, texto2} = req.query
+if (!texto1 || !texto2) return res.status(500).send("Parâmetro texto1, texto2 são obrigatórios")
+const apikey = req.query.apikey;
+if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+data2 = await `http://speedhosting.cloud:2018/escolha?textRight=${encodeURIComponent(texto1)}&textLeft=${encodeURIComponent(texto2)}`;
+const response = await axios.get(data2, { responseType: "arraybuffer" });
 res.setHeader("Content-Type", response.headers["content-type"]);
 res.send(response.data);
 } catch (e) {
