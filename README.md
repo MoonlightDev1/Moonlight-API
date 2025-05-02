@@ -14,9 +14,8 @@
 </p>
 
 <div align="center">
-
 [![Instagram](https://img.shields.io/badge/Instagram-FF8C00?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/moonlight_juliana)
-[![TikTok](https://img.shields.io/badge/Tiktok-FF8C00?style=for-the-badge&logo=tiktok&logoColor=white)](https://tiktok.com/@moonlight.devs)
+[![TikTok](https://img.shields.io/badge/Tiktok-FF00E5?style=for-the-badge&logo=tiktok&logoColor=white)](https://tiktok.com/@moonlight.devs)
 [![Youtube](https://img.shields.io/badge/YouTube-FF0030?style=for-the-badge&logo=youtube&logoColor=white)](https://m.youtube.com/@Moonlight_Devs)
 
 ![image](https://user-images.githubusercontent.com/51442719/149520330-b3bce735-5a57-481d-b122-fda4e2052cf8.png)
