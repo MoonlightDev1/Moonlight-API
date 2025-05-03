@@ -259,6 +259,7 @@ font-weight: bold;
 <a style="color: #B5B5FF;" class="verp" href="/admin">Painel Adm</a>
 <% } else { %>
 <a style="color: #B5B5FF;" class="verp" >Sociais Adm:</a><br>
+<span style="color: green;" class="fa fa-whatsapp"></span><a href="https://api.whatsapp.com/send?phone=556193742842&text=bom dia, boa tarde e boa noite moon, vim da api kkk"> Whatsapp</a></span><br>
 <span style="color: #ddd;" class="fa fa-youtube"></span><a href="https://m.youtube.com/@Moonlight_Devs"> YouTube</a></span><br>
 <span style="color: #ddd;" class="fa fa-instagram"></span><a href="https://www.instagram.com/moonlight_juliana"> Instagram</a></span><br>
 <span style="color: #ddd;" class="fa fa-tiktok"></span><a href="https://tiktok.com/@moonlight.devs"> TikTok</a></span>
@@ -695,9 +696,10 @@ Redefinir configurações
 </a>
 <ul class="submenu">
 <li>
-<a href="youtube.com/@Moonlight_Devs">YouTube</a>
+<a href="https://api.whatsapp.com/send?phone=556193742842&text=Gostaria de suporte na api">Whatsapp</a>
+<a href="https://youtube.com/@Moonlight_Devs">YouTube</a>
 <a href="https://www.instagram.com/moonlight_juliana">Instagram</a>
-<a href="tiktok.com/@moonlight.devs">TikTok</a>
+<a href="https://tiktok.com/@moonlight.devs">TikTok</a>
 </li>
 </ul>
 </li>
@@ -710,11 +712,11 @@ Redefinir configurações
 <ul class="submenu">
 <li>
 <a href="/botList">Lista de bots</a>
-<a href="#">Moon Bot</a>
+<a href="https://api.whatsapp.com/send?phone=556193742842&text=Sobre a moonlight Bot">Moon Bot</a>
 <a href="https://t.me/lunarNoturno_bot">Lunar Tele</a>
 </li>
 </ul>
-</li>
+</li><br><br>
 
 <li>
 <li>
@@ -984,7 +986,7 @@ Level: <%= user.level %>
 </div>
 <div class="font-12 weight-500">
 <% if(user.isAdm) { %>
-<span style="color: blue;">Usuário Adm</span>
+<span style="color: blue;">Administrador</span>
 <% } else if(user.isLite) { %>
 <span style="color: pink;">Plano Lite</span>
 <% } else if(user.isPremium) { %>

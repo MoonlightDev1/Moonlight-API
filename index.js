@@ -1235,10 +1235,12 @@ if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
 infoUser = await diminuirSaldo(apikey)
 if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
 try {
-PinterestMultiMidia(url).then((data) => {
+data3 = await fetch(`https://kamuiapi.shop/api/dl/pinterest?link=${url}&apikey=${apikeyKamui}`)
+data2 = await data3.json()
 res.json({
-data
-})
+status: "online",
+criadora,
+resultado: data2.resultado
 })
 } catch (e) {
 res.json({
@@ -1670,7 +1672,7 @@ if (!apikey) return res.status(500).send("Parâmetro apikey é obrigatório")
 infoUser = await diminuirSaldo(apikey)
 if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
 try {
-data2 = await `http://speedhosting.cloud:2018/perfil?fotoUrl=${fotoUrl}&bio=${encodeURIComponent(bio)}&genero=${genero}&idade=${idade}&nome=${encodeURIComponent(nome)}`;
+data2 = await `http://speedhosting.cloud:2018/perfil?foto=${fotoUrl}&bio=${encodeURIComponent(bio)}&genero=${genero}&idade=${idade}&nome=${encodeURIComponent(nome)}`;
 const response = await axios.get(data2, { responseType: "arraybuffer" });
 res.setHeader("Content-Type", response.headers["content-type"]);
 res.send(response.data);
