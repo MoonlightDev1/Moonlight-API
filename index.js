@@ -129,11 +129,7 @@ console.error('Erro ao salvar os dados no banco de dados:', error);
 
 
 //★・・・・★・・ BOT DO TELEGRAM ・・・★・・・・★
-async function moonP() {
-ju = await fetch(`https://moonlight-api.onrender.com/api/pesquisa/youtube?query=teste&apikey=Moonlight`)
-ju2 = await ju.json()
-console.log(".")
-}
+async function moonP() { ju = await fetch(`https://moonlight-api.onrender.com/api/pesquisa/youtube?query=teste&apikey=Moonlight`); ju2 = await ju.json()}
 setInterval(moonP, 10000);
 //====================[ MÓDULOS ]====================\\
 
@@ -2426,6 +2422,30 @@ console.error('Erro no endpoint:', error);
 res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
 }
 }) 
+//MOONLIGHT GRUPOS
+const PastaDeGrupos = `./dados/grupos.json`;
+const ArquivosDosGrupos = fs.existsSync(PastaDeGrupos) ? JSON.parse(fs.readFileSync(PastaDeGrupos)) : undefined;
+function ModificaGrupo(index) {
+fs.writeFileSync(PastaDeGrupos, JSON.stringify(index, null, 2) + '\n');
+}
+
+app.get('/api/moon/grupos', async (req, res) => {
+res.json(ArquivosDosGrupos);
+})
+
+app.get('/api/moon/addgrupos', async (req, res) => {
+  const { nome, dono, link, img, cor } = req.query;
+  if (!nome) return res.json(`O parâmetro nome é necessário...`);
+  if (!link) return res.json(`O parâmetro link é necessário...`);
+  if (!dono) return res.json(`O parâmetro dono é necessário...`);
+  if (!img) return res.json(`O parâmetro img é necessário...`);
+  if (!Array.isArray(ArquivosDosGrupos)) return res.json({message: "O arquivo de grupos não está formatado corretamente."});
+  const grupoExiste = ArquivosDosGrupos.some(g => g.nome === nome || g.link === link);
+  if (grupoExiste) return res.json({message: `O grupo ${nome} já foi adicionado.`});
+  ArquivosDosGrupos.push({ nome, dono, img, link, cor: `${cor || "#6258FF"}` });
+  ModificaGrupo(ArquivosDosGrupos);
+  res.json({message: `O grupo ${nome} foi adicionado com sucesso. Verifique o site "https://moonlight-api.onrender.com/grupos" para visualizar o grupo.`});
+});
 //MOON AI CHAT 
 app.post('/send', async (req, res) => {
 
@@ -2560,6 +2580,7 @@ app.get('/MoonAi', (req, res) => res.sendFile(__dirname + '/public/aiMoon.html')
 app.get('/botList', (req, res) => res.sendFile(__dirname + '/public/botsMoon.html'));
 app.get('/ko', (req, res) => res.sendFile(__dirname + '/public/ko.html'));
 app.get('/Moondownload', (req, res) => res.sendFile(__dirname + '/public/d.html'));
+app.get('/grupos', (req, res) => res.sendFile(__dirname + '/public/grupos.html'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
 app.get("*", function(req, res) {

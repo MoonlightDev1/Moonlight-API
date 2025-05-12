@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Vídeo com Legenda e TTS</title>
+  <style>
+    body { background: #111; color: #fff; font-family: sans-serif; text-align: center; }
+    video { width: 100%; max-width: 720px; margin-top: 20px; }
+    #legenda {
+      position: absolute;
+      bottom: 70px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 10px 20px;
+      font-size: 20px;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Vídeo + Legenda + Dublagem TTS</h1>
+
+<div style="position: relative; display: inline-block;">
+  <video id="video" controls autoplay></video>
+  <div id="legenda"></div>
+</div>
+
+<script>
+  const video = document.getElementById('video');
+  const legendaEl = document.getElementById('legenda');
+  let legendas = [];
+  let currentIndex = -1;
+
+  // Define o vídeo diretamente (apenas para navegadores que suportam HLS nativamente!)
+  video.src = "https://ea.netmagcdn.com:2228/hls-playback/9d7d65265dc71704bc86b092b6ddbc9d550af3c4f70c5555e5e1f1f22e11057d5a667048ef98bf1381a14ef35774a12f85181d8811865cfde0c1c79f830179d812cbd845fd733a7cfdf62c324d4006d43d73d0644735f0c9f16c2ddf2978291ddd07c7a0b402a40fe1898e05baa6fc023be3dac73ec75faabdc10ac72d06a5392eff9e4a30e41815d15366a4d9152eb4/master.m3u8";
+
+  // Carrega a legenda
+  fetch("https://s.megastatics.com/subtitle/a190b003cebbb779031b323a5a9365ab/por-4.vtt")
+    .then(res => res.text())
+    .then(data => {
+      const blocks = data.split('\n\n').filter(b => b.includes('-->'));
+      legendas = blocks.map(block => {
+        const [timeLine, ...textLines] = block.trim().split('\n');
+        const [start, end] = timeLine.split(' --> ');
+        return {
+          start: timestampToSeconds(start),
+          end: timestampToSeconds(end),
+          text: textLines.join(' ').replace(/<[^>]+>/g, '')
+        };
+      });
+    });
+
+  function timestampToSeconds(t) {
+    const [h, m, s] = t.replace(',', '.').split(':');
+    return parseFloat(h) * 3600 + parseFloat(m) * 60 + parseFloat(s);
+  }
+
+  function speak(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'pt-BR';
+    utterance.rate = 1;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utterance);
+  }
+
+  function checkLegenda() {
+    const currentTime = video.currentTime;
+    for (let i = 0; i < legendas.length; i++) {
+      const l = legendas[i];
+      if (currentTime >= l.start && currentTime <= l.end) {
+        if (i !== currentIndex) {
+          legendaEl.textContent = l.text;
+          speak(l.text);
+          currentIndex = i;
+        }
+        return;
+      }
+    }
+    legendaEl.textContent = '';
+    currentIndex = -1;
+  }
+
+  function loop() {
+    checkLegenda();
+    requestAnimationFrame(loop);
+  }
+
+  video.addEventListener('play', () => requestAnimationFrame(loop));
+</script>
+
+</body>
+</html>

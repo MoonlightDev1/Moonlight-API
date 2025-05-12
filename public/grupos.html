@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moonlight Api</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Moonlight Grupos" />
+  <meta property="og:description" content="Varios grupos para você se divertir" />
+  <meta property="og:image" content="https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg" />
+  <meta property="og:url" content="https://moonlight-api.onrender.com/grupos" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --background: #0c0c0c;
+      --card: #1a1a1a;
+      --border: #2c2c2c;
+      --text: #ffffff;
+      --muted: #b0b0b0;
+      --accent: #6258FF;
+      --hover-accent: #2100E6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 16px;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 450px;
+      text-align: center;
+    }
+
+    .profile img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 15px var(--accent);
+      margin-bottom: 14px;
+    }
+
+    .profile h1 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .notice {
+      background: linear-gradient(90deg, rgba(0,255,195,0.15), rgba(0,255,195,0.05));
+      border: 1px solid var(--accent);
+      padding: 18px;
+      border-radius: 12px;
+      margin: 24px 0;
+      text-align: left;
+      box-shadow: 0 0 8px rgba(0,255,195,0.1);
+    }
+
+    .notice p {
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .notice ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .notice ul li {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .notice ul li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    #listaGrupos a {
+      display: flex;
+      align-items: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      margin-bottom: 16px;
+      padding: 12px;
+      text-decoration: none;
+      color: inherit;
+      gap: 14px;
+      transition: 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    #listaGrupos a:hover {
+      border-color: var(--accent);
+      box-shadow: 0 6px 14px rgba(0, 255, 195, 0.2);
+      transform: translateY(-3px);
+    }
+
+
+    .group-info h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .group-info p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .social-icons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .social-icons a {
+      color: var(--accent);
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: var(--hover-accent);
+    }
+
+    .social-icons svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .floating-buttons {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      z-index: 10;
+    }
+
+    .floating-buttons a {
+      background: var(--accent);
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    .floating-buttons a:hover {
+      background: var(--hover-accent);
+    }
+
+    .floating-buttons .entrar {
+      background: transparent;
+      color: var(--accent);
+      border: 2px solid var(--accent);
+      padding: 10px 20px;
+      font-size: 1.05rem;
+    }
+
+    .floating-buttons .entrar:hover {
+      background: var(--accent);
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header class="profile">
+    <img src="https://files.catbox.moe/i2zz35.jpg" alt="Logo" />
+    <h1>Moonlight Grupos</h1>
+  </header>
+
+  <section class="notice">
+    <p>Comunicado Importante</p>
+    <ul>
+      <li>Novos grupos serão adicionado em breve</li>
+      <li>Atualize os dados do seu grupo</li>
+      <li>Regras atualizadas em 2025</li>
+      <li>Evite spam para manter a ordem</li>
+      <li>Suporte via WhatsApp disponível</li>
+    </ul>
+  </section>
+
+  <section id="listaGrupos" aria-label="Lista de Grupos Oficiais"></section>
+
+  <footer>
+    <div class="social-icons">
+      <a href="https://wa.me/seunumerowhatsapp" target="_blank" title="WhatsApp">
+        <!-- Ícone WhatsApp aqui -->
+      </a>
+      <a href="https://instagram.com/seuinstagram" target="_blank" title="Instagram">
+        <!-- Ícone Instagram aqui -->
+      </a>
+    </div>
+    <div style="margin-top: 10px;">
+      © <span id="ano"></span> Moonlight Devs. Todos os direitos reservados.
+    </div>
+  </footer>
+</div>
+
+<div class="floating-buttons">
+  <a href="/api/moon/addgrupos" class="entrar">Adicionar Grupo</a>
+</div>
+
+<script>
+  document.getElementById('ano').textContent = new Date().getFullYear();
+
+  async function carregarGrupos() {
+  const res = await fetch('/api/moon/grupos');
+  const grupos = await res.json();
+  const lista = document.getElementById('listaGrupos');
+  lista.innerHTML = '';
+
+  grupos.forEach(g => {
+    lista.innerHTML += `
+      <a href="${g.link}" target="_blank">
+        <img style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid ${g.cor};"src="${g.img}" alt="${g.nome}">
+        <div class="group-info">
+          <h3>${g.nome}</h3>
+          <p>${g.dono}</p>
+        </div>
+      </a>
+    `;
+  });
+}
+
+carregarGrupos();
+</script>
+
+</body>
+</html>
