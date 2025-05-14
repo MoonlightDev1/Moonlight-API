@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adicionar Grupo - Moonlight Api</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta property="og:title" content="Adicionar Grupo">
+<meta property="og:description" content="Adicionar novo grupo nas estrelas 💫">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.8/font-awesome-animation.min.css" />
+ <link rel="apple-touch-icon" sizes="180x180" href="https://files.catbox.moe/itw9lj.jpg">
+  <style>
+    body {
+      background: linear-gradient(to right, #0f172a, #1e293b);
+      color: #f8fafc;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #38bdf8;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #1e293b;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 8px;
+      background: #334155;
+      color: #f8fafc;
+    }
+
+    input::placeholder {
+      color: #94a3b8;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background-color: #38bdf8;
+      color: #0f172a;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #0ea5e9;
+    }
+
+    #resposta {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #9F00FF;
+    }
+  </style>
+</head>
+<body>
+  <h1>Adicionar Novo Grupo</h1>
+
+  <form id="formGrupo">
+  <div id="resposta"></div>
+    <label for="nome">Nome do Grupo*</label>
+    <input type="text" id="nome" name="nome" required placeholder="Ex: Grupo Tech" />
+
+    <label for="dono">Dono*</label>
+    <input type="text" id="dono" name="dono" required placeholder="Ex: @admin" />
+
+    <label for="link">Link do Grupo*</label>
+    <input type="url" id="link" name="link" required placeholder="https://t.me/seugrupo" />
+
+    <label for="img">URL da Imagem do Grupo*</label>
+    <input type="url" id="img" name="img" required placeholder="https://exemplo.com/img.jpg" />
+
+    <label for="banner">URL do Banner</label>
+    <input type="url" id="banner" name="banner" placeholder="https://exemplo.com/banner.jpg" />
+
+    <label for="cor">Cor da Borda (opcional)</label>
+    <input type="color" id="cor" name="cor" />
+
+    <button type="submit">Adicionar Grupo</button>
+
+  </form>
+
+  <script>
+    document.getElementById('formGrupo').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const dono = document.getElementById('dono').value.trim();
+      const link = document.getElementById('link').value.trim();
+      const img = document.getElementById('img').value.trim();
+      const banner = document.getElementById('banner').value.trim();
+      const cor = document.getElementById('cor').value;
+
+      const query = new URLSearchParams({ nome, dono, link, img });
+      if (banner) query.append('banner', banner);
+      if (cor) query.append('cor', cor);
+
+      const respostaEl = document.getElementById('resposta');
+      respostaEl.textContent = "Enviando...";
+
+      try {
+        const res = await fetch(`/api/moon/addgrupos?${query.toString()}`);
+        const data = await res.json();
+       
+        respostaEl.textContent = data.message;
+      } catch (err) {
+        respostaEl.textContent = "Erro ao enviar o grupo.";
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

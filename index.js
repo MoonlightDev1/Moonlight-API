@@ -70,6 +70,17 @@ isGold: { type: Boolean, default: false },
 isBanido: { type: Boolean, default: false },
 });
 
+const grupoSchema = new mongoose.Schema({
+  id: { type: String, required: true },
+  nome: { type: String, unique: true },
+  dono: String,
+  link: { type: String, unique: true },
+  img: String,
+  banner: String,
+  cor: { type: String, default: "#6258FF" }
+});
+
+const Grupo = mongoose.model('moon', grupoSchema);
 const User = mongoose.model('Lady', userSchema);
 Person = User;
 
@@ -2423,28 +2434,72 @@ res.status(500).json({ status: false, mensagem: "Erro interno ao processar a sol
 }
 }) 
 //MOONLIGHT GRUPOS
-const PastaDeGrupos = `./dados/grupos.json`;
-const ArquivosDosGrupos = fs.existsSync(PastaDeGrupos) ? JSON.parse(fs.readFileSync(PastaDeGrupos)) : undefined;
-function ModificaGrupo(index) {
-fs.writeFileSync(PastaDeGrupos, JSON.stringify(index, null, 2) + '\n');
-}
-
 app.get('/api/moon/grupos', async (req, res) => {
-res.json(ArquivosDosGrupos);
-})
+  try {
+    const grupos = await Grupo.find();
+    res.json(grupos);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Erro ao buscar os grupos." });
+  }
+});
 
 app.get('/api/moon/addgrupos', async (req, res) => {
-  const { nome, dono, link, img, cor } = req.query;
-  if (!nome) return res.json(`O parâmetro nome é necessário...`);
-  if (!link) return res.json(`O parâmetro link é necessário...`);
-  if (!dono) return res.json(`O parâmetro dono é necessário...`);
-  if (!img) return res.json(`O parâmetro img é necessário...`);
-  if (!Array.isArray(ArquivosDosGrupos)) return res.json({message: "O arquivo de grupos não está formatado corretamente."});
-  const grupoExiste = ArquivosDosGrupos.some(g => g.nome === nome || g.link === link);
-  if (grupoExiste) return res.json({message: `O grupo ${nome} já foi adicionado.`});
-  ArquivosDosGrupos.push({ nome, dono, img, link, cor: `${cor || "#6258FF"}` });
-  ModificaGrupo(ArquivosDosGrupos);
-  res.json({message: `O grupo ${nome} foi adicionado com sucesso. Verifique o site "https://moonlight-api.onrender.com/grupos" para visualizar o grupo.`});
+  const { nome, dono, link, img, banner, cor } = req.query;
+  if (!nome || !dono || !link || !img) {  return res.json({ message: "Parâmetros 'nome', 'dono', 'link' e 'img' são obrigatórios." });  }
+  try {
+  const grupoExiste = await Grupo.findOne({ $or: [ { nome }, { link } ] });
+  if (grupoExiste) { return res.json({ message: `O grupo ${nome} já foi adicionado.` });}
+  const idRandom = Math.floor(100000 + Math.random() * 900000).toString();
+    const novoGrupo = new Grupo({ id: idRandom, nome, dono, link, img, banner, cor: `${cor || "#7300FF"}` });
+    await novoGrupo.save();
+
+    res.json({ message: `O grupo ${nome} foi adicionado com sucesso com o id "${idRandom}".\nPara usar o encurtador: https://moonlight-api.onrender.com/encurta/${idRandom}` });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Erro ao adicionar o grupo." });
+  }
+});
+
+app.get('/api/moon/deletegrupo', async (req, res) => {
+  const { nome } = req.query;
+  if (!nome) return res.json({ message: "Parâmetro 'nome' é obrigatório." });
+
+  try {
+    const resultado = await Grupo.findOneAndDelete({ nome });
+    if (!resultado) {
+      return res.json({ message: `Grupo '${nome}' não encontrado.` });
+    }
+    res.json({ message: `Grupo '${nome}' foi deletado com sucesso.` });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Erro interno ao deletar o grupo." });
+  }
+});
+
+app.get('/encurta/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const grupo = await Grupo.findOne({ id }) // correto se `id` é um campo do schema
+    if (!grupo) return res.status(404).send('Grupo não encontrado.');
+
+    // HTML com redirecionamento após 2 segundos
+    res.send(`
+      <html>
+        <head>
+          <meta http-equiv="refresh" content="2;url=${grupo.link}" />
+          <title>Redirecionando...</title>
+        </head>
+        <body>
+          <p>Redirecionando para o grupo <strong>${grupo.nome}</strong> em 2 segundos...</p>
+        </body>
+      </html>
+    `);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Erro ao buscar o grupo.');
+  }
 });
 //MOON AI CHAT 
 app.post('/send', async (req, res) => {
@@ -2581,6 +2636,7 @@ app.get('/botList', (req, res) => res.sendFile(__dirname + '/public/botsMoon.htm
 app.get('/ko', (req, res) => res.sendFile(__dirname + '/public/ko.html'));
 app.get('/Moondownload', (req, res) => res.sendFile(__dirname + '/public/d.html'));
 app.get('/grupos', (req, res) => res.sendFile(__dirname + '/public/grupos.html'));
+app.get('/addgp', (req, res) => res.sendFile(__dirname + '/public/addgrupo.html'));
 app.get('/', (req, res) => res.sendFile(__dirname + '/public/index.html'));
 
 app.get("*", function(req, res) {

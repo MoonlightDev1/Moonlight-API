@@ -2,20 +2,16 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Moonlight Api</title>
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Moonlight Grupos" />
-  <meta property="og:description" content="Varios grupos para você se divertir" />
-  <meta property="og:image" content="https://i.pinimg.com/originals/e0/63/ee/e063ee69b75d8502aad9218e648db8e2.jpg" />
-  <meta property="og:url" content="https://moonlight-api.onrender.com/grupos" />
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Moonlight Grupos</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta property="og:title" content="Moonlight Grupos">
+<meta property="og:description" content="Conhecer um novo grupo das estrelas 💫">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.8/font-awesome-animation.min.css" />
+ <link rel="apple-touch-icon" sizes="180x180" href="https://files.catbox.moe/itw9lj.jpg">
   <style>
-    :root {
+  :root {
       --background: #0c0c0c;
       --card: #1a1a1a;
       --border: #2c2c2c;
@@ -24,7 +20,7 @@
       --accent: #6258FF;
       --hover-accent: #2100E6;
     }
-
+    
     * {
       margin: 0;
       padding: 0;
@@ -32,23 +28,28 @@
     }
 
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--background);
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 16px;
-      min-height: 100vh;
+      background: linear-gradient(to bottom right, #0f172a, #1e293b);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      padding: 30px 20px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 450px;
+    header {
       text-align: center;
+      margin-bottom: 50px;
     }
 
-    .profile img {
+    header h1 {
+      font-size: 3rem;
+      color: #38bdf8;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      color: #94a3b8;
+    }
+
+ .profile img {
       width: 110px;
       height: 110px;
       border-radius: 50%;
@@ -65,107 +66,65 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+    } 
+    
+    #listaGrupos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
     }
 
-    .notice {
-      background: linear-gradient(90deg, rgba(0,255,195,0.15), rgba(0,255,195,0.05));
-      border: 1px solid var(--accent);
-      padding: 18px;
-      border-radius: 12px;
-      margin: 24px 0;
-      text-align: left;
-      box-shadow: 0 0 8px rgba(0,255,195,0.1);
-    }
-
-    .notice p {
-      font-size: 1rem;
-      font-weight: bold;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .notice ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .notice ul li {
-      font-size: 0.95rem;
-      color: var(--muted);
-      margin-bottom: 6px;
-      padding-left: 18px;
-      position: relative;
-    }
-
-    .notice ul li::before {
-      content: '•';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-    }
-
-    #listaGrupos a {
-      display: flex;
-      align-items: center;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      margin-bottom: 16px;
-      padding: 12px;
+    a.group-card {
+      background-color: #1e293b;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
       text-decoration: none;
       color: inherit;
-      gap: 14px;
-      transition: 0.3s ease;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
     }
 
-    #listaGrupos a:hover {
-      border-color: var(--accent);
-      box-shadow: 0 6px 14px rgba(0, 255, 195, 0.2);
-      transform: translateY(-3px);
+    a.group-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
     }
 
+    .group-banner {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+
+    .group-content {
+      display: flex;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .group-content img.avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 16px;
+      border: 3px solid #38bdf8;
+    }
 
     .group-info h3 {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 2px;
+      margin: 0;
+      font-size: 1.2rem;
+      color: #f8fafc;
     }
 
     .group-info p {
-      font-size: 0.85rem;
-      color: var(--muted);
+      margin: 2px 0;
+      font-size: 0.9rem;
+      color: #cbd5e1;
     }
-
-    footer {
-      margin-top: 40px;
-      font-size: 0.75rem;
-      color: var(--muted);
-      text-align: center;
-    }
-
-    .social-icons {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-    }
-
-    .social-icons a {
-      color: var(--accent);
-      transition: 0.3s;
-    }
-
-    .social-icons a:hover {
-      color: var(--hover-accent);
-    }
-
-    .social-icons svg {
-      width: 28px;
-      height: 28px;
-    }
-
-    .floating-buttons {
+    
+      .floating-buttons {
       position: fixed;
       bottom: 20px;
       left: 50%;
@@ -205,30 +164,30 @@
       background: var(--accent);
       color: #000;
     }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
   </style>
 </head>
 <body>
-
-<div class="container">
-  <header class="profile">
-    <img src="https://files.catbox.moe/i2zz35.jpg" alt="Logo" />
+<header class="profile">
+    <img src="https://files.catbox.moe/itw9lj.jpg" alt="Logo" />
     <h1>Moonlight Grupos</h1>
   </header>
 
-  <section class="notice">
-    <p>Comunicado Importante</p>
-    <ul>
-      <li>Novos grupos serão adicionado em breve</li>
-      <li>Atualize os dados do seu grupo</li>
-      <li>Regras atualizadas em 2025</li>
-      <li>Evite spam para manter a ordem</li>
-      <li>Suporte via WhatsApp disponível</li>
-    </ul>
+  <section id="listaGrupos">
+    <!-- Grupos vão aparecer aqui -->
   </section>
 
-  <section id="listaGrupos" aria-label="Lista de Grupos Oficiais"></section>
+<div class="floating-buttons">
+  <a href="/addgp" class="entrar">Adicionar Grupo</a>
+</div>
 
-  <footer>
+ <footer>
     <div class="social-icons">
       <a href="https://wa.me/seunumerowhatsapp" target="_blank" title="WhatsApp">
         <!-- Ícone WhatsApp aqui -->
@@ -241,36 +200,35 @@
       © <span id="ano"></span> Moonlight Devs. Todos os direitos reservados.
     </div>
   </footer>
-</div>
 
-<div class="floating-buttons">
-  <a href="/api/moon/addgrupos" class="entrar">Adicionar Grupo</a>
-</div>
+  <script>
+    document.getElementById('ano').textContent = new Date().getFullYear();
 
-<script>
-  document.getElementById('ano').textContent = new Date().getFullYear();
+    async function carregarGrupos() {
+      const res = await fetch('/api/moon/grupos');
+      const grupos = await res.json();
+      const lista = document.getElementById('listaGrupos');
+      lista.innerHTML = '';
 
-  async function carregarGrupos() {
-  const res = await fetch('/api/moon/grupos');
-  const grupos = await res.json();
-  const lista = document.getElementById('listaGrupos');
-  lista.innerHTML = '';
+      grupos.forEach(g => {
+        const tipo = g.link.includes('/channel') ? 'Canal' : 'Grupo';
+        lista.innerHTML += `
+          <a href="${g.link}" target="_blank" class="group-card">
+            <img src="${g.banner}" class="group-banner" alt="Banner de ${g.nome}">
+            <div class="group-content">
+              <img src="${g.img}" class="avatar" alt="${g.nome}" style="border-color: ${g.cor};">
+              <div class="group-info">
+                <h3>${g.nome}</h3>
+                <p>${tipo}</p>
+                <p>${g.dono}</p>
+              </div>
+            </div>
+          </a>
+        `;
+      });
+    }
 
-  grupos.forEach(g => {
-    lista.innerHTML += `
-      <a href="${g.link}" target="_blank">
-        <img style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid ${g.cor};"src="${g.img}" alt="${g.nome}">
-        <div class="group-info">
-          <h3>${g.nome}</h3>
-          <p>${g.dono}</p>
-        </div>
-      </a>
-    `;
-  });
-}
-
-carregarGrupos();
-</script>
-
+    carregarGrupos();
+  </script>
 </body>
 </html>
