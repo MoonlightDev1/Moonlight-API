@@ -140,8 +140,25 @@ console.error('Erro ao salvar os dados no banco de dados:', error);
 
 
 //★・・・・★・・ BOT DO TELEGRAM ・・・★・・・・★
-async function moonP() {  ju = await fetch(`https://moonlight-api.onrender.com/relog`);  ju2 = await ju.json(); ju3 = await fetch("https://darkstars-api.onrender.com/relog"); ju4 = await ju3.json(); ju5 = await fetch("https://speedcloud-api.onrender.com/relog"); ju6 = await ju5.json();
+async function moonP() {
+  const urls = [
+    "https://moonlight-api.onrender.com/relog",
+    "https://darkstars-api.onrender.com/relog",
+    "https://speedcloud-api.onrender.com/relog"
+  ];
+
+  for (const url of urls) {
+    try {
+      const response = await fetch(url);
+      await response.text();
+      console.log(`Ping bem-sucedido: ${url}`);
+    } catch (e) {
+      console.error(`Erro ao acessar ${url}:`, e.message);
+    }
+  }
 }
+
+moonP();
 setInterval(moonP, 10000);
 //====================[ MÓDULOS ]====================\\
 
