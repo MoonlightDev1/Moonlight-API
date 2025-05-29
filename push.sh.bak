@@ -1,0 +1,19 @@
+
+
+git config --global user.name "MoonlightDev1"
+sleep 2
+git config --global user.email "moonlightdevs99@gmail.com"
+sleep 2
+git config --global --add safe.directory /storage/emulated/0/Moonlight-API
+sleep 2
+git remote set-url origin https://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@github.com/MoonlightDev1/Moonlight-API.git
+sleep 2
+git add .
+sleep 2
+git commit -m "Moon Atualizações"
+sleep 2
+git push
+sleep 2
+git push origin moon 
+sleep 2
+echo 

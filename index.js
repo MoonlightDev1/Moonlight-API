@@ -140,27 +140,8 @@ console.error('Erro ao salvar os dados no banco de dados:', error);
 
 
 //★・・・・★・・ BOT DO TELEGRAM ・・・★・・・・★
-async function moonP() {
-  const urls = [
-    "https://moonlight-api.onrender.com/relog",
-    "https://darkstars-api.onrender.com/relog",
-    "https://speedcloud-api.onrender.com/relog"
-  ];
 
-  for (const url of urls) {
-    try {
-      const response = await fetch(url);
-      await response.text();
-      console.log(`Ping bem-sucedido: ${url}`);
-    } catch (e) {
-      console.error(`Erro ao acessar ${url}:`, e.message);
-    }
-  }
-}
-
-moonP();
-setInterval(moonP, 10000);
-//====================[ MÓDULOS ]====================\\
+//===================[ MÓDULOS ]===================\\
 
 const { Telegraf } = require('telegraf');
 const os = require('os');
@@ -2451,6 +2432,59 @@ console.error('Erro no endpoint:', error);
 res.status(500).json({ status: false, mensagem: "Erro interno ao processar a solicitação." });
 }
 }) 
+
+app.get('/api/outro/ngl', async (req, res) => {
+const { nick, repet, mensagem } = req.query;
+const { apikey } = req.query; 
+if (!apikey) return res.status(400).json({ erro: 'API Key é necessária' });
+infoUser = await diminuirSaldo(apikey)
+if (infoUser) return res.render('error', { aviso: false, aviso2: infoUser });
+try {
+async function enviarMensagemNGL(username, mensagem) {
+  try {
+    const response = await axios.post('https://ngl.link/api/submit', {
+      username: username,
+      question: mensagem,
+      deviceId: gerarDeviceId(),
+      gameSlug: '',
+      gameId: 'default',
+      referrer: ''
+    }, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Origin': 'https://ngl.link',
+        'Referer': `https://ngl.link/${username}`,
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'
+      }
+    });
+
+    if (response.status === 200) {
+
+    } else {
+      console.log('Erro ao enviar mensagem:', response.data);
+    }
+  } catch (error) {
+    console.error('Erro na requisição:', error.message);
+  }
+}
+
+function gerarDeviceId() {
+  // ID fake como o NGL espera
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+for ( i = 0; i < repet; i++) {
+enviarMensagemNGL(nick, mensagem);
+}
+res.json({status: "online", criadora, mensagem: `A mensagem foi enviada com sucesso para o ngl do(a) ${nick} com sucesso 😊👍`})
+} catch (e) {
+res.json({status: "offline", criadora, mensage: "deu erro ao consulta sua solicitação, fale com o suporte..."});
+}
+});
 //MOONLIGHT GRUPOS
 app.get('/api/moon/grupos', async (req, res) => {
   try {
