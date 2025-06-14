@@ -274,9 +274,9 @@ console.log(e)
 
 async function ytMp3Query(query) {
 try {
-api2 = await fetch(`${BaseApiDark}/api/pesquisa/youtube?query=${query}&apikey=pedrozz1&username=pedrozzMods`)
+api2 = await fetch(`${BaseApiDark}/api/pesquisa/youtube?query=${query}&apikey=pedrozz13755`)
 data = await api2.json()
-api = `${BaseApiDark}/api/download/youtube-audio?url=${data.resultado[0].url}&apikey=pedrozz1&username=pedrozzMods`
+api = `${BaseApiDark}/api/download/youtube-audio?url=${data.resultado[0].url}&apikey=pedrozz13755`
 return api;
 } catch (e) {
 console.log("Deu erro na solicitação, modulo: Scraper.js")
@@ -286,9 +286,9 @@ console.log(e)
 
 async function ytMp4Query(query) {
 try {
-api2 = await fetch(`${BaseApiDark}/api/pesquisa/youtube?query=${query}&apikey=pedrozz1&username=pedrozzMods`)
+api2 = await fetch(`${BaseApiDark}/api/pesquisa/youtube?query=${query}&apikey=pedrozz13755`)
 data = await api2.json()
-api = `${BaseApiDark}/api/download/youtube-video?url=${data.resultado[0].url}&apikey=pedrozz1&username=pedrozzMods`
+api = `${BaseApiDark}/api/download/youtube-video?url=${data.resultado[0].url}&apikey=pedrozz13755`
 return api;
 } catch (e) {
 console.log("Deu erro na solicitação, modulo: Scraper.js")
@@ -298,7 +298,7 @@ console.log(e)
 
 async function tiktokDl(url) {
 try {
-api = await fetch(`${BaseApiDark}/api/download/tiktokV2?url=${url}&apikey=pedrozz1&username=pedrozzMods`)
+api = await fetch(`${BaseApiDark}/api/download/tiktokV2?url=${url}&apikey=pedrozz13755`)
 data = await api.json()
 return {
 status: "online",
@@ -313,7 +313,7 @@ console.log(e)
 
 async function tiktokQuery(query) {
 try {
-api = await fetch(`${BaseApiDark}/api/download/tiktokQuery?query=${query}&apikey=pedrozz1&username=pedrozzMods`)
+api = await fetch(`${BaseApiDark}/api/download/tiktokQuery?query=${query}&apikey=pedrozz13755`)
 data = await api.json()
 return {
 status: "online",
@@ -374,7 +374,7 @@ console.log(e)
 
 async function xvideosDl(url) {
 try {
-api = await fetch(`${BaseApiDark}/api/download/xvideos?link=${url}&apikey=pedrozz1&username=pedrozzMods`)
+api = await fetch(`${BaseApiDark}/api/download/xvideos?link=${url}&apikey=pedrozz13755`)
 data = await api.json()
 return {
 status: "online",
@@ -389,7 +389,7 @@ console.log(e)
 
 async function instagramDl(url) {
 try {
-api = await fetch(`${BaseApiDark}/api/download/instagram?url=${url}&apikey=pedrozz1&username=pedrozzMods`)
+api = await fetch(`${BaseApiDark}/api/download/instagram?url=${url}&apikey=pedrozz13755`)
 data = await api.json()
 return {
 status: "online",
@@ -405,7 +405,7 @@ console.log(e)
 
 async function ytsearch(query) {
 try {
-api = await fetch(`${BaseApiDark}/api/pesquisa/youtube?query=${query}&apikey=pedrozz1&username=pedrozzMods`)
+api = await fetch(`${BaseApiDark}/api/pesquisa/youtube?query=${query}&apikey=pedrozz13755`)
 data = await api.json()
 return {
 status: "online",
@@ -420,7 +420,7 @@ console.log(e)
 
 async function wikipedia(query) {
 try {
-api = await fetch(`${BaseApiDark}/api/pesquisa/wikipedia?query=${query}&apikey=pedrozz1&username=pedrozzMods`)
+api = await fetch(`${BaseApiDark}/api/pesquisa/wikipedia?query=${query}&apikey=pedrozz13755`)
 data = await api.json()
 return {
 status: "online",
@@ -435,7 +435,7 @@ console.log(e)
 
 async function xvideosQuery(query) {
 try {
-api = await fetch(`${BaseApiDark}/api/pesquisa/xvideos?query=${query}&apikey=pedrozz1&username=pedrozzMods`)
+api = await fetch(`${BaseApiDark}/api/pesquisa/xvideos?query=${query}&apikey=pedrozz13755`)
 data = await api.json()
 return {
 status: "online",
@@ -451,7 +451,7 @@ console.log(e)
 
 async function aptoide(query) {
 try {
-api = await fetch(`${BaseApiDark}/api/download/aplicativos?id=${query}&apikey=pedrozz1&username=pedrozzMods`)
+api = await fetch(`${BaseApiDark}/api/download/aplicativos?id=${query}&apikey=pedrozz13755`)
 data = await api.json()
 return {
 status: "online",
@@ -496,7 +496,7 @@ console.log(e)
 
 async function amazon(query) {
 try {
-api = await fetch(`${BaseApiDark}/api/pesquisa/amazon?nome=${query}&apikey=pedrozz1&username=pedrozzMods`)
+api = await fetch(`${BaseApiDark}/api/pesquisa/amazon?nome=${query}&apikey=pedrozz13755`)
 data = await api.json()
 return {
 status: "online",
@@ -543,7 +543,7 @@ console.log(e)
 //========[ CANVAS ]========//
 async function CanvabemVindo(titulo, avatar, fundo, desc, nome) {
 try {
-api = `${BaseApiDark}/api/canva/bem-vindo2?titulo=${encodeURIComponent(nome)}&avatar=${avatar}&fundo=${fundo}&nome=${encodeURIComponent(titulo)}&desc=${encodeURIComponent(desc)}&apikey=pedrozz1&username=pedrozzMods`
+api = `${BaseApiDark}/api/canva/bem-vindo2?titulo=${encodeURIComponent(nome)}&avatar=${avatar}&fundo=${fundo}&nome=${encodeURIComponent(titulo)}&desc=${encodeURIComponent(desc)}&apikey=pedrozz13755`
 return api;
 } catch (e) {
 console.log("Deu erro na solicitação, modulo: Scraper.js")
@@ -553,7 +553,7 @@ console.log(e)
 
 async function canvaLevel(avatar, fundo, nome, level1, level2){
 try {
-api = `${BaseApiDark}/api/canvas/levelup?foto=${avatar}&fundo=${fundo}&nome=${encodeURIComponent(nome)}&lvb=${encodeURIComponent(level1)}&lva=${encodeURIComponent(level2)}&apikey=pedrozz1&username=pedrozzMods`
+api = `${BaseApiDark}/api/canvas/levelup?foto=${avatar}&fundo=${fundo}&nome=${encodeURIComponent(nome)}&lvb=${encodeURIComponent(level1)}&lva=${encodeURIComponent(level2)}&apikey=pedrozz13755`
 return api;
 } catch (e) {
 console.log("Deu erro na solicitação, modulo: Scraper.js")
@@ -563,7 +563,7 @@ console.log(e)
 
 async function canvaMusicCard(avatar, name, artistName, time){
 try {
-api = `${BaseApiDark}/api/canvas/musicard/v2?thumbnail=${avatar}&music_name=${encodeURIComponent(name)}&artist_name=${encodeURIComponent(time)}&time_end=${encodeURIComponent(artistName)}&apikey=pedrozz1&username=pedrozzMods`
+api = `${BaseApiDark}/api/canvas/musicard/v2?thumbnail=${avatar}&music_name=${encodeURIComponent(name)}&artist_name=${encodeURIComponent(time)}&time_end=${encodeURIComponent(artistName)}&apikey=pedrozz13755`
 return api;
 } catch (e) {
 console.log("Deu erro na solicitação, modulo: Scraper.js")
@@ -573,7 +573,7 @@ console.log(e)
 
 async function canvaMusicCard2(avatar, name, artistName){
 try {
-api = `${BaseApiDark}/api/canvas/musicard/v3?thumbnail=${avatar}&music_name=${encodeURIComponent(name)}&artist_name=${encodeURIComponent(artistName)}&apikey=pedrozz1&username=pedrozzMods`
+api = `${BaseApiDark}/api/canvas/musicard/v3?thumbnail=${avatar}&music_name=${encodeURIComponent(name)}&artist_name=${encodeURIComponent(artistName)}&apikey=pedrozz13755`
 return api;
 } catch (e) {
 console.log("Deu erro na solicitação, modulo: Scraper.js")
@@ -583,7 +583,7 @@ console.log(e)
 
 async function canvaMontagem(nome, url){
 try {
-api = `${BaseApiDark}/api/canvas/${nome}?link=${url}&apikey=pedrozz1&username=pedrozzMods`
+api = `${BaseApiDark}/api/canvas/${nome}?link=${url}&apikey=pedrozz13755`
 return api;
 } catch (e) {
 console.log("Deu erro na solicitação, modulo: Scraper.js")
@@ -718,7 +718,7 @@ console.log(e)
 
 async function gemini(query) {
 try {
-api2 = await fetch(`${BaseApiDark}/api/gemini?texto=${query}&apikey=pedrozz1&username=pedrozzMods`)
+api2 = await fetch(`${BaseApiDark}/api/gemini?texto=${query}&apikey=pedrozz13755`)
 api = await api2.json()
 return {
 status: "online",

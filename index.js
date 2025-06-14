@@ -2719,7 +2719,7 @@ mongoose
  useUnifiedTopology: true,
  })
  .then(() => consoleOnline('Conectado ao MongoDB'))
- .catch((err) => console.error('Erro ao conectar ao MongoDB:', err));
+ .catch((err) => console.error('Erro ao conectar ao MongoDB:', err))
 
 module.exports = app
 let file = require.resolve(__filename)
