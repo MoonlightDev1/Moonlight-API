@@ -276,7 +276,7 @@ inline_keyboard: [
 break;
 
 case 'apagaruser':
-if (!isDono) return enviar(ctx, msg.dono);
+if (ctx.from.id === "7801551329") return enviar(ctx, msg.dono);
 if (!q) return enviar(ctx, "Falta o nome do usuário")
 try {
 s = await deletarUsuario(q);
@@ -292,7 +292,7 @@ case 'password':
 case 'key':
 case 'saldo':
 case 'level': {
-if (!isDono) return enviar(ctx, msg.dono);
+if (ctx.from.id === "7801551329") return enviar(ctx, msg.dono);
 var [nome, item] = q.split("/");
 if (!nome) return enviar(ctx, "falta o nome do usuário")
 if (!item) return enviar(ctx, "falta o item que deseja alterar")
@@ -309,6 +309,7 @@ enviar(ctx, "Deu erro")
 break
 
 case 'user': {
+if (ctx.from.id === "7801551329") return enviar(ctx, msg.dono);
 if (!q) return enviar(ctx, msg.query)
 try {
 const user = await User.findOne({ username: q });
